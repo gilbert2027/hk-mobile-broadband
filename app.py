@@ -274,7 +274,7 @@ class="btn btn-success btn-custom">
 
 <h2 class="fw-bold mb-4 text-center">
 
-免費獲取最新優惠
+即時獲取最新轉台優惠
 
 </h2>
 
@@ -806,29 +806,121 @@ def submit():
             timeout=20
         )
 
-        return f"""
 
-        <html>
+        return """
+
+        <!DOCTYPE html>
+
+        <html lang="zh-HK">
 
         <head>
+
         <meta charset="utf-8">
+
+        <title>提交成功</title>
+
+        <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1">
+
+        <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+        <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+        <style>
+
+        body {
+
+            background: #f5f7fb;
+
+        }
+
+        .success-card {
+
+            max-width: 600px;
+    
+            margin: auto;
+
+            border-radius: 25px;
+    
+        }
+
+        .success-icon {
+
+            font-size: 80px;
+
+            color: #198754;
+
+        }
+
+        </style>
+
         </head>
 
         <body>
 
-        <h2>成功提交</h2>
+        <div class="container py-5">
 
-        <p>Status Code: {response.status_code}</p>
+        <div class="card shadow-lg border-0 success-card">
 
-        <pre>{response.text}</pre>
+        <div class="card-body text-center p-5">
 
-        <a href="/">返回首頁</a>
+        <div class="success-icon mb-4">
+
+        <i class="bi bi-check-circle-fill"></i>
+
+        </div>
+
+        <h1 class="fw-bold mb-3">
+        成功提交查詢
+        </h1>
+
+        <p class="lead text-muted mb-4">
+
+        我們已收到你的資料，
+        將會盡快聯絡你。
+
+        </p>
+
+        <div class="d-grid gap-3">
+
+        <a
+        href="https://wa.me/85291234567"
+        target="_blank"
+        class="btn btn-success btn-lg rounded-pill">
+
+        <i class="bi bi-whatsapp"></i>
+
+        立即 WhatsApp 查詢
+
+        </a>
+
+        <a
+        href="/"
+        class="btn btn-outline-secondary rounded-pill">
+
+        返回首頁
+
+        </a>
+
+        </div>
+
+        </div>
+
+        </div>
+
+        </div>
 
         </body>
 
         </html>
 
         """
+
 
     except Exception as e:
 
