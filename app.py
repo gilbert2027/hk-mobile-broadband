@@ -1,8 +1,7 @@
-
 from flask import Flask, request
 import pandas as pd
 import os
-import sqlite3
+import requests
 import re
 
 from flask_limiter import Limiter
@@ -19,39 +18,6 @@ limiter = Limiter(
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CSV_PATH = os.path.join(BASE_DIR, "plans.csv")
-DB_PATH = os.path.join(BASE_DIR, "leads.db")
-
-
-# =========================
-# 建立 Database
-# =========================
-
-def init_db():
-
-    conn = sqlite3.connect(DB_PATH)
-
-    cursor = conn.cursor()
-
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS leads (
-
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-        name TEXT,
-        phone TEXT,
-        provider TEXT,
-
-        status TEXT DEFAULT 'new'
-    )
-    """)
-
-    conn.commit()
-    conn.close()
-
-
-init_db()
 
 
 # =========================
@@ -262,6 +228,7 @@ def mobile():
         df = df.sort_values("fee")
 
         html = """
+
         <html>
 
         <head>
@@ -287,23 +254,31 @@ def mobile():
         <table class="table table-bordered table-striped bg-white">
 
         <tr>
+
             <th>供應商</th>
             <th>月費</th>
             <th>數據</th>
+
         </tr>
+
         """
 
         for _, row in df.iterrows():
 
             html += f"""
+
             <tr>
+
                 <td>{row['provider']}</td>
                 <td>${row['fee']}</td>
                 <td>{row['data']}</td>
+
             </tr>
+
             """
 
         html += """
+
         </table>
 
         <a href="/" class="btn btn-secondary">
@@ -315,6 +290,7 @@ def mobile():
         </body>
 
         </html>
+
         """
 
         return html
@@ -340,6 +316,7 @@ def broadband():
         df = df.sort_values("fee")
 
         html = """
+
         <html>
 
         <head>
@@ -365,23 +342,31 @@ def broadband():
         <table class="table table-bordered table-striped bg-white">
 
         <tr>
+
             <th>供應商</th>
             <th>月費</th>
             <th>速度</th>
+
         </tr>
+
         """
 
         for _, row in df.iterrows():
 
             html += f"""
+
             <tr>
+
                 <td>{row['provider']}</td>
                 <td>${row['fee']}</td>
                 <td>{row['speed']}</td>
+
             </tr>
+
             """
 
         html += """
+
         </table>
 
         <a href="/" class="btn btn-secondary">
@@ -393,6 +378,7 @@ def broadband():
         </body>
 
         </html>
+
         """
 
         return html
@@ -420,6 +406,7 @@ def submit():
         if not re.match(r"^[0-9]{8}$", phone):
 
             return """
+
             <html>
 
             <head>
@@ -435,27 +422,23 @@ def submit():
             </body>
 
             </html>
+
             """
 
-        conn = sqlite3.connect(DB_PATH)
+        payload = {
+            "name": name,
+            "phone": phone,
+            "provider": provider
+        }
 
-        cursor = conn.cursor()
+        # 你的 Google Apps Script Web App URL
+        url = "https://script.google.com/macros/s/AKfycbyCaFVQsTMEiU1C4rMRD8yGxYr5DI_5Z563BrMJejmSwOFngIuibN2G0GsxW-HSs5Fu/exec"
 
-        cursor.execute("""
-
-        INSERT INTO leads (
-
-            name,
-            phone,
-            provider
-
-        ) VALUES (?, ?, ?)
-
-        """, (name, phone, provider))
-
-        conn.commit()
-
-        conn.close()
+        response = requests.post(
+            url,
+            json=payload,
+            timeout=20
+        )
 
         return f"""
 
@@ -469,11 +452,9 @@ def submit():
 
         <h2>成功提交</h2>
 
-        <p>姓名：{name}</p>
+        <p>Status Code: {response.status_code}</p>
 
-        <p>電話：{phone}</p>
-
-        <p>供應商：{provider}</p>
+        <pre>{response.text}</pre>
 
         <a href="/">返回首頁</a>
 
@@ -509,107 +490,7 @@ def submit():
 
 
 # =========================
-# Admin Dashboard
-# =========================
-
-@app.route("/admin")
-def admin():
-
-    conn = sqlite3.connect(DB_PATH)
-
-    cursor = conn.cursor()
-
-    cursor.execute("""
-
-    SELECT *
-
-    FROM leads
-
-    ORDER BY id DESC
-
-    """)
-
-    leads = cursor.fetchall()
-
-    conn.close()
-
-    html = """
-
-    <html>
-
-    <head>
-
-    <meta charset="utf-8">
-
-    <title>Admin Dashboard</title>
-
-    <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet">
-
-    </head>
-
-    <body class="bg-light">
-
-    <div class="container py-5">
-
-    <h1 class="mb-4">
-    Leads Dashboard
-    </h1>
-
-    <table class="table table-bordered table-striped bg-white">
-
-    <tr>
-
-        <th>ID</th>
-        <th>時間</th>
-        <th>姓名</th>
-        <th>電話</th>
-        <th>供應商</th>
-        <th>狀態</th>
-
-    </tr>
-
-    """
-
-    for lead in leads:
-
-        html += f"""
-
-        <tr>
-
-            <td>{lead[0]}</td>
-            <td>{lead[1]}</td>
-            <td>{lead[2]}</td>
-            <td>{lead[3]}</td>
-            <td>{lead[4]}</td>
-            <td>{lead[5]}</td>
-
-        </tr>
-
-        """
-
-    html += """
-
-    </table>
-
-    <a href="/" class="btn btn-secondary">
-    返回首頁
-    </a>
-
-    </div>
-
-    </body>
-
-    </html>
-
-    """
-
-    return html
-
-
-# =========================
-# Health Check
+# Health
 # =========================
 
 @app.route("/health")
@@ -620,8 +501,6 @@ def health():
 @app.route("/test")
 def test():
 
-    import requests
-
     return requests.__version__
 
 
@@ -631,4 +510,3 @@ def test():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
