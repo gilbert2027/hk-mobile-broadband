@@ -24,19 +24,21 @@ CSV_PATH = os.path.join(BASE_DIR, "plans.csv")
 # Home
 # =========================
 
+```python id="6ie4n5"
 @app.route("/")
 def home():
 
     return """
+
 <!DOCTYPE html>
 
-<html>
+<html lang="zh-HK">
 
 <head>
 
 <meta charset="utf-8">
 
-<title>香港手機月費及家居寬頻比較</title>
+<title>香港手機月費及寬頻比較</title>
 
 <meta
 name="description"
@@ -50,43 +52,166 @@ content="width=device-width, initial-scale=1">
 href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 rel="stylesheet">
 
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+rel="stylesheet">
+
+<style>
+
+body {
+
+    background: #f5f7fb;
+
+}
+
+.hero {
+
+    background:
+    linear-gradient(
+        135deg,
+        #0d6efd,
+        #6610f2
+    );
+
+    color: white;
+
+    padding: 100px 20px;
+
+    border-radius: 25px;
+
+}
+
+.card-custom {
+
+    border: none;
+
+    border-radius: 20px;
+
+    transition: 0.3s;
+
+}
+
+.card-custom:hover {
+
+    transform: translateY(-5px);
+
+}
+
+.btn-custom {
+
+    border-radius: 50px;
+
+    padding: 12px 24px;
+
+    font-weight: bold;
+
+}
+
+.footer {
+
+    color: #777;
+
+    font-size: 14px;
+
+}
+
+</style>
+
 </head>
 
-<body class="bg-light">
+<body>
 
-<div class="container py-5">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
 
-<div class="text-center mb-5">
+<div class="container">
 
-<h1 class="display-5 fw-bold">
-香港手機及寬頻比較
-</h1>
-
-<p class="lead">
-比較香港最新手機月費及家居寬頻優惠
-</p>
+<a class="navbar-brand fw-bold" href="/">
+HK Plan Compare
+</a>
 
 </div>
 
-<div class="row">
+</nav>
 
-<div class="col-md-6 mb-4">
+<div class="container py-5">
 
-<div class="card shadow h-100">
+<div class="hero text-center shadow">
 
-<div class="card-body text-center">
+<h1 class="display-4 fw-bold mb-3">
+香港手機及寬頻比較
+</h1>
 
-<h3>手機月費</h3>
+<p class="lead mb-4">
 
-<p>
-比較各大電訊商月費計劃
+比較最新：
+
+5G 月費｜
+手機優惠｜
+家居寬頻
+
 </p>
 
 <a
 href="/mobile"
-class="btn btn-primary">
+class="btn btn-light btn-lg btn-custom me-2">
 
-查看手機計劃
+<i class="bi bi-phone"></i>
+
+手機月費
+
+</a>
+
+<a
+href="/broadband"
+class="btn btn-warning btn-lg btn-custom">
+
+<i class="bi bi-wifi"></i>
+
+家居寬頻
+
+</a>
+
+</div>
+
+<div class="row mt-5">
+
+<div class="col-md-6 mb-4">
+
+<div class="card shadow-lg card-custom h-100">
+
+<div class="card-body text-center p-5">
+
+<div class="mb-4">
+
+<i
+class="bi bi-phone"
+style="font-size:60px;color:#0d6efd;">
+</i>
+
+</div>
+
+<h3 class="fw-bold">
+手機月費比較
+</h3>
+
+<p class="text-muted">
+
+比較：
+
+CMHK｜
+3HK｜
+CSL｜
+SmarTone
+
+最新 5G 月費優惠
+
+</p>
+
+<a
+href="/mobile"
+class="btn btn-primary btn-custom">
+
+立即比較
 
 </a>
 
@@ -98,21 +223,40 @@ class="btn btn-primary">
 
 <div class="col-md-6 mb-4">
 
-<div class="card shadow h-100">
+<div class="card shadow-lg card-custom h-100">
 
-<div class="card-body text-center">
+<div class="card-body text-center p-5">
 
-<h3>家居寬頻</h3>
+<div class="mb-4">
 
-<p>
-比較最新家居寬頻優惠
+<i
+class="bi bi-router"
+style="font-size:60px;color:#198754;">
+</i>
+
+</div>
+
+<h3 class="fw-bold">
+家居寬頻比較
+</h3>
+
+<p class="text-muted">
+
+比較：
+
+HKBN｜
+HGC｜
+網上行
+
+最新光纖寬頻優惠
+
 </p>
 
 <a
 href="/broadband"
-class="btn btn-success">
+class="btn btn-success btn-custom">
 
-查看寬頻計劃
+查看寬頻
 
 </a>
 
@@ -124,55 +268,59 @@ class="btn btn-success">
 
 </div>
 
-<hr class="my-5">
+<div class="card shadow-lg border-0 mt-5">
 
-<div class="card shadow">
+<div class="card-body p-5">
 
-<div class="card-body">
+<h2 class="fw-bold mb-4 text-center">
 
-<h2 class="mb-4">
 免費獲取最新優惠
+
 </h2>
 
 <form action="/submit" method="POST">
 
-<div class="mb-3">
+<div class="row">
 
-<label class="form-label">
+<div class="col-md-6 mb-3">
+
+<label class="form-label fw-bold">
 姓名
 </label>
 
 <input
 type="text"
 name="name"
-class="form-control"
+class="form-control form-control-lg"
 required>
 
 </div>
 
-<div class="mb-3">
+<div class="col-md-6 mb-3">
 
-<label class="form-label">
+<label class="form-label fw-bold">
 電話
 </label>
 
 <input
 type="text"
 name="phone"
-class="form-control"
+class="form-control form-control-lg"
 required>
 
 </div>
 
-<div class="mb-3">
+</div>
 
-<label class="form-label">
+<div class="mb-4">
+
+<label class="form-label fw-bold">
 現用供應商
 </label>
 
 <select
 name="provider"
-class="form-select">
+class="form-select form-select-lg">
 
 <option>CMHK</option>
 <option>3HK</option>
@@ -187,7 +335,9 @@ class="form-select">
 
 <button
 type="submit"
-class="btn btn-warning w-100">
+class="btn btn-warning btn-lg w-100 btn-custom">
+
+<i class="bi bi-lightning-charge-fill"></i>
 
 立即查詢優惠
 
@@ -199,17 +349,27 @@ class="btn btn-warning w-100">
 
 </div>
 
+<div class="text-center mt-5 footer">
+
+© 2026 HK Plan Compare
+
+</div>
+
 </div>
 
 </body>
 
 </html>
+
 """
+```
+
 
 
 # =========================
 # Mobile Plans
 # =========================
+
 
 @app.route("/mobile")
 def mobile():
@@ -229,69 +389,189 @@ def mobile():
 
         html = """
 
-        <html>
+<!DOCTYPE html>
 
-        <head>
+<html lang="zh-HK">
 
-        <meta charset="utf-8">
+<head>
 
-        <title>手機月費比較</title>
+<meta charset="utf-8">
 
-        <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+<title>手機月費比較</title>
 
-        </head>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1">
 
-        <body class="bg-light">
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
 
-        <div class="container py-5">
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+rel="stylesheet">
 
-        <h1 class="mb-4">
-        手機月費比較
-        </h1>
+<style>
 
-        <table class="table table-bordered table-striped bg-white">
+body {
 
-        <tr>
+    background: #f5f7fb;
 
-            <th>供應商</th>
-            <th>月費</th>
-            <th>數據</th>
+}
 
-        </tr>
+.plan-card {
 
-        """
+    border: none;
 
-        for _, row in df.iterrows():
+    border-radius: 20px;
+
+    transition: 0.3s;
+
+}
+
+.plan-card:hover {
+
+    transform: translateY(-5px);
+
+}
+
+.price {
+
+    font-size: 40px;
+
+    font-weight: bold;
+
+    color: #0d6efd;
+
+}
+
+.data {
+
+    font-size: 18px;
+
+}
+
+.badge-best {
+
+    font-size: 14px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-primary shadow-sm">
+
+<div class="container">
+
+<a class="navbar-brand fw-bold" href="/">
+HK Plan Compare
+</a>
+
+</div>
+
+</nav>
+
+<div class="container py-5">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<h1 class="fw-bold">
+
+<i class="bi bi-phone"></i>
+
+手機月費比較
+
+</h1>
+
+<a href="/" class="btn btn-outline-secondary">
+返回首頁
+</a>
+
+</div>
+
+<div class="row">
+
+"""
+
+        for index, row in df.iterrows():
+
+            badge = ""
+
+            if index == df.index[0]:
+
+                badge = """
+
+                <span class="badge bg-danger badge-best mb-3">
+                最平推薦
+                </span>
+
+                """
 
             html += f"""
 
-            <tr>
+<div class="col-md-4 mb-4">
 
-                <td>{row['provider']}</td>
-                <td>${row['fee']}</td>
-                <td>{row['data']}</td>
+<div class="card shadow-lg plan-card h-100">
 
-            </tr>
+<div class="card-body p-4 text-center">
 
-            """
+{badge}
+
+<h4 class="fw-bold mb-3">
+
+{row['provider']}
+
+</h4>
+
+<div class="price">
+
+${row['fee']}
+
+</div>
+
+<p class="text-muted">
+每月月費
+</p>
+
+<hr>
+
+<div class="data mb-3">
+
+<i class="bi bi-wifi"></i>
+
+{row['data']}
+
+</div>
+
+<button class="btn btn-primary w-100 rounded-pill">
+
+立即申請
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+"""
 
         html += """
 
-        </table>
+</div>
 
-        <a href="/" class="btn btn-secondary">
-        返回首頁
-        </a>
+</div>
 
-        </div>
+</body>
 
-        </body>
+</html>
 
-        </html>
-
-        """
+"""
 
         return html
 
@@ -300,9 +580,12 @@ def mobile():
         return f"<h2>錯誤:</h2><pre>{str(e)}</pre>"
 
 
+
+
 # =========================
 # Broadband
 # =========================
+
 
 @app.route("/broadband")
 def broadband():
@@ -317,75 +600,197 @@ def broadband():
 
         html = """
 
-        <html>
+<!DOCTYPE html>
 
-        <head>
+<html lang="zh-HK">
 
-        <meta charset="utf-8">
+<head>
 
-        <title>家居寬頻比較</title>
+<meta charset="utf-8">
 
-        <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+<title>家居寬頻比較</title>
 
-        </head>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1">
 
-        <body class="bg-light">
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
 
-        <div class="container py-5">
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+rel="stylesheet">
 
-        <h1 class="mb-4">
-        家居寬頻比較
-        </h1>
+<style>
 
-        <table class="table table-bordered table-striped bg-white">
+body {
 
-        <tr>
+    background: #f5f7fb;
 
-            <th>供應商</th>
-            <th>月費</th>
-            <th>速度</th>
+}
 
-        </tr>
+.plan-card {
 
-        """
+    border: none;
 
-        for _, row in df.iterrows():
+    border-radius: 20px;
+
+    transition: 0.3s;
+
+}
+
+.plan-card:hover {
+
+    transform: translateY(-5px);
+
+}
+
+.price {
+
+    font-size: 40px;
+
+    font-weight: bold;
+
+    color: #198754;
+
+}
+
+.speed {
+
+    font-size: 18px;
+
+}
+
+.badge-best {
+
+    font-size: 14px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-success shadow-sm">
+
+<div class="container">
+
+<a class="navbar-brand fw-bold" href="/">
+HK Plan Compare
+</a>
+
+</div>
+
+</nav>
+
+<div class="container py-5">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<h1 class="fw-bold">
+
+<i class="bi bi-router"></i>
+
+家居寬頻比較
+
+</h1>
+
+<a href="/" class="btn btn-outline-secondary">
+返回首頁
+</a>
+
+</div>
+
+<div class="row">
+
+"""
+
+        for index, row in df.iterrows():
+
+            badge = ""
+
+            if index == df.index[0]:
+
+                badge = """
+
+                <span class="badge bg-danger badge-best mb-3">
+                最平推薦
+                </span>
+
+                """
 
             html += f"""
 
-            <tr>
+<div class="col-md-4 mb-4">
 
-                <td>{row['provider']}</td>
-                <td>${row['fee']}</td>
-                <td>{row['speed']}</td>
+<div class="card shadow-lg plan-card h-100">
 
-            </tr>
+<div class="card-body p-4 text-center">
 
-            """
+{badge}
+
+<h4 class="fw-bold mb-3">
+
+{row['provider']}
+
+</h4>
+
+<div class="price">
+
+${row['fee']}
+
+</div>
+
+<p class="text-muted">
+每月月費
+</p>
+
+<hr>
+
+<div class="speed mb-3">
+
+<i class="bi bi-lightning-charge-fill"></i>
+
+{row['speed']}
+
+</div>
+
+<button class="btn btn-success w-100 rounded-pill">
+
+立即申請
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+"""
 
         html += """
 
-        </table>
+</div>
 
-        <a href="/" class="btn btn-secondary">
-        返回首頁
-        </a>
+</div>
 
-        </div>
+</body>
 
-        </body>
+</html>
 
-        </html>
-
-        """
+"""
 
         return html
 
     except Exception as e:
 
         return f"<h2>錯誤:</h2><pre>{str(e)}</pre>"
+
+
 
 
 # =========================
