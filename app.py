@@ -486,7 +486,7 @@ body {
 
             elif "3HK" in row["provider"]:
 
-                provider_class = "bg-info text-dark"
+                provider_class = "bg-danger text-white"
 
 
 
