@@ -91,56 +91,6 @@ href="/broadband">
 
 <form action="/submit" method="POST">
 
-姓名：
-
-<br>
-
-<input name="name">
-
-<br><br>
-
-電話：
-
-<br>
-
-<input name="phone">
-
-<br><br>
-
-供應商：
-
-<br>
-
-<select name="provider">
-
-<option>CMHK</option>
-<option>3HK</option>
-<option>CSL</option>
-<option>HKBN</option>
-<option>HGC</option>
-
-</select>
-
-<br><br>
-
-<button type="submit">
-
-立即查詢
-
-</button>
-
-</form>
-
-</body>
-
-</html>
-
-<hr>
-
-<h2>免費獲取最新優惠</h2>
-
-<form action="/submit" method="POST">
-
 姓名:<br>
 <input type="text" name="name"><br><br>
 
