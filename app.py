@@ -17,6 +17,7 @@ def home():
 <head>
 <meta charset="utf-8">
 <title>香港手機及寬頻比較</title>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -29,7 +30,9 @@ def home():
 
 <h1 class="mb-3">香港手機及寬頻比較</h1>
 
-<p>比較香港最新手機月費及家居寬頻優惠</p>
+<p class="lead">
+比較香港最新手機月費及家居寬頻優惠
+</p>
 
 <div class="row mt-4">
 
@@ -79,22 +82,45 @@ def home():
 
 <h2>免費獲取最新優惠</h2>
 
-<form action="/submit" method="POST">
+<form id="leadForm">
 
 <div class="mb-3">
-<label>姓名</label>
-<input type="text" name="name" class="form-control" required>
+
+<label class="form-label">
+姓名
+</label>
+
+<input
+type="text"
+name="name"
+class="form-control"
+required>
+
 </div>
 
 <div class="mb-3">
-<label>電話</label>
-<input type="text" name="phone" class="form-control" required>
+
+<label class="form-label">
+電話
+</label>
+
+<input
+type="text"
+name="phone"
+class="form-control"
+required>
+
 </div>
 
 <div class="mb-3">
-<label>現用供應商</label>
 
-<select name="provider" class="form-select">
+<label class="form-label">
+現用供應商
+</label>
+
+<select
+name="provider"
+class="form-select">
 
 <option>CMHK</option>
 <option>3HK</option>
@@ -107,18 +133,87 @@ def home():
 
 </div>
 
-<button type="submit" class="btn btn-warning">
+<button
+type="submit"
+class="btn btn-warning">
+
 立即查詢優惠
+
 </button>
 
 </form>
 
+<div id="result" class="mt-3"></div>
+
 </div>
 
+<script>
+
+document
+.getElementById("leadForm")
+.addEventListener(
+"submit",
+async function(e){
+
+e.preventDefault();
+
+const payload = {
+
+name: document.querySelector('[name="name"]').value,
+
+phone: document.querySelector('[name="phone"]').value,
+
+provider: document.querySelector('[name="provider"]').value
+
+};
+
+try {
+
+const response = await fetch(
+
+"https://script.google.com/macros/s/AKfycbzCofXWVKxzFa5-mUTh2ETEGQv_CB-ofTHJ0DA9uXQmMIjxc804AQxfUgyYWPIu6MH5/exec",
+
+{
+method: "POST",
+
+headers: {
+"Content-Type": "application/json"
+},
+
+body: JSON.stringify(payload)
+
+}
+
+);
+
+document.getElementById("result").innerHTML = `
+<div class="alert alert-success">
+提交成功，我們會盡快聯絡您。
+</div>
+`;
+
+document.getElementById("leadForm").reset();
+
+}
+catch(err){
+
+document.getElementById("result").innerHTML = `
+<div class="alert alert-danger">
+提交失敗：${err}
+</div>
+`;
+
+}
+
+}
+);
+
+</script>
+
 </body>
+
 </html>
 """
-
 
 @app.route("/mobile")
 def mobile():
@@ -236,38 +331,6 @@ def broadband():
         return f"<h2>錯誤:</h2><pre>{str(e)}</pre>"
 
 
-@app.route("/submit", methods=["POST"])
-def submit():
-
-    name = request.form.get("name")
-    phone = request.form.get("phone")
-    provider = request.form.get("provider")
-
-    return f"""
-    <html>
-    <head>
-        <meta charset="utf-8">
-        <title>提交成功</title>
-    </head>
-
-    <body style="padding:40px;">
-
-        <h2>提交成功</h2>
-
-        <p>姓名：{name}</p>
-
-        <p>電話：{phone}</p>
-
-        <p>供應商：{provider}</p>
-
-        <p>稍後會有專人聯絡你。</p>
-
-        <a href="/">返回首頁</a>
-
-    </body>
-
-    </html>
-    """
 
 
 @app.route("/health")
