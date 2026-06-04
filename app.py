@@ -294,22 +294,24 @@ def submit():
         response = requests.post(
             url,
             json=payload,
-            timeout=10
+            timeout=20
         )
-        print(response.text)
 
-        return """
-        <html>
-        <head>
-            <meta charset="utf-8">
-            <title>提交成功</title>
-        </head>
-        <body>
-            <h2>提交成功</h2>
-            <p>我們已收到您的資料。</p>
-            <a href="/">返回首頁</a>
-        </body>
-        </html>
+        return f"""
+        <h2>Google 回應</h2>
+
+        <p>Status Code: {response.status_code}</p>
+
+        <pre>{response.text}</pre>
+
+        <a href="/">返回首頁</a>
+        """
+
+    except Exception as e:
+
+        return f"""
+        <h2>提交失敗</h2>
+        <pre>{str(e)}</pre>
         """
 
     except Exception as e:
