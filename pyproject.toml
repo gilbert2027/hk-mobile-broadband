@@ -1,2 +1,11 @@
+[project]
+name = "hk-mobile-broadband"
+version = "0.1.0"
+dependencies = [
+    "flask",
+    "pandas",
+    "gunicorn",
+]
+
 [tool.vercel]
 entrypoint = "text:app"
