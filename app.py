@@ -296,6 +296,7 @@ def submit():
             json=payload,
             timeout=10
         )
+        print(response.text)
 
         return """
         <html>
