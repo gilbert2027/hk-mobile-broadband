@@ -3,6 +3,8 @@ import pandas as pd
 import os
 
 app = Flask(__name__)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CSV_PATH = os.path.join(BASE_DIR, "plans.csv")
 
 @app.route("/")
 def home():
@@ -95,6 +97,8 @@ def mobile():
 
     df = df[df["category"] == "mobile"]
 
+    df = df.sort_values("fee")
+
     html = """
     <h1>手機月費比較</h1>
 
@@ -128,6 +132,8 @@ def broadband():
     df = pd.read_csv(CSV_PATH)
 
     df = df[df["category"] == "broadband"]
+
+    df = df.sort_values("fee")
 
     html = """
     <h1>家居寬頻比較</h1>
