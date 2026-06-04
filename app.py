@@ -190,6 +190,9 @@ def broadband():
     return html
 
 if not os.path.exists(LEADS_PATH):
+    pd.DataFrame(
+        columns=["name", "phone", "provider"]
+    ).to_csv(LEADS_PATH, index=False)
 
 if __name__ == "__main__":
     app.run()
