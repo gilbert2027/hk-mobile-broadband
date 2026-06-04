@@ -196,40 +196,6 @@ import requests
 
 ...
 
-@app.route("/submit", methods=["POST"])
-def submit():
-
-    name = request.form.get("name")
-    phone = request.form.get("phone")
-    provider = request.form.get("provider")
-
-    GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzCofXWVKxzFa5-mUTh2ETEGQv_CB-ofTHJ0DA9uXQmMIjxc804AQxfUgyYWPIu6MH5/exec"
-
-    payload = {
-        "name": name,
-        "phone": phone,
-        "provider": provider
-    }
-
-    try:
-        r = requests.post(
-            GOOGLE_SCRIPT_URL,
-            json=payload,
-            timeout=10
-        )
-
-        return f"""
-        <h2>成功</h2>
-        <p>Status: {r.status_code}</p>
-        <p>Response: {r.text}</p>
-        <a href="/">返回首頁</a>
-        """
-
-    except Exception as e:
-        return f"""
-        <h2>錯誤</h2>
-        <pre>{str(e)}</pre>
-        """
 
 if __name__ == "__main__":
     app.run()
