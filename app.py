@@ -3,95 +3,277 @@ import pandas as pd
 import os
 
 app = Flask(__name__)
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CSV_PATH = os.path.join(BASE_DIR, "plans.csv")
-LEADS_PATH = os.path.join(BASE_DIR, "leads.csv")
+
 
 @app.route("/")
+def home():
+
+    return """
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>香港手機及寬頻比較</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+<h1 class="mb-3">香港手機及寬頻比較</h1>
+
+<p>比較香港最新手機月費及家居寬頻優惠</p>
+
+<div class="row mt-4">
+
+<div class="col-md-6 mb-3">
+
+<div class="card">
+
+<div class="card-body">
+
+<h3>手機月費</h3>
+
+<p>比較各大電訊商月費計劃</p>
+
+<a href="/mobile" class="btn btn-primary">
+查看手機計劃
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<div class="card">
+
+<div class="card-body">
+
+<h3>家居寬頻</h3>
+
+<p>比較最新家居寬頻優惠</p>
+
+<a href="/broadband" class="btn btn-success">
+查看寬頻計劃
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<hr class="my-5">
+
+<h2>免費獲取最新優惠</h2>
+
+<form action="/submit" method="POST">
+
+<div class="mb-3">
+<label>姓名</label>
+<input type="text" name="name" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label>電話</label>
+<input type="text" name="phone" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label>現用供應商</label>
+
+<select name="provider" class="form-select">
+
+<option>CMHK</option>
+<option>3HK</option>
+<option>CSL</option>
+<option>SmarTone</option>
+<option>HKBN</option>
+<option>HGC</option>
+
+</select>
+
+</div>
+
+<button type="submit" class="btn btn-warning">
+立即查詢優惠
+</button>
+
+</form>
+
+</div>
+
+</body>
+</html>
+"""
+
 
 @app.route("/mobile")
 def mobile():
 
-    df = pd.read_csv(CSV_PATH)
+    try:
 
-    df = df[df["category"] == "mobile"]
+        df = pd.read_csv(CSV_PATH)
 
-    df = df.sort_values("fee")
+        df = df[df["category"] == "mobile"]
 
-    html = """
-    <h1>手機月費比較</h1>
+        df = df.sort_values("fee")
 
-    <table border='1'>
+        html = """
+        <html>
+        <head>
+        <meta charset="utf-8">
+        <title>手機月費比較</title>
+        </head>
 
-    <tr>
-        <th>供應商</th>
-        <th>月費</th>
-        <th>數據</th>
-    </tr>
-    """
+        <body>
 
-    for _, row in df.iterrows():
+        <h1>手機月費比較</h1>
 
-        html += f"""
+        <table border="1" cellpadding="10">
+
         <tr>
-            <td>{row['provider']}</td>
-            <td>${row['fee']}</td>
-            <td>{row['data']}</td>
+            <th>供應商</th>
+            <th>月費</th>
+            <th>數據</th>
         </tr>
         """
 
-    html += "</table>"
+        for _, row in df.iterrows():
 
-    return html
+            html += f"""
+            <tr>
+                <td>{row['provider']}</td>
+                <td>${row['fee']}</td>
+                <td>{row['data']}</td>
+            </tr>
+            """
+
+        html += """
+        </table>
+
+        <br>
+
+        <a href="/">返回首頁</a>
+
+        </body>
+        </html>
+        """
+
+        return html
+
+    except Exception as e:
+        return f"<h2>錯誤:</h2><pre>{str(e)}</pre>"
 
 
 @app.route("/broadband")
 def broadband():
 
-    df = pd.read_csv(CSV_PATH)
+    try:
 
-    df = df[df["category"] == "broadband"]
+        df = pd.read_csv(CSV_PATH)
 
-    df = df.sort_values("fee")
+        df = df[df["category"] == "broadband"]
 
-    html = """
-    <h1>家居寬頻比較</h1>
+        df = df.sort_values("fee")
 
-    <table border='1'>
+        html = """
+        <html>
+        <head>
+        <meta charset="utf-8">
+        <title>家居寬頻比較</title>
+        </head>
 
-    <tr>
-        <th>供應商</th>
-        <th>月費</th>
-        <th>速度</th>
-    </tr>
-    """
+        <body>
 
-    for _, row in df.iterrows():
+        <h1>家居寬頻比較</h1>
 
-        html += f"""
+        <table border="1" cellpadding="10">
+
         <tr>
-            <td>{row['provider']}</td>
-            <td>${row['fee']}</td>
-            <td>{row['speed']}</td>
+            <th>供應商</th>
+            <th>月費</th>
+            <th>速度</th>
         </tr>
         """
 
-    html += "</table>"
+        for _, row in df.iterrows():
 
-    return html
-    
-from flask import Flask, request
-import pandas as pd
-import os
+            html += f"""
+            <tr>
+                <td>{row['provider']}</td>
+                <td>${row['fee']}</td>
+                <td>{row['speed']}</td>
+            </tr>
+            """
+
+        html += """
+        </table>
+
+        <br>
+
+        <a href="/">返回首頁</a>
+
+        </body>
+        </html>
+        """
+
+        return html
+
+    except Exception as e:
+        return f"<h2>錯誤:</h2><pre>{str(e)}</pre>"
 
 
-...
 @app.route("/submit", methods=["POST"])
 def submit():
-    return """
-    <h2>提交成功</h2>
-    <a href="/">返回首頁</a>
+
+    name = request.form.get("name")
+    phone = request.form.get("phone")
+    provider = request.form.get("provider")
+
+    return f"""
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <title>提交成功</title>
+    </head>
+
+    <body style="padding:40px;">
+
+        <h2>提交成功</h2>
+
+        <p>姓名：{name}</p>
+
+        <p>電話：{phone}</p>
+
+        <p>供應商：{provider}</p>
+
+        <p>稍後會有專人聯絡你。</p>
+
+        <a href="/">返回首頁</a>
+
+    </body>
+
+    </html>
     """
 
+
+@app.route("/health")
+def health():
+    return "OK"
+
+
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
