@@ -495,7 +495,7 @@ HK Plan Compare
 
 <div class="row">
 
-"""
+
 
         for index, row in df.iterrows():
 
@@ -522,7 +522,7 @@ HK Plan Compare
 {badge}
 
 
-"""
+
 
 provider_color = "bg-secondary"
 
