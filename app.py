@@ -212,44 +212,23 @@ def submit():
     }
 
     try:
-
-        response = requests.post(
+        r = requests.post(
             GOOGLE_SCRIPT_URL,
             json=payload,
             timeout=10
         )
 
         return f"""
-        <html>
-        <head>
-            <meta charset="utf-8">
-            <title>提交成功</title>
-        </head>
-        <body style="font-family: Arial; padding: 40px;">
-            <h2>✅ 提交成功</h2>
-            <p>姓名：{name}</p>
-            <p>電話：{phone}</p>
-            <p>供應商：{provider}</p>
-            <p>我們會盡快聯絡您。</p>
-            <a href="/">返回首頁</a>
-        </body>
-        </html>
+        <h2>成功</h2>
+        <p>Status: {r.status_code}</p>
+        <p>Response: {r.text}</p>
+        <a href="/">返回首頁</a>
         """
 
     except Exception as e:
-
         return f"""
-        <html>
-        <head>
-            <meta charset="utf-8">
-            <title>提交失敗</title>
-        </head>
-        <body style="font-family: Arial; padding: 40px;">
-            <h2>❌ 提交失敗</h2>
-            <p>{str(e)}</p>
-            <a href="/">返回首頁</a>
-        </body>
-        </html>
+        <h2>錯誤</h2>
+        <pre>{str(e)}</pre>
         """
 
 if __name__ == "__main__":
