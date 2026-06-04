@@ -8,115 +8,6 @@ CSV_PATH = os.path.join(BASE_DIR, "plans.csv")
 LEADS_PATH = os.path.join(BASE_DIR, "leads.csv")
 
 @app.route("/")
-def home():
-
-    return """
-<!DOCTYPE html>
-
-<html>
-
-<head>
-
-<title>香港手機及寬頻比較</title>
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-
-</head>
-
-<body>
-
-<div class="container mt-5">
-
-<h1>
-香港手機及寬頻比較
-</h1>
-
-<p>
-比較香港最新手機月費及家居寬頻優惠
-</p>
-
-<div class="row">
-
-<div class="col-md-6">
-
-<div class="card">
-
-<div class="card-body">
-
-<h3>手機月費</h3>
-
-<a class="btn btn-primary"
-href="/mobile">
-
-查看手機計劃
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="col-md-6">
-
-<div class="card">
-
-<div class="card-body">
-
-<h3>家居寬頻</h3>
-
-<a class="btn btn-success"
-href="/broadband">
-
-查看寬頻計劃
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<hr>
-
-<h2>免費獲取最新優惠</h2>
-
-<form action="/submit" method="POST">
-
-姓名:<br>
-<input type="text" name="name"><br><br>
-
-電話:<br>
-<input type="text" name="phone"><br><br>
-
-現用供應商:<br>
-
-<select name="provider">
-<option>CMHK</option>
-<option>3HK</option>
-<option>CSL</option>
-<option>SmarTone</option>
-<option>HKBN</option>
-<option>HGC</option>
-</select>
-
-<br><br>
-
-<button type="submit">
-立即查詢優惠
-</button>
-
-</form>
-"""
-
 
 @app.route("/mobile")
 def mobile():
@@ -195,7 +86,40 @@ import os
 import requests
 
 ...
+@app.route("/submit", methods=["POST"])
+def submit():
 
+    name = request.form.get("name")
+    phone = request.form.get("phone")
+    provider = request.form.get("provider")
+
+    GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzCofXWVKxzFa5-mUTh2ETEGQv_CB-ofTHJ0DA9uXQmMIjxc804AQxfUgyYWPIu6MH5/exec"
+
+    payload = {
+        "name": name,
+        "phone": phone,
+        "provider": provider
+    }
+
+    try:
+        r = requests.post(
+            GOOGLE_SCRIPT_URL,
+            json=payload,
+            timeout=10
+        )
+
+        return f"""
+        <h2>成功</h2>
+        <p>Status: {r.status_code}</p>
+        <p>Response: {r.text}</p>
+        <a href="/">返回首頁</a>
+        """
+
+    except Exception as e:
+        return f"""
+        <h2>錯誤</h2>
+        <pre>{str(e)}</pre>
+        """
 
 if __name__ == "__main__":
     app.run()
