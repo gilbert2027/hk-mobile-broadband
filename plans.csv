@@ -1,7 +1,7 @@
 provider,category,fee,data,speed
-CMHK,mobile,128,100GB,
-3HK,mobile,138,80GB,
+中國移動CMHK,mobile,128,100GB,
+環球電訊3HK,mobile,138,80GB,
 CSL,mobile,148,120GB,
-HKBN,broadband,109,,1000M
-HGC,broadband,98,,1000M
-Netvigator,broadband,128,,1000M
+香港寬頻HKBN,broadband,109,,1000M
+環球電訊HGC,broadband,98,,1000M
+網上行Netvigator,broadband,128,,1000M
