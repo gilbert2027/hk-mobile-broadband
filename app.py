@@ -188,7 +188,39 @@ def broadband():
     html += "</table>"
 
     return html
+    
+@app.route("/submit", methods=["POST"])
+def submit():
 
+    name = request.form.get("name")
+    phone = request.form.get("phone")
+    provider = request.form.get("provider")
+
+    data = pd.DataFrame([
+        {
+            "name": name,
+            "phone": phone,
+            "provider": provider
+        }
+    ])
+
+    if os.path.exists(LEADS_PATH):
+        data.to_csv(
+            LEADS_PATH,
+            mode="a",
+            header=False,
+            index=False
+        )
+    else:
+        data.to_csv(
+            LEADS_PATH,
+            index=False
+        )
+
+    return """
+    <h2>提交成功</h2>
+    <a href="/">返回首頁</a>
+    """
 if not os.path.exists(LEADS_PATH):
     pd.DataFrame(
         columns=["name", "phone", "provider"]
