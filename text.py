@@ -2,230 +2,358 @@ from flask import Flask, request
 import pandas as pd
 import os
 
-app = Flask(__name__)
+app = Flask(**name**)
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(os.path.abspath(**file**))
+
 CSV_PATH = os.path.join(BASE_DIR, "plans.csv")
 LEADS_PATH = os.path.join(BASE_DIR, "leads.csv")
-
 
 @app.route("/")
 def home():
 
-    return """
-    <html>
+```
+return """
+```
 
-    <head>
-        <title>香港手機及寬頻比較</title>
-    </head>
+<!DOCTYPE html>
 
-    <body>
+<html>
+<head>
 
-        <h1>香港手機及寬頻比較</h1>
+<title>香港手機及寬頻比較</title>
 
-        <p>
-        比較香港最新手機月費及家居寬頻優惠
-        </p>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <hr>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        <h2>查看計劃</h2>
+</head>
 
-        <a href="/mobile">手機月費比較</a>
+<body>
 
-        <br><br>
+<div class="container mt-5">
 
-        <a href="/broadband">家居寬頻比較</a>
+<h1 class="mb-3">
+香港手機及寬頻比較
+</h1>
 
-        <hr>
+<p class="lead">
+比較香港最新手機月費及家居寬頻優惠
+</p>
 
-        <h2>免費獲取最新優惠</h2>
+<div class="row">
 
-        <form action="/submit" method="post">
+<div class="col-md-6 mb-3">
 
-            姓名：<br>
-            <input type="text" name="name" required>
+<div class="card">
 
-            <br><br>
+<div class="card-body">
 
-            電話：<br>
-            <input type="text" name="phone" required>
+<h3>手機月費</h3>
 
-            <br><br>
+<p>
+比較 CMHK、3HK、CSL、SmarTone
+</p>
 
-            現時供應商：<br>
+<a class="btn btn-primary"
+href="/mobile">
 
-            <select name="provider">
+查看手機計劃
 
-                <option>CMHK</option>
-                <option>3HK</option>
-                <option>CSL</option>
-                <option>SmarTone</option>
-                <option>HKBN</option>
-                <option>HGC</option>
+</a>
 
-            </select>
+</div>
 
-            <br><br>
+</div>
 
-            <button type="submit">
-                立即查詢
-            </button>
+</div>
 
-        </form>
+<div class="col-md-6 mb-3">
 
-    </body>
+<div class="card">
 
-    </html>
-    """
+<div class="card-body">
 
+<h3>家居寬頻</h3>
+
+<p>
+比較 HKBN、HGC、Netvigator
+</p>
+
+<a class="btn btn-success"
+href="/broadband">
+
+查看寬頻計劃
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<hr class="mt-5">
+
+<h2>
+免費獲取最新優惠
+</h2>
+
+<form action="/submit" method="POST">
+
+<div class="mb-3">
+
+<label class="form-label">
+姓名
+</label>
+
+<input
+class="form-control"
+type="text"
+name="name"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+電話
+</label>
+
+<input
+class="form-control"
+type="text"
+name="phone"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+現時供應商
+</label>
+
+<select
+class="form-select"
+name="provider">
+
+<option>CMHK</option>
+<option>3HK</option>
+<option>CSL</option>
+<option>SmarTone</option>
+<option>HKBN</option>
+<option>HGC</option>
+
+</select>
+
+</div>
+
+<button
+class="btn btn-danger">
+
+立即查詢優惠
+
+</button>
+
+</form>
+
+</div>
+
+</body>
+</html>
+"""
 
 @app.route("/mobile")
 def mobile():
 
-    df = pd.read_csv(CSV_PATH)
+```
+df = pd.read_csv(CSV_PATH)
 
-    df = df[df["category"] == "mobile"]
+df = df[df["category"] == "mobile"]
 
-    html = """
-    <h1>手機月費比較</h1>
+df = df.sort_values("fee")
 
-    <table border='1' cellpadding='10'>
+html = """
+<html>
+<head>
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class='container mt-4'>
+
+<h1>手機月費比較</h1>
+
+<table class='table table-striped'>
+
+<tr>
+<th>供應商</th>
+<th>月費</th>
+<th>數據</th>
+</tr>
+"""
+
+for _, row in df.iterrows():
+
+    html += f"""
     <tr>
-        <th>供應商</th>
-        <th>月費</th>
-        <th>數據</th>
+    <td>{row['provider']}</td>
+    <td>${row['fee']}</td>
+    <td>{row['data']}</td>
     </tr>
     """
 
-    for _, row in df.iterrows():
+html += """
+</table>
 
-        html += f"""
-        <tr>
-            <td>{row['provider']}</td>
-            <td>${row['fee']}</td>
-            <td>{row['data']}</td>
-        </tr>
-        """
+<a href="/">返回首頁</a>
 
-    html += """
-    </table>
+</div>
 
-    <br>
+</body>
+</html>
+"""
 
-    <a href="/">返回首頁</a>
-    """
-
-    return html
-
+return html
+```
 
 @app.route("/broadband")
 def broadband():
 
-    df = pd.read_csv(CSV_PATH)
+```
+df = pd.read_csv(CSV_PATH)
 
-    df = df[df["category"] == "broadband"]
+df = df[df["category"] == "broadband"]
 
-    html = """
-    <h1>家居寬頻比較</h1>
+df = df.sort_values("fee")
 
-    <table border='1' cellpadding='10'>
+html = """
+<html>
+<head>
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class='container mt-4'>
+
+<h1>家居寬頻比較</h1>
+
+<table class='table table-striped'>
+
+<tr>
+<th>供應商</th>
+<th>月費</th>
+<th>速度</th>
+</tr>
+"""
+
+for _, row in df.iterrows():
+
+    html += f"""
     <tr>
-        <th>供應商</th>
-        <th>月費</th>
-        <th>速度</th>
+    <td>{row['provider']}</td>
+    <td>${row['fee']}</td>
+    <td>{row['speed']}</td>
     </tr>
     """
 
-    for _, row in df.iterrows():
+html += """
+</table>
 
-        html += f"""
-        <tr>
-            <td>{row['provider']}</td>
-            <td>${row['fee']}</td>
-            <td>{row['speed']}</td>
-        </tr>
-        """
+<a href="/">返回首頁</a>
 
-    html += """
-    </table>
+</div>
 
-    <br>
+</body>
+</html>
+"""
 
-    <a href="/">返回首頁</a>
-    """
-
-    return html
-
+return html
+```
 
 @app.route("/mobile/cmhk")
 def cmhk():
 
-    return """
-    <h1>CMHK 5G 月費計劃比較</h1>
+```
+return """
+<h1>CMHK 5G 月費計劃比較</h1>
 
-    <p>
-    CMHK 提供多種 5G 月費計劃，
-    適合一般上網、影片及遊戲用戶。
-    </p>
+<p>
+比較 CMHK 最新 5G 月費、
+數據用量及優惠內容。
+</p>
 
-    <a href="/">返回首頁</a>
-    """
-
+<a href="/">返回首頁</a>
+"""
+```
 
 @app.route("/mobile/3hk")
 def hk3():
 
-    return """
-    <h1>3HK 月費計劃比較</h1>
+```
+return """
+<h1>3HK 月費計劃比較</h1>
 
-    <p>
-    3HK 提供不同數據用量及漫遊優惠。
-    </p>
+<p>
+比較 3HK 最新 5G 月費、
+數據及漫遊優惠。
+</p>
 
-    <a href="/">返回首頁</a>
-    """
-
+<a href="/">返回首頁</a>
+"""
+```
 
 @app.route("/submit", methods=["POST"])
 def submit():
 
-    name = request.form.get("name")
-    phone = request.form.get("phone")
-    provider = request.form.get("provider")
+```
+name = request.form.get("name")
+phone = request.form.get("phone")
+provider = request.form.get("provider")
 
-    if not os.path.exists(LEADS_PATH):
-
-        with open(
-            LEADS_PATH,
-            "w",
-            encoding="utf-8"
-        ) as f:
-
-            f.write("name,phone,provider\n")
+if not os.path.exists(LEADS_PATH):
 
     with open(
         LEADS_PATH,
-        "a",
+        "w",
         encoding="utf-8"
     ) as f:
 
         f.write(
-            f"{name},{phone},{provider}\n"
+            "name,phone,provider\n"
         )
 
-    return """
-    <h2>提交成功</h2>
+with open(
+    LEADS_PATH,
+    "a",
+    encoding="utf-8"
+) as f:
 
-    <p>
-    我們稍後會與你聯絡。
-    </p>
+    f.write(
+        f"{name},{phone},{provider}\n"
+    )
 
-    <a href="/">返回首頁</a>
-    """
+return """
+<h2>提交成功</h2>
 
+<p>
+我們已收到你的查詢，
+將盡快與你聯絡。
+</p>
 
-if __name__ == "__main__":
-    app.run(debug=True)
+<a href="/">返回首頁</a>
+"""
+```
+
+if **name** == "**main**":
+app.run(debug=True)
