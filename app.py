@@ -273,7 +273,13 @@ def submit():
 @app.route("/health")
 def health():
     return "OK"
-
+@app.route("/test")
+def test():
+    try:
+        import requests
+        return "requests OK"
+    except Exception as e:
+        return str(e)
 
 if __name__ == "__main__":
     app.run(debug=True)
