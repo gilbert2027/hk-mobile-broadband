@@ -497,41 +497,51 @@ HK Plan Compare
 
 
 
-        for index, row in df.iterrows():
 
-            badge = ""
+for index, row in df.iterrows():
 
-            if index == df.index[0]:
+    badge = ""
 
-                badge = """
+    if index == df.index[0]:
 
-                <span class="badge bg-danger badge-best mb-3">
-                最平推薦
-                </span>
+        badge = """
 
-                """
+        <span class="badge bg-danger badge-best mb-3">
+        最平推薦
+        </span>
 
-            html += f"""
+        """
+
+    # Provider 顏色
+    provider_class = "bg-dark text-white"
+
+    if row['provider'] == "HGC":
+
+        provider_class = "bg-danger text-white"
+
+    elif row['provider'] == "HKBN":
+
+        provider_class = "bg-primary text-white"
+
+    elif row['provider'] in ["網上行", "CSL"]:
+
+        provider_class = "bg-warning text-dark"
+
+    html += f"""
 
 <div class="col-md-4 mb-4">
 
-<div class="card shadow-lg plan-card h-100">
+<div class="card shadow-lg plan-card h-100 overflow-hidden">
+
+<div class="{provider_class} py-3 text-center fw-bold fs-4">
+
+{row['provider']}
+
+</div>
 
 <div class="card-body p-4 text-center">
 
 {badge}
-
-
-
-
-```python id="o0x3tu"
-<h4 class="fw-bold mb-3">
-
-{row['provider']}
-
-</h4>
-```
-
 
 <div class="price">
 
@@ -553,7 +563,16 @@ ${row['fee']}
 
 </div>
 
-<a href="https://wa.me/85254838282?text=我想申請/了解%20{row['provider']}%20{row['data']}%20月費計劃" target="_blank" class="btn btn-success w-100 rounded-pill"> <i class="bi bi-whatsapp"></i> WhatsApp 查詢 </a>
+<a
+href="https://wa.me/852XXXXXXXX?text=我想申請/了解%20{row['provider']}%20{row['data']}%20月費計劃"
+target="_blank"
+class="btn btn-success w-100 rounded-pill">
+
+<i class="bi bi-whatsapp"></i>
+
+WhatsApp 查詢
+
+</a>
 
 </div>
 
@@ -563,17 +582,6 @@ ${row['fee']}
 
 """
 
-        html += """
-
-</div>
-
-</div>
-
-</body>
-
-</html>
-
-"""
 
         return html
 
@@ -710,40 +718,51 @@ HK Plan Compare
 
 """
 
-        for index, row in df.iterrows():
+```python
+for index, row in df.iterrows():
 
-            badge = ""
+    badge = ""
 
-            if index == df.index[0]:
+    if index == df.index[0]:
 
-                badge = """
+        badge = """
 
-                <span class="badge bg-danger badge-best mb-3">
-                最平推薦
-                </span>
+        <span class="badge bg-danger badge-best mb-3">
+        最平推薦
+        </span>
 
-                """
+        """
 
-            html += f"""
+    # Provider 顏色
+    provider_class = "bg-dark text-white"
+
+    if row['provider'] == "HGC":
+
+        provider_class = "bg-danger text-white"
+
+    elif row['provider'] == "HKBN":
+
+        provider_class = "bg-primary text-white"
+
+    elif row['provider'] in ["網上行", "CSL"]:
+
+        provider_class = "bg-warning text-dark"
+
+    html += f"""
 
 <div class="col-md-4 mb-4">
 
-<div class="card shadow-lg plan-card h-100">
+<div class="card shadow-lg plan-card h-100 overflow-hidden">
+
+<div class="{provider_class} py-3 text-center fw-bold fs-4">
+
+{row['provider']}
+
+</div>
 
 <div class="card-body p-4 text-center">
 
 {badge}
-
-
-
-<h4 class="fw-bold mb-3">
-
-{row['provider']}
-
-</h4>
-
-
-
 
 <div class="price">
 
@@ -765,9 +784,8 @@ ${row['fee']}
 
 </div>
 
-
 <a
-href="https://wa.me/85254838282?text=我想申請/了解%20{row['provider']}%20{row['speed']}%20寬頻計劃"
+href="https://wa.me/852XXXXXXXX?text=我想申請/了解%20{row['provider']}%20{row['speed']}%20寬頻計劃"
 target="_blank"
 class="btn btn-success w-100 rounded-pill">
 
@@ -777,8 +795,6 @@ WhatsApp 查詢
 
 </a>
 
-
-
 </div>
 
 </div>
@@ -786,6 +802,8 @@ WhatsApp 查詢
 </div>
 
 """
+```
+
 
         html += """
 
