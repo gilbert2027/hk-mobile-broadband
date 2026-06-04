@@ -370,6 +370,7 @@ class="btn btn-warning btn-lg w-100 btn-custom">
 # =========================
 
 
+
 @app.route("/mobile")
 def mobile():
 
@@ -398,9 +399,7 @@ def mobile():
 
 <title>手機月費比較</title>
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link
 href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -413,47 +412,23 @@ rel="stylesheet">
 <style>
 
 body {
-
     background: #f5f7fb;
-
 }
 
 .plan-card {
-
     border: none;
-
     border-radius: 20px;
-
     transition: 0.3s;
-
 }
 
 .plan-card:hover {
-
     transform: translateY(-5px);
-
 }
 
 .price {
-
     font-size: 40px;
-
     font-weight: bold;
-
     color: #0d6efd;
-
-}
-
-.data {
-
-    font-size: 18px;
-
-}
-
-.badge-best {
-
-    font-size: 14px;
-
 }
 
 </style>
@@ -462,35 +437,15 @@ body {
 
 <body>
 
-<nav class="navbar navbar-dark bg-primary shadow-sm">
-
-<div class="container">
-
-<a class="navbar-brand fw-bold" href="/">
-HK Plan Compare
-</a>
-
-</div>
-
-</nav>
-
 <div class="container py-5">
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-
-<h1 class="fw-bold">
+<h1 class="fw-bold mb-4">
 
 <i class="bi bi-phone"></i>
 
 手機月費比較
 
 </h1>
-
-<a href="/" class="btn btn-outline-secondary">
-返回首頁
-</a>
-
-</div>
 
 <div class="row">
 
@@ -504,27 +459,41 @@ HK Plan Compare
 
                 badge = """
 
-                <span class="badge bg-danger badge-best mb-3">
-                最平推薦
-                </span>
+<span class="badge bg-danger mb-3">
+最平推薦
+</span>
 
-                """
+"""
+
+            provider_class = "bg-dark text-white"
+
+            if row['provider'] == "HGC":
+
+                provider_class = "bg-danger text-white"
+
+            elif row['provider'] == "HKBN":
+
+                provider_class = "bg-primary text-white"
+
+            elif row['provider'] in ["網上行", "CSL"]:
+
+                provider_class = "bg-warning text-dark"
 
             html += f"""
 
 <div class="col-md-4 mb-4">
 
-<div class="card shadow-lg plan-card h-100">
+<div class="card shadow-lg plan-card h-100 overflow-hidden">
 
-<div class="card-body p-4 text-center">
-
-{badge}
-
-<h4 class="fw-bold mb-3">
+<div class="{provider_class} py-3 text-center fw-bold fs-4">
 
 {row['provider']}
 
-</h4>
+</div>
+
+<div class="card-body text-center p-4">
+
+{badge}
 
 <div class="price">
 
@@ -538,19 +507,24 @@ ${row['fee']}
 
 <hr>
 
-<div class="data mb-3">
+<p class="fs-5">
 
 <i class="bi bi-wifi"></i>
 
 {row['data']}
 
-</div>
+</p>
 
-<button class="btn btn-primary w-100 rounded-pill">
+<a
+href="https://wa.me/85291234567?text=我想申請/了解%20{row['provider']}%20{row['data']}%20月費計劃"
+target="_blank"
+class="btn btn-success w-100 rounded-pill">
 
-立即申請
+<i class="bi bi-whatsapp"></i>
 
-</button>
+WhatsApp 查詢
+
+</a>
 
 </div>
 
@@ -577,6 +551,7 @@ ${row['fee']}
     except Exception as e:
 
         return f"<h2>錯誤:</h2><pre>{str(e)}</pre>"
+
 
 
 
