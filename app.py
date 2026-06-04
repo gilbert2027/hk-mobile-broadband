@@ -1,4 +1,6 @@
 from flask import Flask
+import pandas as pd
+import os
 
 app = Flask(__name__)
 
@@ -89,7 +91,11 @@ href="/broadband">
 @app.route("/mobile")
 def mobile():
 
-    return """
+    df = pd.read_csv(CSV_PATH)
+
+    df = df[df["category"] == "mobile"]
+
+    html = """
     <h1>手機月費比較</h1>
 
     <table border='1'>
@@ -97,30 +103,33 @@ def mobile():
     <tr>
         <th>供應商</th>
         <th>月費</th>
+        <th>數據</th>
     </tr>
-
-    <tr>
-        <td>CMHK</td>
-        <td>$128</td>
-    </tr>
-
-    <tr>
-        <td>3HK</td>
-        <td>$138</td>
-    </tr>
-
-    </table>
-
-    <br>
-
-    <a href="/">返回首頁</a>
     """
+
+    for _, row in df.iterrows():
+
+        html += f"""
+        <tr>
+            <td>{row['provider']}</td>
+            <td>${row['fee']}</td>
+            <td>{row['data']}</td>
+        </tr>
+        """
+
+    html += "</table>"
+
+    return html
 
 
 @app.route("/broadband")
 def broadband():
 
-    return """
+    df = pd.read_csv(CSV_PATH)
+
+    df = df[df["category"] == "broadband"]
+
+    html = """
     <h1>家居寬頻比較</h1>
 
     <table border='1'>
@@ -128,24 +137,23 @@ def broadband():
     <tr>
         <th>供應商</th>
         <th>月費</th>
+        <th>速度</th>
     </tr>
-
-    <tr>
-        <td>HKBN</td>
-        <td>$109</td>
-    </tr>
-
-    <tr>
-        <td>HGC</td>
-        <td>$99</td>
-    </tr>
-
-    </table>
-
-    <br>
-
-    <a href="/">返回首頁</a>
     """
+
+    for _, row in df.iterrows():
+
+        html += f"""
+        <tr>
+            <td>{row['provider']}</td>
+            <td>${row['fee']}</td>
+            <td>{row['speed']}</td>
+        </tr>
+        """
+
+    html += "</table>"
+
+    return html
 
 
 if __name__ == "__main__":
