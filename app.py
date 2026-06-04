@@ -572,6 +572,7 @@ WhatsApp 查詢
 # =========================
 
 
+
 @app.route("/broadband")
 def broadband():
 
@@ -610,47 +611,24 @@ rel="stylesheet">
 <style>
 
 body {
-
     background: #f5f7fb;
-
 }
 
 .plan-card {
-
-    border: none;
-
     border-radius: 20px;
-
+    overflow: hidden;
+    border: none;
     transition: 0.3s;
-
 }
 
 .plan-card:hover {
-
     transform: translateY(-5px);
-
 }
 
 .price {
-
-    font-size: 40px;
-
+    font-size: 42px;
     font-weight: bold;
-
     color: #198754;
-
-}
-
-.speed {
-
-    font-size: 18px;
-
-}
-
-.badge-best {
-
-    font-size: 14px;
-
 }
 
 </style>
@@ -659,23 +637,9 @@ body {
 
 <body>
 
-<nav class="navbar navbar-dark bg-success shadow-sm">
-
-<div class="container">
-
-<a class="navbar-brand fw-bold" href="/">
-HK Plan Compare
-</a>
-
-</div>
-
-</nav>
-
 <div class="container py-5">
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-
-<h1 class="fw-bold">
+<h1 class="fw-bold mb-4">
 
 <i class="bi bi-router"></i>
 
@@ -683,29 +647,35 @@ HK Plan Compare
 
 </h1>
 
-<a href="/" class="btn btn-outline-secondary">
-返回首頁
-</a>
-
-</div>
-
 <div class="row">
 
 """
 
         for index, row in df.iterrows():
 
+            provider_class = "bg-dark text-white"
+
+            if "HGC" in row["provider"]:
+
+                provider_class = "bg-danger text-white"
+
+            elif "HKBN" in row["provider"]:
+
+                provider_class = "bg-primary text-white"
+
+            elif "網上行" in row["provider"]:
+
+                provider_class = "bg-warning text-dark"
+
             badge = ""
 
             if index == df.index[0]:
 
                 badge = """
-
-                <span class="badge bg-danger badge-best mb-3">
-                最平推薦
-                </span>
-
-                """
+<span class="badge bg-danger mb-3">
+最平推薦
+</span>
+"""
 
             html += f"""
 
@@ -713,15 +683,15 @@ HK Plan Compare
 
 <div class="card shadow-lg plan-card h-100">
 
-<div class="card-body p-4 text-center">
-
-{badge}
-
-<h4 class="fw-bold mb-3">
+<div class="{provider_class} py-3 text-center fw-bold fs-4">
 
 {row['provider']}
 
-</h4>
+</div>
+
+<div class="card-body text-center p-4">
+
+{badge}
 
 <div class="price">
 
@@ -735,19 +705,24 @@ ${row['fee']}
 
 <hr>
 
-<div class="speed mb-3">
+<p class="fs-5">
 
 <i class="bi bi-lightning-charge-fill"></i>
 
 {row['speed']}
 
-</div>
+</p>
 
-<button class="btn btn-success w-100 rounded-pill">
+<a
+href="https://wa.me/85291234567?text=我想申請/了解%20{row['provider']}%20{row['speed']}%20寬頻計劃"
+target="_blank"
+class="btn btn-success w-100 rounded-pill">
 
-立即申請
+<i class="bi bi-whatsapp"></i>
 
-</button>
+WhatsApp 查詢
+
+</a>
 
 </div>
 
@@ -773,7 +748,8 @@ ${row['fee']}
 
     except Exception as e:
 
-        return f"<h2>錯誤:</h2><pre>{str(e)}</pre>"
+        return f"<pre>{str(e)}</pre>"
+
 
 
 
