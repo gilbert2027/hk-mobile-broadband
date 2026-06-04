@@ -467,17 +467,28 @@ body {
 
             provider_class = "bg-dark text-white"
 
-            if row['provider'] == "HGC":
+
+            if "HGC" in row["provider"]:
 
                 provider_class = "bg-danger text-white"
 
-            elif row['provider'] == "HKBN":
+            elif "HKBN" in row["provider"]:
 
                 provider_class = "bg-primary text-white"
 
-            elif row['provider'] in ["網上行", "CSL"]:
+            elif "CSL" in row["provider"] or "網上行" in row["provider"]:
 
                 provider_class = "bg-warning text-dark"
+
+            elif "CMHK" in row["provider"]:
+
+                provider_class = "bg-success text-white"
+
+            elif "3HK" in row["provider"]:
+
+                provider_class = "bg-info text-dark"
+
+
 
             html += f"""
 
