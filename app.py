@@ -547,11 +547,7 @@ ${row['fee']}
 
 </div>
 
-<button class="btn btn-primary w-100 rounded-pill">
-
-立即申請
-
-</button>
+<a href="https://wa.me/85254838282?text=我想申請/了解%20{row['provider']}%20{row['data']}%20月費計劃" target="_blank" class="btn btn-success w-100 rounded-pill"> <i class="bi bi-whatsapp"></i> WhatsApp 查詢 </a>
 
 </div>
 
@@ -758,11 +754,19 @@ ${row['fee']}
 
 </div>
 
-<button class="btn btn-success w-100 rounded-pill">
 
-立即申請
+<a
+href="https://wa.me/85254838282?text=我想申請/了解%20{row['provider']}%20{row['speed']}%20寬頻計劃"
+target="_blank"
+class="btn btn-success w-100 rounded-pill">
 
-</button>
+<i class="bi bi-whatsapp"></i>
+
+WhatsApp 查詢
+
+</a>
+
+
 
 </div>
 
