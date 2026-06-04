@@ -189,6 +189,13 @@ def broadband():
 
     return html
     
+from flask import Flask, request
+import pandas as pd
+import os
+import requests
+
+...
+
 @app.route("/submit", methods=["POST"])
 def submit():
 
@@ -196,7 +203,7 @@ def submit():
     phone = request.form.get("phone")
     provider = request.form.get("provider")
 
-    GOOGLE_SCRIPT_URL = "你的 Apps Script 網址"
+    GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzCofXWVKxzFa5-mUTh2ETEGQv_CB-ofTHJ0DA9uXQmMIjxc804AQxfUgyYWPIu6MH5/exec"
 
     payload = {
         "name": name,
@@ -206,24 +213,43 @@ def submit():
 
     try:
 
-        requests.post(
+        response = requests.post(
             GOOGLE_SCRIPT_URL,
             json=payload,
             timeout=10
         )
 
-        return """
-        <h2>提交成功</h2>
-        <p>我們會盡快聯絡您。</p>
-        <a href="/">返回首頁</a>
+        return f"""
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <title>提交成功</title>
+        </head>
+        <body style="font-family: Arial; padding: 40px;">
+            <h2>✅ 提交成功</h2>
+            <p>姓名：{name}</p>
+            <p>電話：{phone}</p>
+            <p>供應商：{provider}</p>
+            <p>我們會盡快聯絡您。</p>
+            <a href="/">返回首頁</a>
+        </body>
+        </html>
         """
 
     except Exception as e:
 
         return f"""
-        <h2>提交失敗</h2>
-        <p>{str(e)}</p>
-        <a href="/">返回首頁</a>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <title>提交失敗</title>
+        </head>
+        <body style="font-family: Arial; padding: 40px;">
+            <h2>❌ 提交失敗</h2>
+            <p>{str(e)}</p>
+            <a href="/">返回首頁</a>
+        </body>
+        </html>
         """
 
 if __name__ == "__main__":
