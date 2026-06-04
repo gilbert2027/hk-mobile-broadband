@@ -196,12 +196,35 @@ def submit():
     phone = request.form.get("phone")
     provider = request.form.get("provider")
 
-    print(name, phone, provider)
+    GOOGLE_SCRIPT_URL = "你的 Apps Script 網址"
 
-    return """
-    <h2>提交成功</h2>
-    <a href="/">返回首頁</a>
-    """
+    payload = {
+        "name": name,
+        "phone": phone,
+        "provider": provider
+    }
+
+    try:
+
+        requests.post(
+            GOOGLE_SCRIPT_URL,
+            json=payload,
+            timeout=10
+        )
+
+        return """
+        <h2>提交成功</h2>
+        <p>我們會盡快聯絡您。</p>
+        <a href="/">返回首頁</a>
+        """
+
+    except Exception as e:
+
+        return f"""
+        <h2>提交失敗</h2>
+        <p>{str(e)}</p>
+        <a href="/">返回首頁</a>
+        """
 
 if __name__ == "__main__":
     app.run()
