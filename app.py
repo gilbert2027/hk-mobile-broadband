@@ -287,7 +287,7 @@ def submit():
         "provider": provider
     }
 
-    url = "https://script.google.com/macros/s/AKfycbzCofXWVKxzFa5-mUTh2ETEGQv_CB-ofTHJ0DA9uXQmMIjxc804AQxfUgyYWPIu6MH5/exec"
+    url = "https://script.google.com/macros/s/AKfycbzJJ2b7-O2ELZy4MsZbdSl9f8QMI6CLyz6oKRMDt7IUKKfQWxl-E5sSih2W_6Mo2lh8/exec"
 
     try:
 
