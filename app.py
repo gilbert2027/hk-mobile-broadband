@@ -370,7 +370,6 @@ class="btn btn-warning btn-lg w-100 btn-custom">
 # Mobile Plans
 # =========================
 
-
 @app.route("/mobile")
 def mobile():
 
@@ -445,18 +444,6 @@ body {
 
 }
 
-.data {
-
-    font-size: 18px;
-
-}
-
-.badge-best {
-
-    font-size: 14px;
-
-}
-
 </style>
 
 </head>
@@ -477,9 +464,7 @@ HK Plan Compare
 
 <div class="container py-5">
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-
-<h1 class="fw-bold">
+<h1 class="fw-bold mb-4">
 
 <i class="bi bi-phone"></i>
 
@@ -487,47 +472,39 @@ HK Plan Compare
 
 </h1>
 
-<a href="/" class="btn btn-outline-secondary">
-返回首頁
-</a>
-
-</div>
-
 <div class="row">
 
+"""
 
+        for index, row in df.iterrows():
 
+            badge = ""
 
-for index, row in df.iterrows():
+            if index == df.index[0]:
 
-    badge = ""
+                badge = """
 
-    if index == df.index[0]:
+                <span class="badge bg-danger mb-3">
+                最平推薦
+                </span>
 
-        badge = """
+                """
 
-        <span class="badge bg-danger badge-best mb-3">
-        最平推薦
-        </span>
+            provider_class = "bg-dark text-white"
 
-        """
+            if row['provider'] == "HGC":
 
-    # Provider 顏色
-    provider_class = "bg-dark text-white"
+                provider_class = "bg-danger text-white"
 
-    if row['provider'] == "HGC":
+            elif row['provider'] == "HKBN":
 
-        provider_class = "bg-danger text-white"
+                provider_class = "bg-primary text-white"
 
-    elif row['provider'] == "HKBN":
+            elif row['provider'] in ["網上行", "CSL"]:
 
-        provider_class = "bg-primary text-white"
+                provider_class = "bg-warning text-dark"
 
-    elif row['provider'] in ["網上行", "CSL"]:
-
-        provider_class = "bg-warning text-dark"
-
-    html += f"""
+            html += f"""
 
 <div class="col-md-4 mb-4">
 
@@ -539,7 +516,7 @@ for index, row in df.iterrows():
 
 </div>
 
-<div class="card-body p-4 text-center">
+<div class="card-body text-center p-4">
 
 {badge}
 
@@ -555,16 +532,16 @@ ${row['fee']}
 
 <hr>
 
-<div class="data mb-3">
+<p class="fs-5">
 
 <i class="bi bi-wifi"></i>
 
 {row['data']}
 
-</div>
+</p>
 
 <a
-href="https://wa.me/852XXXXXXXX?text=我想申請/了解%20{row['provider']}%20{row['data']}%20月費計劃"
+href="https://wa.me/85291234567?text=我想申請/了解%20{row['provider']}%20{row['data']}%20月費計劃"
 target="_blank"
 class="btn btn-success w-100 rounded-pill">
 
@@ -582,12 +559,24 @@ WhatsApp 查詢
 
 """
 
+        html += """
+
+</div>
+
+</div>
+
+</body>
+
+</html>
+
+"""
 
         return html
 
     except Exception as e:
 
         return f"<h2>錯誤:</h2><pre>{str(e)}</pre>"
+
 
 
 
