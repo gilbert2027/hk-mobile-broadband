@@ -1,6 +1,7 @@
 from flask import Flask, request
 import pandas as pd
 import os
+import requests
 
 app = Flask(__name__)
 
@@ -15,7 +16,9 @@ def home():
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="utf-8">
+
 <title>香港手機及寬頻比較</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,7 +31,9 @@ def home():
 
 <div class="container mt-5">
 
-<h1 class="mb-3">香港手機及寬頻比較</h1>
+<h1 class="mb-3">
+香港手機及寬頻比較
+</h1>
 
 <p class="lead">
 比較香港最新手機月費及家居寬頻優惠
@@ -44,7 +49,9 @@ def home():
 
 <h3>手機月費</h3>
 
-<p>比較各大電訊商月費計劃</p>
+<p>
+比較各大電訊商月費計劃
+</p>
 
 <a href="/mobile" class="btn btn-primary">
 查看手機計劃
@@ -64,7 +71,9 @@ def home():
 
 <h3>家居寬頻</h3>
 
-<p>比較最新家居寬頻優惠</p>
+<p>
+比較最新家居寬頻優惠
+</p>
 
 <a href="/broadband" class="btn btn-success">
 查看寬頻計劃
@@ -82,7 +91,7 @@ def home():
 
 <h2>免費獲取最新優惠</h2>
 
-<form id="leadForm">
+<form action="/submit" method="POST">
 
 <div class="mb-3">
 
@@ -143,72 +152,7 @@ class="btn btn-warning">
 
 </form>
 
-<div id="result" class="mt-3"></div>
-
 </div>
-
-<script>
-
-document
-.getElementById("leadForm")
-.addEventListener(
-"submit",
-async function(e){
-
-e.preventDefault();
-
-const payload = {
-
-name: document.querySelector('[name="name"]').value,
-
-phone: document.querySelector('[name="phone"]').value,
-
-provider: document.querySelector('[name="provider"]').value
-
-};
-
-try {
-
-const response = await fetch(
-
-"https://script.google.com/macros/s/AKfycbzCofXWVKxzFa5-mUTh2ETEGQv_CB-ofTHJ0DA9uXQmMIjxc804AQxfUgyYWPIu6MH5/exec",
-
-{
-method: "POST",
-
-headers: {
-"Content-Type": "application/json"
-},
-
-body: JSON.stringify(payload)
-
-}
-
-);
-
-document.getElementById("result").innerHTML = `
-<div class="alert alert-success">
-提交成功，我們會盡快聯絡您。
-</div>
-`;
-
-document.getElementById("leadForm").reset();
-
-}
-catch(err){
-
-document.getElementById("result").innerHTML = `
-<div class="alert alert-danger">
-提交失敗：${err}
-</div>
-`;
-
-}
-
-}
-);
-
-</script>
 
 </body>
 
@@ -330,7 +274,58 @@ def broadband():
     except Exception as e:
         return f"<h2>錯誤:</h2><pre>{str(e)}</pre>"
 
+@app.route("/submit", methods=["POST"])
+def submit():
 
+    name = request.form.get("name")
+    phone = request.form.get("phone")
+    provider = request.form.get("provider")
+
+    payload = {
+        "name": name,
+        "phone": phone,
+        "provider": provider
+    }
+
+    url = "https://script.google.com/macros/s/AKfycbzCofXWVKxzFa5-mUTh2ETEGQv_CB-ofTHJ0DA9uXQmMIjxc804AQxfUgyYWPIu6MH5/exec"
+
+    try:
+
+        response = requests.post(
+            url,
+            json=payload,
+            timeout=10
+        )
+
+        return """
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <title>提交成功</title>
+        </head>
+        <body>
+            <h2>提交成功</h2>
+            <p>我們已收到您的資料。</p>
+            <a href="/">返回首頁</a>
+        </body>
+        </html>
+        """
+
+    except Exception as e:
+
+        return f"""
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <title>提交失敗</title>
+        </head>
+        <body>
+            <h2>提交失敗</h2>
+            <pre>{str(e)}</pre>
+            <a href="/">返回首頁</a>
+        </body>
+        </html>
+        """
 
 
 @app.route("/health")
