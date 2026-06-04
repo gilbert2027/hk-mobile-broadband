@@ -189,45 +189,7 @@ def broadband():
 
     return html
 
-@app.route("/submit", methods=["POST"])
-def submit():
-
-    name = request.form.get("name")
-    phone = request.form.get("phone")
-    provider = request.form.get("provider")
-
-    if not os.path.exists(LEADS_PATH):
-
-        with open(
-            LEADS_PATH,
-            "w",
-            encoding="utf-8"
-        ) as f:
-
-            f.write(
-                "name,phone,provider\n"
-            )
-
-    with open(
-        LEADS_PATH,
-        "a",
-        encoding="utf-8"
-    ) as f:
-
-        f.write(
-            f"{name},{phone},{provider}\n"
-        )
-
-    return """
-    <h1>提交成功</h1>
-
-    <p>
-    我們已收到你的查詢，
-    將盡快聯絡你。
-    </p>
-
-    <a href="/">返回首頁</a>
-    """
+if not os.path.exists(LEADS_PATH):
 
 if __name__ == "__main__":
     app.run()
