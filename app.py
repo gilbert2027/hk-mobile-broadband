@@ -1,28 +1,14 @@
+
 from flask import Flask, request
 import pandas as pd
 import os
 import requests
 import re
 
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
-
 app = Flask(__name__)
-
-# 防 spam
-limiter = Limiter(
-    get_remote_address,
-    app=app,
-    default_limits=["10 per minute"]
-)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CSV_PATH = os.path.join(BASE_DIR, "plans.csv")
-
-
-# =========================
-# Home
-# =========================
 
 
 @app.route("/")
@@ -38,11 +24,7 @@ def home():
 
 <meta charset="utf-8">
 
-<title>香港手機月費及寬頻比較</title>
-
-<meta
-name="description"
-content="比較香港最新5G手機月費及家居寬頻優惠">
+<title>香港手機及寬頻比較</title>
 
 <meta
 name="viewport"
@@ -59,60 +41,30 @@ rel="stylesheet">
 <style>
 
 body {
-
     background: #f5f7fb;
-
 }
 
 .hero {
-
-    background:
-    linear-gradient(
-        135deg,
-        #0d6efd,
-        #6610f2
-    );
-
+    background: linear-gradient(135deg,#0d6efd,#6610f2);
     color: white;
-
-    padding: 100px 20px;
-
+    padding: 80px 20px;
     border-radius: 25px;
-
 }
 
 .card-custom {
-
     border: none;
-
     border-radius: 20px;
-
     transition: 0.3s;
-
 }
 
 .card-custom:hover {
-
     transform: translateY(-5px);
-
 }
 
 .btn-custom {
-
     border-radius: 50px;
-
     padding: 12px 24px;
-
     font-weight: bold;
-
-}
-
-.footer {
-
-    color: #777;
-
-    font-size: 14px;
-
 }
 
 </style>
@@ -120,18 +72,6 @@ body {
 </head>
 
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-
-<div class="container">
-
-<a class="navbar-brand fw-bold" href="/">
-HK Plan Compare
-</a>
-
-</div>
-
-</nav>
 
 <div class="container py-5">
 
@@ -142,20 +82,12 @@ HK Plan Compare
 </h1>
 
 <p class="lead mb-4">
-
-比較最新：
-
-5G 月費｜
-手機優惠｜
-家居寬頻
-
+比較最新 5G 月費及家居寬頻優惠
 </p>
 
 <a
 href="/mobile"
 class="btn btn-light btn-lg btn-custom me-2">
-
-<i class="bi bi-phone"></i>
 
 手機月費
 
@@ -165,106 +97,9 @@ class="btn btn-light btn-lg btn-custom me-2">
 href="/broadband"
 class="btn btn-warning btn-lg btn-custom">
 
-<i class="bi bi-wifi"></i>
-
 家居寬頻
 
 </a>
-
-</div>
-
-<div class="row mt-5">
-
-<div class="col-md-6 mb-4">
-
-<div class="card shadow-lg card-custom h-100">
-
-<div class="card-body text-center p-5">
-
-<div class="mb-4">
-
-<i
-class="bi bi-phone"
-style="font-size:60px;color:#0d6efd;">
-</i>
-
-</div>
-
-<h3 class="fw-bold">
-手機月費比較
-</h3>
-
-<p class="text-muted">
-
-比較：
-
-CMHK｜
-3HK｜
-CSL｜
-SmarTone
-
-最新 5G 月費優惠
-
-</p>
-
-<a
-href="/mobile"
-class="btn btn-primary btn-custom">
-
-立即比較
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="col-md-6 mb-4">
-
-<div class="card shadow-lg card-custom h-100">
-
-<div class="card-body text-center p-5">
-
-<div class="mb-4">
-
-<i
-class="bi bi-router"
-style="font-size:60px;color:#198754;">
-</i>
-
-</div>
-
-<h3 class="fw-bold">
-家居寬頻比較
-</h3>
-
-<p class="text-muted">
-
-比較：
-
-HKBN｜
-HGC｜
-網上行
-
-最新光纖寬頻優惠
-
-</p>
-
-<a
-href="/broadband"
-class="btn btn-success btn-custom">
-
-查看寬頻
-
-</a>
-
-</div>
-
-</div>
-
-</div>
 
 </div>
 
@@ -337,8 +172,6 @@ class="form-select form-select-lg">
 type="submit"
 class="btn btn-warning btn-lg w-100 btn-custom">
 
-<i class="bi bi-lightning-charge-fill"></i>
-
 立即查詢優惠
 
 </button>
@@ -346,12 +179,6 @@ class="btn btn-warning btn-lg w-100 btn-custom">
 </form>
 
 </div>
-
-</div>
-
-<div class="text-center mt-5 footer">
-
-© 2026 HK Plan Compare
 
 </div>
 
@@ -364,25 +191,14 @@ class="btn btn-warning btn-lg w-100 btn-custom">
 """
 
 
-
-
-# =========================
-# Mobile Plans
-# =========================
-
 @app.route("/mobile")
 def mobile():
 
     try:
 
-        provider = request.args.get("provider")
-
         df = pd.read_csv(CSV_PATH)
 
         df = df[df["category"] == "mobile"]
-
-        if provider:
-            df = df[df["provider"] == provider]
 
         df = df.sort_values("fee")
 
@@ -404,10 +220,6 @@ def mobile():
 href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 rel="stylesheet">
 
-<link
-href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-rel="stylesheet">
-
 <style>
 
 body {
@@ -415,17 +227,13 @@ body {
 }
 
 .plan-card {
-    border: none;
     border-radius: 20px;
-    transition: 0.3s;
-}
-
-.plan-card:hover {
-    transform: translateY(-5px);
+    overflow: hidden;
+    border: none;
 }
 
 .price {
-    font-size: 40px;
+    font-size: 42px;
     font-weight: bold;
     color: #0d6efd;
 }
@@ -439,11 +247,7 @@ body {
 <div class="container py-5">
 
 <h1 class="fw-bold mb-4">
-
-<i class="bi bi-phone"></i>
-
 手機月費比較
-
 </h1>
 
 <div class="row">
@@ -452,37 +256,32 @@ body {
 
         for index, row in df.iterrows():
 
+            provider_class = "bg-dark text-white"
+
+            if row["provider"] == "HGC":
+                provider_class = "bg-danger text-white"
+
+            elif row["provider"] == "HKBN":
+                provider_class = "bg-primary text-white"
+
+            elif row["provider"] in ["CSL", "網上行"]:
+                provider_class = "bg-warning text-dark"
+
             badge = ""
 
             if index == df.index[0]:
 
                 badge = """
-
 <span class="badge bg-danger mb-3">
 最平推薦
 </span>
-
 """
-
-            provider_class = "bg-dark text-white"
-
-            if row['provider'] == "HGC":
-
-                provider_class = "bg-danger text-white"
-
-            elif row['provider'] == "HKBN":
-
-                provider_class = "bg-primary text-white"
-
-            elif row['provider'] in ["網上行", "CSL"]:
-
-                provider_class = "bg-warning text-dark"
 
             html += f"""
 
 <div class="col-md-4 mb-4">
 
-<div class="card shadow-lg plan-card h-100 overflow-hidden">
+<div class="card shadow-lg plan-card h-100">
 
 <div class="{provider_class} py-3 text-center fw-bold fs-4">
 
@@ -508,8 +307,6 @@ ${row['fee']}
 
 <p class="fs-5">
 
-<i class="bi bi-wifi"></i>
-
 {row['data']}
 
 </p>
@@ -519,8 +316,6 @@ href="https://wa.me/85291234567?text=我想申請/了解%20{row['provider']}%20{
 target="_blank"
 class="btn btn-success w-100 rounded-pill">
 
-<i class="bi bi-whatsapp"></i>
-
 WhatsApp 查詢
 
 </a>
@@ -549,255 +344,16 @@ WhatsApp 查詢
 
     except Exception as e:
 
-        return f"<h2>錯誤:</h2><pre>{str(e)}</pre>"
-
-
-
-
-
-
-
-
-# =========================
-# Broadband
-# =========================
+        return f"<pre>{str(e)}</pre>"
 
 
 @app.route("/broadband")
 def broadband():
 
-    try:
+    return "<h1>Broadband Page</h1>"
 
-        df = pd.read_csv(CSV_PATH)
-
-        df = df[df["category"] == "broadband"]
-
-        df = df.sort_values("fee")
-
-        html = """
-
-<!DOCTYPE html>
-
-<html lang="zh-HK">
-
-<head>
-
-<meta charset="utf-8">
-
-<title>家居寬頻比較</title>
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1">
-
-<link
-href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-rel="stylesheet">
-
-<link
-href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-rel="stylesheet">
-
-<style>
-
-body {
-
-    background: #f5f7fb;
-
-}
-
-.plan-card {
-
-    border: none;
-
-    border-radius: 20px;
-
-    transition: 0.3s;
-
-}
-
-.plan-card:hover {
-
-    transform: translateY(-5px);
-
-}
-
-.price {
-
-    font-size: 40px;
-
-    font-weight: bold;
-
-    color: #198754;
-
-}
-
-.speed {
-
-    font-size: 18px;
-
-}
-
-.badge-best {
-
-    font-size: 14px;
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<nav class="navbar navbar-dark bg-success shadow-sm">
-
-<div class="container">
-
-<a class="navbar-brand fw-bold" href="/">
-HK Plan Compare
-</a>
-
-</div>
-
-</nav>
-
-<div class="container py-5">
-
-<div class="d-flex justify-content-between align-items-center mb-4">
-
-<h1 class="fw-bold">
-
-<i class="bi bi-router"></i>
-
-家居寬頻比較
-
-</h1>
-
-<a href="/" class="btn btn-outline-secondary">
-返回首頁
-</a>
-
-</div>
-
-<div class="row">
-
-"""
-
-```python
-for index, row in df.iterrows():
-
-    badge = ""
-
-    if index == df.index[0]:
-
-        badge = """
-
-        <span class="badge bg-danger badge-best mb-3">
-        最平推薦
-        </span>
-
-        """
-
-    # Provider 顏色
-    provider_class = "bg-dark text-white"
-
-    if row['provider'] == "HGC":
-
-        provider_class = "bg-danger text-white"
-
-    elif row['provider'] == "HKBN":
-
-        provider_class = "bg-primary text-white"
-
-    elif row['provider'] in ["網上行", "CSL"]:
-
-        provider_class = "bg-warning text-dark"
-
-    html += f"""
-
-<div class="col-md-4 mb-4">
-
-<div class="card shadow-lg plan-card h-100 overflow-hidden">
-
-<div class="{provider_class} py-3 text-center fw-bold fs-4">
-
-{row['provider']}
-
-</div>
-
-<div class="card-body p-4 text-center">
-
-{badge}
-
-<div class="price">
-
-${row['fee']}
-
-</div>
-
-<p class="text-muted">
-每月月費
-</p>
-
-<hr>
-
-<div class="speed mb-3">
-
-<i class="bi bi-lightning-charge-fill"></i>
-
-{row['speed']}
-
-</div>
-
-<a
-href="https://wa.me/852XXXXXXXX?text=我想申請/了解%20{row['provider']}%20{row['speed']}%20寬頻計劃"
-target="_blank"
-class="btn btn-success w-100 rounded-pill">
-
-<i class="bi bi-whatsapp"></i>
-
-WhatsApp 查詢
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-"""
-```
-
-
-        html += """
-
-</div>
-
-</div>
-
-</body>
-
-</html>
-
-"""
-
-        return html
-
-    except Exception as e:
-
-        return f"<h2>錯誤:</h2><pre>{str(e)}</pre>"
-
-
-
-
-# =========================
-# Submit Lead
-# =========================
 
 @app.route("/submit", methods=["POST"])
-@limiter.limit("5 per minute")
 def submit():
 
     try:
@@ -806,28 +362,9 @@ def submit():
         phone = request.form.get("phone")
         provider = request.form.get("provider")
 
-        # 電話驗證
         if not re.match(r"^[0-9]{8}$", phone):
 
-            return """
-
-            <html>
-
-            <head>
-            <meta charset="utf-8">
-            </head>
-
-            <body>
-
-            <h2>電話格式錯誤</h2>
-
-            <a href="/">返回首頁</a>
-
-            </body>
-
-            </html>
-
-            """
+            return "電話格式錯誤"
 
         payload = {
             "name": name,
@@ -835,8 +372,7 @@ def submit():
             "provider": provider
         }
 
-        # 你的 Google Apps Script Web App URL
-        url = "https://script.google.com/macros/s/AKfycbyCaFVQsTMEiU1C4rMRD8yGxYr5DI_5Z563BrMJejmSwOFngIuibN2G0GsxW-HSs5Fu/exec"
+        url = "你的 Google Apps Script URL"
 
         response = requests.post(
             url,
@@ -846,71 +382,26 @@ def submit():
 
         return f"""
 
-        <html>
+<h2>成功提交</h2>
 
-        <head>
-        <meta charset="utf-8">
-        </head>
+<pre>{response.text}</pre>
 
-        <body>
+<a href="/">返回首頁</a>
 
-        <h2>成功提交</h2>
-
-        <p>Status Code: {response.status_code}</p>
-
-        <pre>{response.text}</pre>
-
-        <a href="/">返回首頁</a>
-
-        </body>
-
-        </html>
-
-        """
+"""
 
     except Exception as e:
 
-        return f"""
+        return f"<pre>{str(e)}</pre>"
 
-        <html>
-
-        <head>
-        <meta charset="utf-8">
-        </head>
-
-        <body>
-
-        <h2>提交失敗</h2>
-
-        <pre>{str(e)}</pre>
-
-        <a href="/">返回首頁</a>
-
-        </body>
-
-        </html>
-
-        """
-
-
-# =========================
-# Health
-# =========================
 
 @app.route("/health")
 def health():
+
     return "OK"
 
 
-@app.route("/test")
-def test():
-
-    return requests.__version__
-
-
-# =========================
-# Run
-# =========================
-
 if __name__ == "__main__":
+
     app.run(debug=True)
+
