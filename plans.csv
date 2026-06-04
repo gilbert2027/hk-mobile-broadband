@@ -1,7 +1,9 @@
-provider,category,fee,data,speed
-中國移動CMHK,mobile,128,100GB,
-環球電訊3HK,mobile,138,80GB,
-CSL,mobile,148,120GB,
-香港寬頻HKBN,broadband,109,,1000M
-環球電訊HGC,broadband,98,,1000M
-網上行Netvigator,broadband,128,,1000M
+
+provider,category,fee,data,speed,contract,gift,admin_fee,remark
+中國移動CMHK,mobile,128,100GB,,24個月,送$500超市券,18,最抵玩
+環球電訊3HK,mobile,138,80GB,,24個月,送Netflix,18,學生優惠
+CSL,mobile,148,120GB,,36個月,送AirPods,28,高速網絡
+香港寬頻HKBN,broadband,109,,1000M,24個月,豁免安裝費,,人氣推薦
+環球電訊HGC,broadband,98,,1000M,24個月,送路由器,,最平推薦
+網上行Netvigator,broadband,128,,1000M,30個月,送NowTV,,穩定之選
+
