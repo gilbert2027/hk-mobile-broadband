@@ -1,95 +1,84 @@
-from flask import Flask
+from flask import Flask, request
 import pandas as pd
 import os
-# 確認程式知道檔案在哪
-BASE_DIR = os.getcwd() 
-CSV_PATH = os.path.join(BASE_DIR, "plans.csv")
 
 app = Flask(__name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CSV_PATH = os.path.join(BASE_DIR, "plans.csv")
+LEADS_PATH = os.path.join(BASE_DIR, "leads.csv")
+
 
 @app.route("/")
 def home():
 
     return """
-    <!DOCTYPE html>
-
     <html>
 
     <head>
-
         <title>香港手機及寬頻比較</title>
-
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-
     </head>
 
     <body>
 
-    <div class="container mt-5">
-
-        <h1 class="mb-4">
-            香港手機及寬頻比較
-        </h1>
+        <h1>香港手機及寬頻比較</h1>
 
         <p>
-            比較全港最新月費計劃及寬頻優惠
+        比較香港最新手機月費及家居寬頻優惠
         </p>
 
-        <div class="row">
+        <hr>
 
-            <div class="col-md-6">
+        <h2>查看計劃</h2>
 
-                <div class="card">
+        <a href="/mobile">手機月費比較</a>
 
-                    <div class="card-body">
+        <br><br>
 
-                        <h3>手機月費</h3>
+        <a href="/broadband">家居寬頻比較</a>
 
-                        <a class="btn btn-primary"
-                           href="/mobile">
+        <hr>
 
-                           查看手機計劃
+        <h2>免費獲取最新優惠</h2>
 
-                        </a>
+        <form action="/submit" method="post">
 
-                    </div>
+            姓名：<br>
+            <input type="text" name="name" required>
 
-                </div>
+            <br><br>
 
-            </div>
+            電話：<br>
+            <input type="text" name="phone" required>
 
-            <div class="col-md-6">
+            <br><br>
 
-                <div class="card">
+            現時供應商：<br>
 
-                    <div class="card-body">
+            <select name="provider">
 
-                        <h3>家居寬頻</h3>
+                <option>CMHK</option>
+                <option>3HK</option>
+                <option>CSL</option>
+                <option>SmarTone</option>
+                <option>HKBN</option>
+                <option>HGC</option>
 
-                        <a class="btn btn-success"
-                           href="/broadband">
+            </select>
 
-                           查看寬頻計劃
+            <br><br>
 
-                        </a>
+            <button type="submit">
+                立即查詢
+            </button>
 
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+        </form>
 
     </body>
 
     </html>
     """
+
 
 @app.route("/mobile")
 def mobile():
@@ -101,7 +90,8 @@ def mobile():
     html = """
     <h1>手機月費比較</h1>
 
-    <table border='1'>
+    <table border='1' cellpadding='10'>
+
     <tr>
         <th>供應商</th>
         <th>月費</th>
@@ -119,7 +109,13 @@ def mobile():
         </tr>
         """
 
-    html += "</table><br><a href='/'>返回首頁</a>"
+    html += """
+    </table>
+
+    <br>
+
+    <a href="/">返回首頁</a>
+    """
 
     return html
 
@@ -134,7 +130,8 @@ def broadband():
     html = """
     <h1>家居寬頻比較</h1>
 
-    <table border='1'>
+    <table border='1' cellpadding='10'>
+
     <tr>
         <th>供應商</th>
         <th>月費</th>
@@ -152,9 +149,82 @@ def broadband():
         </tr>
         """
 
-    html += "</table><br><a href='/'>返回首頁</a>"
+    html += """
+    </table>
+
+    <br>
+
+    <a href="/">返回首頁</a>
+    """
 
     return html
+
+
+@app.route("/mobile/cmhk")
+def cmhk():
+
+    return """
+    <h1>CMHK 5G 月費計劃比較</h1>
+
+    <p>
+    CMHK 提供多種 5G 月費計劃，
+    適合一般上網、影片及遊戲用戶。
+    </p>
+
+    <a href="/">返回首頁</a>
+    """
+
+
+@app.route("/mobile/3hk")
+def hk3():
+
+    return """
+    <h1>3HK 月費計劃比較</h1>
+
+    <p>
+    3HK 提供不同數據用量及漫遊優惠。
+    </p>
+
+    <a href="/">返回首頁</a>
+    """
+
+
+@app.route("/submit", methods=["POST"])
+def submit():
+
+    name = request.form.get("name")
+    phone = request.form.get("phone")
+    provider = request.form.get("provider")
+
+    if not os.path.exists(LEADS_PATH):
+
+        with open(
+            LEADS_PATH,
+            "w",
+            encoding="utf-8"
+        ) as f:
+
+            f.write("name,phone,provider\n")
+
+    with open(
+        LEADS_PATH,
+        "a",
+        encoding="utf-8"
+    ) as f:
+
+        f.write(
+            f"{name},{phone},{provider}\n"
+        )
+
+    return """
+    <h2>提交成功</h2>
+
+    <p>
+    我們稍後會與你聯絡。
+    </p>
+
+    <a href="/">返回首頁</a>
+    """
 
 
 if __name__ == "__main__":
