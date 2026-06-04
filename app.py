@@ -754,34 +754,14 @@ HK Plan Compare
 {badge}
 
 
-"""
 
-provider_color = "bg-secondary"
-
-if row['provider'] == "HGC":
-    provider_color = "bg-danger"
-
-elif row['provider'] == "HKBN":
-    provider_color = "bg-primary"
-
-elif row['provider'] in ["網上行", "CSL"]:
-    provider_color = "bg-warning text-dark"
-
-html += f"""
-
-<div class="col-md-4 mb-4">
-
-<div class="card shadow-lg plan-card h-100">
-
-<div class="{provider_color} text-white py-3 rounded-top text-center fw-bold">
+<h4 class="fw-bold mb-3">
 
 {row['provider']}
 
-</div>
+</h4>
 
-<div class="card-body p-4 text-center">
 
-{badge}
 
 
 <div class="price">
