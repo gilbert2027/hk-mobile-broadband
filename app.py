@@ -24,7 +24,7 @@ CSV_PATH = os.path.join(BASE_DIR, "plans.csv")
 # Home
 # =========================
 
-```python id="6ie4n5"
+
 @app.route("/")
 def home():
 
@@ -362,7 +362,7 @@ class="btn btn-warning btn-lg w-100 btn-custom">
 </html>
 
 """
-```
+
 
 
 
