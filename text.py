@@ -2,9 +2,9 @@ from flask import Flask, request
 import pandas as pd
 import os
 
-app = Flask(**name**)
+app = Flask(__name__)
 
-BASE_DIR = os.path.dirname(os.path.abspath(**file**))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 CSV_PATH = os.path.join(BASE_DIR, "plans.csv")
 LEADS_PATH = os.path.join(BASE_DIR, "leads.csv")
