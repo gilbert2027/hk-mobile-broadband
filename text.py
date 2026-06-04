@@ -1,6 +1,9 @@
 from flask import Flask
 import pandas as pd
 import os
+# 確認程式知道檔案在哪
+BASE_DIR = os.getcwd() 
+CSV_PATH = os.path.join(BASE_DIR, "plans.csv")
 
 app = Flask(__name__)
 
