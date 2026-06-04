@@ -1,10 +1,11 @@
-from flask import Flask
+from flask import Flask, request
 import pandas as pd
 import os
 
 app = Flask(__name__)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CSV_PATH = os.path.join(BASE_DIR, "plans.csv")
+LEADS_PATH = os.path.join(BASE_DIR, "leads.csv")
 
 @app.route("/")
 def home():
@@ -87,6 +88,37 @@ href="/broadband">
 </body>
 
 </html>
+
+<hr>
+
+<h2>免費獲取最新優惠</h2>
+
+<form action="/submit" method="POST">
+
+姓名:<br>
+<input type="text" name="name"><br><br>
+
+電話:<br>
+<input type="text" name="phone"><br><br>
+
+現用供應商:<br>
+
+<select name="provider">
+<option>CMHK</option>
+<option>3HK</option>
+<option>CSL</option>
+<option>SmarTone</option>
+<option>HKBN</option>
+<option>HGC</option>
+</select>
+
+<br><br>
+
+<button type="submit">
+立即查詢優惠
+</button>
+
+</form>
 """
 
 
@@ -161,6 +193,45 @@ def broadband():
 
     return html
 
+@app.route("/submit", methods=["POST"])
+def submit():
+
+    name = request.form.get("name")
+    phone = request.form.get("phone")
+    provider = request.form.get("provider")
+
+    if not os.path.exists(LEADS_PATH):
+
+        with open(
+            LEADS_PATH,
+            "w",
+            encoding="utf-8"
+        ) as f:
+
+            f.write(
+                "name,phone,provider\n"
+            )
+
+    with open(
+        LEADS_PATH,
+        "a",
+        encoding="utf-8"
+    ) as f:
+
+        f.write(
+            f"{name},{phone},{provider}\n"
+        )
+
+    return """
+    <h1>提交成功</h1>
+
+    <p>
+    我們已收到你的查詢，
+    將盡快聯絡你。
+    </p>
+
+    <a href="/">返回首頁</a>
+    """
 
 if __name__ == "__main__":
     app.run()
