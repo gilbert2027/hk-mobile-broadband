@@ -398,9 +398,7 @@ def mobile():
 
 <title>手機月費比較</title>
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link
 href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -413,35 +411,23 @@ rel="stylesheet">
 <style>
 
 body {
-
     background: #f5f7fb;
-
 }
 
 .plan-card {
-
     border: none;
-
     border-radius: 20px;
-
     transition: 0.3s;
-
 }
 
 .plan-card:hover {
-
     transform: translateY(-5px);
-
 }
 
 .price {
-
     font-size: 40px;
-
     font-weight: bold;
-
     color: #0d6efd;
-
 }
 
 </style>
@@ -449,18 +435,6 @@ body {
 </head>
 
 <body>
-
-<nav class="navbar navbar-dark bg-primary shadow-sm">
-
-<div class="container">
-
-<a class="navbar-brand fw-bold" href="/">
-HK Plan Compare
-</a>
-
-</div>
-
-</nav>
 
 <div class="container py-5">
 
@@ -484,11 +458,11 @@ HK Plan Compare
 
                 badge = """
 
-                <span class="badge bg-danger mb-3">
-                最平推薦
-                </span>
+<span class="badge bg-danger mb-3">
+最平推薦
+</span>
 
-                """
+"""
 
             provider_class = "bg-dark text-white"
 
@@ -576,6 +550,9 @@ WhatsApp 查詢
     except Exception as e:
 
         return f"<h2>錯誤:</h2><pre>{str(e)}</pre>"
+
+
+
 
 
 
