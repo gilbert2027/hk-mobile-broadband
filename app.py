@@ -179,7 +179,7 @@ id="navbarNav">
 
 <li class="nav-item">
 
-<a class="nav-link" href="/contact">
+<a class="nav-link" href="https://wa.me/85254838282?text=我想查詢" target="_blank">
 
 聯絡我們
 
@@ -579,7 +579,7 @@ id="navbarNav">
 
 <li class="nav-item">
 
-<a class="nav-link" href="/contact">
+<a class="nav-link" href="https://wa.me/85254838282?text=我想查詢" target="_blank">
 
 聯絡我們
 
@@ -793,7 +793,7 @@ ${row['fee']}
 
 
 <a
-href="https://wa.me/85291234567?text=我想申請/了解%20{row['provider']}%20{row['data']}%20月費計劃"
+href="https://wa.me/85254838282?text=我想申請/了解%20{row['provider']}%20{row['data']}%20月費計劃"
 target="_blank"
 class="btn btn-success w-100 rounded-pill">
 
@@ -962,7 +962,7 @@ id="navbarNav">
 
 <li class="nav-item">
 
-<a class="nav-link" href="/contact">
+<a class="nav-link" href="https://wa.me/85254838282?text=我想查詢" target="_blank">
 
 聯絡我們
 
@@ -1078,7 +1078,7 @@ ${row['fee']}
 
 
 <a
-href="https://wa.me/85291234567?text=我想申請/了解%20{row['provider']}%20{row['speed']}%20寬頻計劃"
+href="https://wa.me/85254838282?text=我想申請/了解%20{row['provider']}%20{row['speed']}%20寬頻計劃"
 target="_blank"
 class="btn btn-success w-100 rounded-pill">
 
@@ -1203,7 +1203,7 @@ def submit():
 
             <li class="nav-item">
 
-            <a class="nav-link" href="/contact">
+            <a class="nav-link" href="https://wa.me/85254838282?text=我想查詢" target="_blank">
 
             聯絡我們
 
@@ -1359,7 +1359,7 @@ def submit():
 
         <li class="nav-item">
 
-        <a class="nav-link" href="/contact">
+        <a class="nav-link" href="https://wa.me/85254838282?text=我想查詢" target="_blank">
 
         聯絡我們
 
@@ -1401,7 +1401,7 @@ def submit():
         <div class="d-grid gap-3">
 
         <a
-        href="https://wa.me/85291234567"
+        href="https://wa.me/85254838282"
         target="_blank"
         class="btn btn-success btn-lg rounded-pill">
 
@@ -1504,7 +1504,7 @@ def submit():
 
         <li class="nav-item">
 
-        <a class="nav-link" href="/contact">
+        <a class="nav-link" href="https://wa.me/85254838282?text=我想查詢" target="_blank">
 
         聯絡我們
 
