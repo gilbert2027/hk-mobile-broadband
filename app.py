@@ -523,9 +523,15 @@ def mobile():
     
         if provider:
             df = df[df["provider"] == provider]
-    
-        if max_fee:
-            df = df[df["fee"] <= int(max_fee)]
+
+        if price_range == "under100":
+            df = df[df["fee"] <= 100]
+        
+        elif price_range == "101to200":
+            df = df[(df["fee"] >= 101) & (df["fee"] <= 200)]
+        
+        elif price_range == "over200":
+            df = df[df["fee"] > 200]
     
         df = df.sort_values("fee")
     
@@ -833,7 +839,7 @@ def broadband():
             df = df[df["provider"] == provider]
 
         if price_range == "under100":
-            df = df[df["fee"] < 100]
+            df = df[df["fee"] <= 100]
         
         elif price_range == "101to200":
             df = df[(df["fee"] >= 101) & (df["fee"] <= 200)]
