@@ -1196,7 +1196,7 @@ def submit():
         }
 
         # 你的 Google Apps Script Web App URL
-        url = "https://script.google.com/macros/s/AKfycbwUHTuVdGftCdxcRXGKKf00g2qNx4CUB5Um9vap0E0zuZBjgCc2LjD01z91bZxOlQ7g/exec"
+        url = "https://script.google.com/macros/s/AKfycbxquTS5Il0j9GErileGeFxItywWDseTAbztExDgG2AkRgDJbPiFzmXtvFm7zGe9PCx7/exec"
 
         response = requests.post(
             url,
