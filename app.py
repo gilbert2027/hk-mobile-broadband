@@ -552,7 +552,7 @@ body{
 
         html += str(len(df))
 
-    html += """
+        html += """
 
 
 </b>
@@ -856,9 +856,9 @@ body{
 """
 
 
-    html += str(len(df))
+        html += str(len(df))
 
-    html += """
+        html += """
 
 
 </b>
