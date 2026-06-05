@@ -519,6 +519,8 @@ def mobile():
     
         provider = request.args.get("provider")
         price_range = request.args.get("price_range")
+        print("provider =", provider)
+        print("price_range =", price_range)
     
         providers = sorted(df["provider"].dropna().unique())
     
