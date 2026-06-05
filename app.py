@@ -744,7 +744,7 @@ except Exception as e:
 @app.route("/broadband")
 def broadband():
 
-```
+
 try:
 
     df = pd.read_csv(CSV_PATH)
@@ -769,7 +769,7 @@ try:
     df = df.sort_values("fee")
 
     html = """
-```
+
 
 <!DOCTYPE html>
 
@@ -856,11 +856,11 @@ body{
 現時比較中的寬頻計劃： <b>
 """
 
-```
+
     html += str(len(df))
 
     html += """
-```
+
 
 </b>
 個
@@ -882,7 +882,7 @@ onchange="this.form.submit()">
 
 """
 
-```
+
     for p in providers:
 
         selected = ""
@@ -891,7 +891,7 @@ onchange="this.form.submit()">
             selected = "selected"
 
         html += f"""
-```
+
 
 <option value="{p}" {selected}>
 {p}
@@ -899,9 +899,9 @@ onchange="this.form.submit()">
 
 """
 
-```
+
     html += """
-```
+
 
 </select>
 
@@ -968,11 +968,11 @@ $200以下
 
 """
 
-```
+
     for row in df.itertuples(index=False):
 
         html += f"""
-```
+
 
 <tr>
 
@@ -1005,9 +1005,9 @@ WhatsApp
 
 """
 
-```
+
     html += """
-```
+
 
 </tbody>
 
@@ -1025,13 +1025,13 @@ WhatsApp
 
 """
 
-```
+
     return html
 
 except Exception as e:
 
     return f"<pre>{str(e)}</pre>"
-```
+
 
 
 
