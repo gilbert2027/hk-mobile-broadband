@@ -526,6 +526,28 @@ ${row['fee']}
 
 </p>
 
+
+<div class="text-start mt-4">
+
+<p>
+
+✅ <strong>合約期：</strong>
+
+{row['contract']}
+
+</p>
+
+<p>
+
+⭐ <strong>特色：</strong>
+
+{row['remark']}
+
+</p>
+
+</div>
+
+
 <a
 href="https://wa.me/85291234567?text=我想申請/了解%20{row['provider']}%20{row['data']}%20月費計劃"
 target="_blank"
@@ -712,6 +734,28 @@ ${row['fee']}
 {row['speed']}
 
 </p>
+
+
+<div class="text-start mt-4">
+
+<p>
+
+✅ <strong>合約期：</strong>
+
+{row['contract']}
+
+</p>
+
+<p>
+
+⭐ <strong>特色：</strong>
+
+{row['remark']}
+
+</p>
+
+</div>
+
 
 <a
 href="https://wa.me/85291234567?text=我想申請/了解%20{row['provider']}%20{row['speed']}%20寬頻計劃"
