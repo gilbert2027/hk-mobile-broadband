@@ -549,11 +549,11 @@ body{
 現時比較中的手機計劃： <b>
 """
 
-```
+
     html += str(len(df))
 
     html += """
-```
+
 
 </b>
 個
@@ -575,7 +575,7 @@ onchange="this.form.submit()">
 
 """
 
-```
+
     for p in providers:
 
         selected = ""
@@ -584,7 +584,7 @@ onchange="this.form.submit()">
             selected = "selected"
 
         html += f"""
-```
+
 
 <option value="{p}" {selected}>
 {p}
@@ -592,9 +592,9 @@ onchange="this.form.submit()">
 
 """
 
-```
+
     html += """
-```
+
 
 </select>
 
@@ -665,11 +665,11 @@ $300以下
 
 """
 
-```
+
     for row in df.itertuples(index=False):
 
         html += f"""
-```
+
 
 <tr>
 
@@ -704,9 +704,9 @@ WhatsApp
 
 """
 
-```
+
     html += """
-```
+
 
 </tbody>
 
@@ -724,13 +724,13 @@ WhatsApp
 
 """
 
-```
+
     return html
 
 except Exception as e:
 
     return f"<pre>{str(e)}</pre>"
-```
+
 
 
 
