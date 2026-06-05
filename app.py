@@ -1023,6 +1023,42 @@ WhatsApp
 
 </div>
 
+<div class="alert alert-warning mt-4">
+
+<h5 class="fw-bold">
+⚠️ 特別地區安裝注意
+</h5>
+
+<ul class="mb-0">
+
+<li>
+唐樓、村屋、獨立屋、別墅、離島及偏遠地區，
+部份供應商未必提供服務或需額外安裝費。
+</li>
+
+<li>
+實際月費、安裝費及禮品優惠可能因地址而有所不同。
+</li>
+
+<li>
+如需確認可安裝速度及最新優惠，歡迎查詢。
+</li>
+
+</ul>
+
+<a
+href="https://wa.me/85254838282?text=我想查詢我的地址可申請什麼寬頻計劃"
+target="_blank"
+class="btn btn-success mt-3">
+
+<i class="bi bi-whatsapp"></i>
+
+查詢我的地址可安裝計劃
+
+</a>
+
+</div>
+
 </body>
 
 </html>
