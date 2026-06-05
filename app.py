@@ -436,57 +436,36 @@ class="btn btn-warning btn-lg w-100 btn-custom">
 
 @app.route("/mobile")
 def mobile():
-
     try:
-
         df = pd.read_csv(CSV_PATH)
-
         df = df[df["category"] == "mobile"]
 
-        providers = df["provider"].unique()
+        providers = sorted(df["provider"].dropna().unique())
 
         provider = request.args.get("provider")
-
         max_fee = request.args.get("max_fee")
 
         if provider:
-
             df = df[df["provider"] == provider]
 
         if max_fee:
-
             df = df[df["fee"] <= int(max_fee)]
 
         df = df.sort_values("fee")
 
         html = """
-
 <!DOCTYPE html>
-
-
 <html lang="zh-HK">
-
 <head>
-
 <meta charset="utf-8">
-
 <title>手機月費比較</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link
-href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-rel="stylesheet">
-
-<link
-href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
 <style>
-
-body {
-    background: #f5f7fb;
-}
+body { background: #f5f7fb; }
 
 .plan-card {
     border: none;
@@ -503,309 +482,134 @@ body {
     font-weight: bold;
     color: #0d6efd;
 }
-
 </style>
-
 </head>
 
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-
 <div class="container">
+<a class="navbar-brand fw-bold" href="/">流通通訊</a>
 
-<a class="navbar-brand fw-bold" href="/">
-
-流通通訊
-
-</a>
-
-<button
-class="navbar-toggler"
-type="button"
-data-bs-toggle="collapse"
-data-bs-target="#navbarNav">
-
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
 <span class="navbar-toggler-icon"></span>
-
 </button>
 
-<div
-class="collapse navbar-collapse"
-id="navbarNav">
-
+<div class="collapse navbar-collapse" id="navbarNav">
 <ul class="navbar-nav ms-auto">
-
-<li class="nav-item">
-
-<a class="nav-link" href="/">
-
-主頁
-
-</a>
-
-</li>
-
-<li class="nav-item">
-
-<a class="nav-link" href="/mobile">
-
-手機月費
-
-</a>
-
-</li>
-
-<li class="nav-item">
-
-<a class="nav-link" href="/broadband">
-
-家居寬頻
-
-</a>
-
-</li>
-
-<li class="nav-item">
-
-<a class="nav-link" href="https://wa.me/85254838282?text=我想查詢" target="_blank">
-
-聯絡我們
-
-</a>
-
-</li>
-
+<li class="nav-item"><a class="nav-link" href="/">主頁</a></li>
+<li class="nav-item"><a class="nav-link" href="/mobile">手機月費</a></li>
+<li class="nav-item"><a class="nav-link" href="/broadband">家居寬頻</a></li>
+<li class="nav-item"><a class="nav-link" href="https://wa.me/85254838282?text=我想查詢" target="_blank">聯絡我們</a></li>
 </ul>
-
 </div>
-
 </div>
-
 </nav>
-
 
 <div class="container py-5">
 
 <h1 class="fw-bold mb-4">
-
-<i class="bi bi-phone"></i>
-
-手機月費
-
+<i class="bi bi-phone"></i> 手機月費
 </h1>
 
 <form method="GET" class="row g-3 mb-4">
 
 <div class="col-md-6">
-
-<select
-name="provider"
-class="form-select"
-onchange="this.form.submit()">
-
-<option value="">
-所有供應商
-</option>
-
+<select name="provider" class="form-select" onchange="this.form.submit()">
+<option value="">所有供應商</option>
 """
 
-
+        # provider dropdown（只一次）
         for p in providers:
-
-            html += f"""
-
-<option value="{p}">
-{p}
-</option>
-
-"""
+            selected = "selected" if p == provider else ""
+            html += f'<option value="{p}" {selected}>{p}</option>'
 
         html += """
-
 </select>
-
 </div>
 
 <div class="col-md-6">
-
-<select
-name="max_fee"
-class="form-select"
-onchange="this.form.submit()">
-
-<option value="">
-所有價錢
-</option>
-
-<option value="100">
-$100以下
-</option>
-
-<option value="150">
-$150以下
-</option>
-
-<option value="200">
-$200以下
-</option>
-
+<select name="max_fee" class="form-select" onchange="this.form.submit()">
+<option value="">所有價錢</option>
+<option value="100">$100以下</option>
+<option value="150">$150以下</option>
+<option value="200">$200以下</option>
 </select>
-
 </div>
 
 </form>
 
-
-
-
+<div class="row">
 """
 
-        html += """
-
-</select>
-
-</div>
-
-</form>
-
-
-
-
-"""
-
-        for index, row in df.iterrows():
+        # cards
+        for i, row in enumerate(df.itertuples(index=False)):
 
             badge = ""
-
-            if index == df.index[0]:
-
-                badge = """
-
-<span class="badge bg-danger mb-3">
-最平推薦
-</span>
-
-"""
+            if i == 0:
+                badge = '<span class="badge bg-danger mb-3">最平推薦</span>'
 
             provider_class = "bg-dark text-white"
 
-
-            if "HGC" in row["provider"]:
-
+            if "HGC" in row.provider:
                 provider_class = "bg-danger text-white"
-
-            elif "HKBN" in row["provider"]:
-
+            elif "HKBN" in row.provider:
                 provider_class = "bg-primary text-white"
-
-            elif "CSL" in row["provider"] or "網上行" in row["provider"]:
-
+            elif "CSL" in row.provider:
                 provider_class = "bg-warning text-dark"
-
-            elif "CMHK" in row["provider"]:
-
+            elif "CMHK" in row.provider:
                 provider_class = "bg-success text-white"
-
-            elif "3HK" in row["provider"]:
-
+            elif "3HK" in row.provider:
                 provider_class = "bg-danger text-white"
-
-
 
             html += f"""
-
 <div class="col-md-4 mb-4">
-
 <div class="card shadow-lg plan-card h-100 overflow-hidden">
 
 <div class="{provider_class} py-3 text-center fw-bold fs-4">
-
-{row['provider']}
-
+{row.provider}
 </div>
 
 <div class="card-body text-center p-4">
 
 {badge}
 
-<div class="price">
-
-${row['fee']}
-
-</div>
-
-<p class="text-muted">
-每月月費
-</p>
+<div class="price">${row.fee}</div>
+<p class="text-muted">每月月費</p>
 
 <hr>
 
 <p class="fs-5">
-
-<i class="bi bi-wifi"></i>
-
-{row['data']}
-
+<i class="bi bi-wifi"></i> {row.data}
 </p>
-
 
 <div class="text-start mt-4">
-
-<p>
-
-✅ <strong>合約期：</strong>
-
-{row['contract']}
-
-</p>
-
-<p>
-
-⭐ <strong>特色：</strong>
-
-{row['remark']}
-
-</p>
-
+<p>✅ <strong>合約期：</strong> {row.contract}</p>
+<p>⭐ <strong>特色：</strong> {row.remark}</p>
 </div>
 
-
-<a
-href="https://wa.me/85254838282?text=我想申請/了解%20{row['provider']}%20{row['data']}%20月費計劃"
+<a href="https://wa.me/85254838282?text=我想申請/了解%20{row.provider}%20{row.data}%20月費計劃"
 target="_blank"
 class="btn btn-success w-100 rounded-pill">
-
-<i class="bi bi-whatsapp"></i>
-
-WhatsApp 查詢
-
+<i class="bi bi-whatsapp"></i> WhatsApp 查詢
 </a>
 
 </div>
-
 </div>
-
 </div>
-
 """
 
         html += """
-
 </div>
-
 </div>
 
 </body>
-
 </html>
-
 """
 
         return html
 
     except Exception as e:
-
         return f"<h2>錯誤:</h2><pre>{str(e)}</pre>"
 
 
