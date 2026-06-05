@@ -661,16 +661,6 @@ $200以下
 
 """
 
-        for p in providers:
-
-            html += f"""
-
-<option value="{p}">
-{p}
-</option>
-
-"""
-
         html += """
 
 </select>
