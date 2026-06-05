@@ -591,7 +591,7 @@ id="navbarNav">
 
 <i class="bi bi-phone"></i>
 
-手機月費比較
+手機月費
 
 </h1>
 
@@ -622,10 +622,6 @@ onchange="this.form.submit()">
 """
 
         html += """
-
-</select>
-
-</div>
 
 </select>
 
