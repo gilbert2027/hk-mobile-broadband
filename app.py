@@ -12,7 +12,7 @@ app = Flask(__name__)
 # 防 spam
 limiter = Limiter(
     key_func=get_remote_address,
-    default_limits=["10 per minute"]
+    default_limits=["100 per minute"]
 )
 
 limiter.init_app(app)
