@@ -757,6 +757,7 @@ def broadband():
 
         provider = request.args.get("provider")
         max_fee = request.args.get("max_fee")
+        speed = request.args.get("speed")
 
         providers = sorted(df["provider"].dropna().unique())
 
@@ -765,7 +766,10 @@ def broadband():
 
         if max_fee:
             df = df[df["fee"] <= int(max_fee)]
-
+        
+        if speed:
+            df = df[df["speed"].astype(str).str.contains(speed, na=False)]
+            
         df = df.sort_values("fee")
 
         html = """
@@ -850,12 +854,34 @@ body{
 
 <form method="GET" class="row g-3 mb-4">
 
-<div class="col-md-6">
+<div class="col-md-4">
 
 <select
-name="provider"
+name="speed"
 class="form-select"
 onchange="this.form.submit()">
+
+<option value="">
+所有速度
+</option>
+
+<option value="1000">
+1000M
+</option>
+
+<option value="2000">
+2000M
+</option>
+
+<option value="2500">
+2500M
+</option>
+
+</select>
+
+</div>
+
+
 
 <option value="">
 所有供應商
