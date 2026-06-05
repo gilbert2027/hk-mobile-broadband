@@ -1042,10 +1042,6 @@ onchange="this.form.submit()">
 
 </div>
 
-</select>
-
-</div>
-
 <div class="col-md-6">
 
 <select
