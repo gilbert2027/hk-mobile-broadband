@@ -942,6 +942,8 @@ onchange="this.form.submit()">
 
 <td>{row.provider}</td>
 
+<td>{row.plan_name}</td>
+
 <td>${fee}</td>
 
 <td>{speed}</td>
