@@ -195,19 +195,6 @@ id="navbarNav">
 
 </nav>
 
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-
-<div class="container">
-
-<a class="navbar-brand fw-bold" href="/">
-HK Plan Compare
-</a>
-
-</div>
-
-</nav>
-
 <div class="container py-5">
 
 <div class="hero text-center shadow">
@@ -602,6 +589,12 @@ id="navbarNav">
 
 <h1 class="fw-bold mb-4">
 
+<i class="bi bi-phone"></i>
+
+手機月費比較
+
+</h1>
+
 <form method="GET" class="row g-3 mb-4">
 
 <div class="col-md-6">
@@ -616,6 +609,7 @@ onchange="this.form.submit()">
 </option>
 
 """
+
 
         for p in providers:
 
@@ -888,7 +882,7 @@ def broadband():
 
 <meta charset="utf-8">
 
-<title>家居寬頻比較</title>
+<title>家居寬頻</title>
 
 <meta
 name="viewport"
