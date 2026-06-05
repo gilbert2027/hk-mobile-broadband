@@ -436,354 +436,61 @@ class="btn btn-warning btn-lg w-100 btn-custom">
 
 @app.route("/mobile")
 def mobile():
-    try:
-        df = pd.read_csv(CSV_PATH)
-        df = df[df["category"] == "mobile"]
 
-        providers = sorted(df["provider"].dropna().unique())
+```
+try:
 
-        provider = request.args.get("provider")
-        max_fee = request.args.get("max_fee")
+    df = pd.read_csv(CSV_PATH)
 
-        if provider:
-            df = df[df["provider"] == provider]
+    df = df[df["category"] == "mobile"]
 
-        if max_fee:
-            df = df[df["fee"] <= int(max_fee)]
+    df["fee"] = pd.to_numeric(df["fee"], errors="coerce")
 
-        df = df.sort_values("fee")
+    df = df.dropna(subset=["fee"])
 
-        html = """
+    provider = request.args.get("provider")
+
+    max_fee = request.args.get("max_fee")
+
+    providers = sorted(df["provider"].unique())
+
+    if provider:
+        df = df[df["provider"] == provider]
+
+    if max_fee:
+        df = df[df["fee"] <= int(max_fee)]
+
+    df = df.sort_values("fee")
+
+    html = f"""
+```
+
 <!DOCTYPE html>
+
 <html lang="zh-HK">
+
 <head>
+
 <meta charset="utf-8">
+
 <title>手機月費比較</title>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<meta name="description"
+content="香港最新5G手機月費比較">
 
-<style>
-body { background: #f5f7fb; }
-
-.plan-card {
-    border: none;
-    border-radius: 20px;
-    transition: 0.3s;
-}
-
-.plan-card:hover {
-    transform: translateY(-5px);
-}
-
-.price {
-    font-size: 40px;
-    font-weight: bold;
-    color: #0d6efd;
-}
-</style>
-</head>
-
-<body>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-<div class="container">
-<a class="navbar-brand fw-bold" href="/">流通通訊</a>
-
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-<span class="navbar-toggler-icon"></span>
-</button>
-
-<div class="collapse navbar-collapse" id="navbarNav">
-<ul class="navbar-nav ms-auto">
-<li class="nav-item"><a class="nav-link" href="/">主頁</a></li>
-<li class="nav-item"><a class="nav-link" href="/mobile">手機月費</a></li>
-<li class="nav-item"><a class="nav-link" href="/broadband">家居寬頻</a></li>
-<li class="nav-item"><a class="nav-link" href="https://wa.me/85254838282?text=我想查詢" target="_blank">聯絡我們</a></li>
-</ul>
-</div>
-</div>
-</nav>
-
-<div class="container py-5">
-
-<h1 class="fw-bold mb-4">
-<i class="bi bi-phone"></i> 手機月費
-</h1>
-
-<form method="GET" class="row g-3 mb-4">
-
-<div class="col-md-6">
-<select name="provider" class="form-select" onchange="this.form.submit()">
-<option value="">所有供應商</option>
-"""
-
-        # provider dropdown（只一次）
-        for p in providers:
-            selected = "selected" if p == provider else ""
-            html += f'<option value="{p}" {selected}>{p}</option>'
-
-        html += """
-</select>
-</div>
-
-<div class="col-md-6">
-<select name="max_fee" class="form-select" onchange="this.form.submit()">
-<option value="">所有價錢</option>
-<option value="100">$100以下</option>
-<option value="150">$150以下</option>
-<option value="200">$200以下</option>
-</select>
-</div>
-
-</form>
-
-<div class="row">
-"""
-
-        # cards
-        for i, row in enumerate(df.itertuples(index=False)):
-
-            badge = ""
-            if i == 0:
-                badge = '<span class="badge bg-danger mb-3">最平推薦</span>'
-
-            provider_class = "bg-dark text-white"
-
-            if "HGC" in row.provider:
-                provider_class = "bg-danger text-white"
-            elif "HKBN" in row.provider:
-                provider_class = "bg-primary text-white"
-            elif "CSL" in row.provider:
-                provider_class = "bg-warning text-dark"
-            elif "CMHK" in row.provider:
-                provider_class = "bg-success text-white"
-            elif "3HK" in row.provider:
-                provider_class = "bg-danger text-white"
-
-            html += f"""
-<div class="col-md-4 mb-4">
-<div class="card shadow-lg plan-card h-100 overflow-hidden">
-
-<div class="{provider_class} py-3 text-center fw-bold fs-4">
-{row.provider}
-</div>
-
-<div class="card-body text-center p-4">
-
-{badge}
-
-<div class="price">${row.fee}</div>
-<p class="text-muted">每月月費</p>
-
-<hr>
-
-<p class="fs-5">
-<i class="bi bi-wifi"></i> {row.data}
-</p>
-
-<div class="text-start mt-4">
-<p>✅ <strong>合約期：</strong> {row.contract}</p>
-<p>⭐ <strong>特色：</strong> {row.remark}</p>
-</div>
-
-<a href="https://wa.me/85254838282?text=我想申請/了解%20{row.provider}%20{row.data}%20月費計劃"
-target="_blank"
-class="btn btn-success w-100 rounded-pill">
-<i class="bi bi-whatsapp"></i> WhatsApp 查詢
-</a>
-
-</div>
-</div>
-</div>
-"""
-
-        html += """
-</div>
-</div>
-
-</body>
-</html>
-"""
-
-        return html
-
-    except Exception as e:
-        return f"<h2>錯誤:</h2><pre>{str(e)}</pre>"
-
-
-
-
-
-# =========================
-# Broadband
-# =========================
-
-
-
-@app.route("/broadband")
-def broadband():
-
-    try:
-
-        df = pd.read_csv(CSV_PATH)
-
-        df = df[df["category"] == "broadband"]
-
-        providers = df["provider"].unique()
-
-        provider = request.args.get("provider")
-
-        max_fee = request.args.get("max_fee")
-
-        if provider:
-
-            df = df[df["provider"] == provider]
-
-        if max_fee:
-
-            df = df[df["fee"] <= int(max_fee)]
-
-        df = df.sort_values("fee")
-
-        html = """
-
-<!DOCTYPE html>
-
-<html lang="zh-HK">
-
-<head>
-
-<meta charset="utf-8">
-
-<title>家居寬頻</title>
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1">
-
-<link
-href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 rel="stylesheet">
-
-<link
-href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-rel="stylesheet">
-
-<style>
-
-body {
-    background: #f5f7fb;
-}
-
-.plan-card {
-    border-radius: 20px;
-    overflow: hidden;
-    border: none;
-    transition: 0.3s;
-}
-
-.plan-card:hover {
-    transform: translateY(-5px);
-}
-
-.price {
-    font-size: 42px;
-    font-weight: bold;
-    color: #198754;
-}
-
-</style>
 
 </head>
 
 <body>
 
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-
-<div class="container">
-
-<a class="navbar-brand fw-bold" href="/">
-
-流通通訊
-
-</a>
-
-<button
-class="navbar-toggler"
-type="button"
-data-bs-toggle="collapse"
-data-bs-target="#navbarNav">
-
-<span class="navbar-toggler-icon"></span>
-
-</button>
-
-<div
-class="collapse navbar-collapse"
-id="navbarNav">
-
-<ul class="navbar-nav ms-auto">
-
-<li class="nav-item">
-
-<a class="nav-link" href="/">
-
-主頁
-
-</a>
-
-</li>
-
-<li class="nav-item">
-
-<a class="nav-link" href="/mobile">
-
-手機月費
-
-</a>
-
-</li>
-
-<li class="nav-item">
-
-<a class="nav-link" href="/broadband">
-
-家居寬頻
-
-</a>
-
-</li>
-
-<li class="nav-item">
-
-<a class="nav-link" href="https://wa.me/85254838282?text=我想查詢" target="_blank">
-
-聯絡我們
-
-</a>
-
-</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</nav>
-
-
 <div class="container py-5">
 
-<h1 class="fw-bold mb-4">
-
-<i class="bi bi-router"></i>
-
-家居寬頻
-
+<h1 class="mb-4">
+📱 香港手機月費比較
 </h1>
 
 <form method="GET" class="row g-3 mb-4">
@@ -798,20 +505,24 @@ onchange="this.form.submit()">
 <option value="">
 所有供應商
 </option>
-
 """
 
-        for p in providers:
+```
+    for p in providers:
 
-            html += f"""
+        selected = "selected" if p == provider else ""
 
-<option value="{p}">
+        html += f"""
+```
+
+<option value="{p}" {selected}>
 {p}
 </option>
-
 """
 
-        html += """
+```
+    html += """
+```
 
 </select>
 
@@ -832,12 +543,12 @@ onchange="this.form.submit()">
 $100以下
 </option>
 
-<option value="120">
-$120以下
-</option>
-
 <option value="150">
 $150以下
+</option>
+
+<option value="200">
+$200以下
 </option>
 
 </select>
@@ -846,114 +557,79 @@ $150以下
 
 </form>
 
-<div class="row">
+<div class="table-responsive">
 
+<table class="table table-striped table-hover align-middle">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>供應商</th>
+
+<th>計劃</th>
+
+<th>月費</th>
+
+<th>數據</th>
+
+<th>合約</th>
+
+<th>特色</th>
+
+<th></th>
+
+</tr>
+
+</thead>
+
+<tbody>
 """
 
-        for index, row in df.iterrows():
+```
+    for row in df.itertuples(index=False):
 
-            provider_class = "bg-dark text-white"
+        html += f"""
+```
 
-            if "HGC" in row["provider"]:
+<tr>
 
-                provider_class = "bg-danger text-white"
+<td>{row.provider}</td>
 
-            elif "HKBN" in row["provider"]:
+<td>{row.plan_name}</td>
 
-                provider_class = "bg-primary text-white"
+<td>${int(row.fee)}</td>
 
-            elif "網上行" in row["provider"]:
+<td>{row.data}</td>
 
-                provider_class = "bg-warning text-dark"
+<td>{row.contract}</td>
 
-            badge = ""
+<td>{row.remark}</td>
 
-            if index == df.index[0]:
-
-                badge = """
-<span class="badge bg-danger mb-3">
-最平推薦
-</span>
-"""
-
-            html += f"""
-
-<div class="col-md-4 mb-4">
-
-<div class="card shadow-lg plan-card h-100">
-
-<div class="{provider_class} py-3 text-center fw-bold fs-4">
-
-{row['provider']}
-
-</div>
-
-<div class="card-body text-center p-4">
-
-{badge}
-
-<div class="price">
-
-${row['fee']}
-
-</div>
-
-<p class="text-muted">
-每月月費
-</p>
-
-<hr>
-
-<p class="fs-5">
-
-<i class="bi bi-lightning-charge-fill"></i>
-
-{row['speed']}
-
-</p>
-
-
-<div class="text-start mt-4">
-
-<p>
-
-✅ <strong>合約期：</strong>
-
-{row['contract']}
-
-</p>
-
-<p>
-
-⭐ <strong>特色：</strong>
-
-{row['remark']}
-
-</p>
-
-</div>
-
+<td>
 
 <a
-href="https://wa.me/85254838282?text=我想申請/了解%20{row['provider']}%20{row['speed']}%20寬頻計劃"
+href="https://wa.me/85254838282?text=我想了解 {row.provider} {row.plan_name}"
 target="_blank"
-class="btn btn-success w-100 rounded-pill">
+class="btn btn-success btn-sm">
 
-<i class="bi bi-whatsapp"></i>
-
-WhatsApp 查詢
+WhatsApp
 
 </a>
 
-</div>
+</td>
 
-</div>
-
-</div>
+</tr>
 
 """
 
-        html += """
+```
+    html += """
+```
+
+</tbody>
+
+</table>
 
 </div>
 
@@ -965,11 +641,241 @@ WhatsApp 查詢
 
 """
 
-        return html
+```
+    return html
 
-    except Exception as e:
+except Exception as e:
 
-        return f"<pre>{str(e)}</pre>"
+    return f"<pre>{str(e)}</pre>"
+```
+
+
+
+
+
+
+# =========================
+# Broadband
+# =========================
+
+@app.route("/broadband")
+def broadband():
+
+```
+try:
+
+    df = pd.read_csv(CSV_PATH)
+
+    df = df[df["category"] == "broadband"]
+
+    df["fee"] = pd.to_numeric(df["fee"], errors="coerce")
+
+    df = df.dropna(subset=["fee"])
+
+    provider = request.args.get("provider")
+
+    max_fee = request.args.get("max_fee")
+
+    providers = sorted(df["provider"].unique())
+
+    if provider:
+        df = df[df["provider"] == provider]
+
+    if max_fee:
+        df = df[df["fee"] <= int(max_fee)]
+
+    df = df.sort_values("fee")
+
+    html = """
+```
+
+<!DOCTYPE html>
+
+<html lang="zh-HK">
+
+<head>
+
+<meta charset="utf-8">
+
+<title>家居寬頻比較</title>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1">
+
+<meta name="description"
+content="香港家居寬頻比較">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container py-5">
+
+<h1 class="mb-4">
+🌐 家居寬頻比較
+</h1>
+
+<form method="GET" class="row g-3 mb-4">
+
+<div class="col-md-6">
+
+<select
+name="provider"
+class="form-select"
+onchange="this.form.submit()">
+
+<option value="">
+所有供應商
+</option>
+"""
+
+```
+    for p in providers:
+
+        selected = "selected" if p == provider else ""
+
+        html += f"""
+```
+
+<option value="{p}" {selected}>
+{p}
+</option>
+"""
+
+```
+    html += """
+```
+
+</select>
+
+</div>
+
+<div class="col-md-6">
+
+<select
+name="max_fee"
+class="form-select"
+onchange="this.form.submit()">
+
+<option value="">
+所有價錢
+</option>
+
+<option value="100">
+$100以下
+</option>
+
+<option value="150">
+$150以下
+</option>
+
+<option value="200">
+$200以下
+</option>
+
+</select>
+
+</div>
+
+</form>
+
+<div class="table-responsive">
+
+<table class="table table-striped table-hover align-middle">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>供應商</th>
+
+<th>計劃</th>
+
+<th>月費</th>
+
+<th>速度</th>
+
+<th>合約</th>
+
+<th>特色</th>
+
+<th></th>
+
+</tr>
+
+</thead>
+
+<tbody>
+"""
+
+```
+    for row in df.itertuples(index=False):
+
+        html += f"""
+```
+
+<tr>
+
+<td>{row.provider}</td>
+
+<td>{row.plan_name}</td>
+
+<td>${int(row.fee)}</td>
+
+<td>{row.speed}</td>
+
+<td>{row.contract}</td>
+
+<td>{row.remark}</td>
+
+<td>
+
+<a
+href="https://wa.me/85254838282?text=我想了解 {row.provider} {row.plan_name}"
+target="_blank"
+class="btn btn-success btn-sm">
+
+WhatsApp
+
+</a>
+
+</td>
+
+</tr>
+
+"""
+
+```
+    html += """
+```
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
+
+"""
+
+```
+    return html
+
+except Exception as e:
+
+    return f"<pre>{str(e)}</pre>"
+```
+
+
+
 
 
 
