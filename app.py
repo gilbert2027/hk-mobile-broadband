@@ -550,7 +550,7 @@ body{
 """
 
 
-    html += str(len(df))
+        html += str(len(df))
 
     html += """
 
@@ -576,7 +576,7 @@ onchange="this.form.submit()">
 """
 
 
-    for p in providers:
+        for p in providers:
 
         selected = ""
 
@@ -666,7 +666,7 @@ $300以下
 """
 
 
-    for row in df.itertuples(index=False):
+        for row in df.itertuples(index=False):
 
         html += f"""
 
@@ -725,7 +725,7 @@ WhatsApp
 """
 
 
-    return html
+        return html
 
 except Exception as e:
 
@@ -744,8 +744,7 @@ except Exception as e:
 @app.route("/broadband")
 def broadband():
 
-
-try:
+    try:
 
     df = pd.read_csv(CSV_PATH)
 
