@@ -854,12 +854,6 @@ body{
 
 <form method="GET" class="row g-3 mb-4">
 
-<div class="col-md-4">
-
-<select
-name="provider"
-class="form-select"
-onchange="this.form.submit()">
 
 <div class="col-md-4">
 
@@ -868,25 +862,6 @@ name="speed"
 class="form-select"
 onchange="this.form.submit()">
 
-<option value="">
-所有速度
-</option>
-
-<option value="1000">
-1000M
-</option>
-
-<option value="2000">
-2000M
-</option>
-
-<option value="2500">
-2500M
-</option>
-
-</select>
-
-</div>
 
 
 
