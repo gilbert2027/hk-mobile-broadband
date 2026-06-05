@@ -11,10 +11,11 @@ app = Flask(__name__)
 
 # 防 spam
 limiter = Limiter(
-    get_remote_address,
-    app=app,
+    key_func=get_remote_address,
     default_limits=["10 per minute"]
 )
+
+limiter.init_app(app)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CSV_PATH = os.path.join(BASE_DIR, "plans.csv")
@@ -517,7 +518,7 @@ def mobile():
         df = df.dropna(subset=["fee"])
     
         provider = request.args.get("provider")
-        max_fee = request.args.get("max_fee")
+        price_range = request.args.get("price_range")
     
         providers = sorted(df["provider"].dropna().unique())
     
@@ -692,9 +693,9 @@ onchange="this.form.submit()">
 </option>
 
 
-<option value="100">$100以下</option>
-<option value="101to200">$101-$200</option>
-<option value="over200">$200以上</option>
+selected_under100 = "selected" if price_range == "under100" else ""
+selected_101to200 = "selected" if price_range == "101to200" else ""
+selected_over200 = "selected" if price_range == "over200" else ""
 
 
 </select>
@@ -1014,9 +1015,9 @@ onchange="this.form.submit()">
 所有價錢
 </option>
 
-<option value="100">$100以下</option>
-<option value="101to200">$101-$200</option>
-<option value="over200">$200以上</option>
+selected_under100 = "selected" if price_range == "under100" else ""
+selected_101to200 = "selected" if price_range == "101to200" else ""
+selected_over200 = "selected" if price_range == "over200" else ""
 
 </select>
 
@@ -1581,7 +1582,7 @@ def dashboard():
 
     try:
 
-        url = "你的 Google Sheet CSV 公開網址"
+        url = "https://docs.google.com/spreadsheets/d/e/xxxxx/pub?output=csv"
 
         df = pd.read_csv(url)
 
