@@ -857,6 +857,13 @@ body{
 <div class="col-md-4">
 
 <select
+name="provider"
+class="form-select"
+onchange="this.form.submit()">
+
+<div class="col-md-4">
+
+<select
 name="speed"
 class="form-select"
 onchange="this.form.submit()">
