@@ -670,13 +670,7 @@ $200以下
 </form>
 
 
-<i class="bi bi-phone"></i>
 
-手機月費比較
-
-</h1>
-
-<div class="row">
 
 """
 
@@ -984,7 +978,7 @@ id="navbarNav">
 
 <i class="bi bi-router"></i>
 
-家居寬頻比較
+家居寬頻
 
 </h1>
 
