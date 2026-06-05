@@ -1,0 +1,8 @@
+@app.route("/robots.txt")
+def robots():
+    return """
+User-agent: *
+Allow: /
+
+Sitemap: https://你的網域/sitemap.xml
+""", 200, {"Content-Type":"text/plain"}
