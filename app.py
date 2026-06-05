@@ -848,6 +848,18 @@ def broadband():
 
         df = df[df["category"] == "broadband"]
 
+        provider = request.args.get("provider")
+
+        max_fee = request.args.get("max_fee")
+
+        if provider:
+
+            df = df[df["provider"] == provider]
+
+        if max_fee:
+
+            df = df[df["fee"] <= int(max_fee)]
+
         df = df.sort_values("fee")
 
         html = """
@@ -988,6 +1000,64 @@ id="navbarNav">
 家居寬頻比較
 
 </h1>
+
+<form method="GET" class="row g-3 mb-4">
+
+<div class="col-md-6">
+
+<select
+name="provider"
+class="form-select"
+onchange="this.form.submit()">
+
+<option value="">
+所有供應商
+</option>
+
+<option value="香港寬頻HKBN">
+香港寬頻HKBN
+</option>
+
+<option value="環球電訊HGC">
+環球電訊HGC
+</option>
+
+<option value="網上行Netvigator">
+網上行Netvigator
+</option>
+
+</select>
+
+</div>
+
+<div class="col-md-6">
+
+<select
+name="max_fee"
+class="form-select"
+onchange="this.form.submit()">
+
+<option value="">
+所有價錢
+</option>
+
+<option value="100">
+$100以下
+</option>
+
+<option value="120">
+$120以下
+</option>
+
+<option value="150">
+$150以下
+</option>
+
+</select>
+
+</div>
+
+</form>
 
 <div class="row">
 
