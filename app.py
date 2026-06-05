@@ -456,6 +456,8 @@ def mobile():
 
         df = df[df["category"] == "mobile"]
 
+        providers = df["provider"].unique()
+
         provider = request.args.get("provider")
 
         max_fee = request.args.get("max_fee")
@@ -613,17 +615,23 @@ onchange="this.form.submit()">
 所有供應商
 </option>
 
-<option value="中國移動CMHK">
-中國移動CMHK
+"""
+
+        for p in providers:
+
+            html += f"""
+
+<option value="{p}">
+{p}
 </option>
 
-<option value="環球電訊3HK">
-環球電訊3HK
-</option>
+"""
 
-<option value="CSL">
-CSL
-</option>
+        html += """
+
+</select>
+
+</div>
 
 </select>
 
@@ -668,17 +676,23 @@ onchange="this.form.submit()">
 所有供應商
 </option>
 
-<option value="中國移動CMHK">
-中國移動CMHK
+"""
+
+        for p in providers:
+
+            html += f"""
+
+<option value="{p}">
+{p}
 </option>
 
-<option value="環球電訊3HK">
-環球電訊3HK
-</option>
+"""
 
-<option value="CSL">
-CSL
-</option>
+        html += """
+
+</select>
+
+</div>
 
 </select>
 
