@@ -684,7 +684,7 @@ onchange="this.form.submit()">
 <div class="col-md-6">
 
 <select
-name="max_fee"
+name="price_range"
 class="form-select"
 onchange="this.form.submit()">
 
