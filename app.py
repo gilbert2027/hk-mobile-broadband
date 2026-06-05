@@ -1589,7 +1589,7 @@ def dashboard():
 
     try:
 
-        url = "https://docs.google.com/spreadsheets/d/e/xxxxx/pub?output=csv"
+        url = "https://docs.google.com/spreadsheets/d/1jtr65G_onpEtcqLz6dBHwgu8lBOumqwgkZJtUAL7kww/export?format=csv"
 
         df = pd.read_csv(url)
 
