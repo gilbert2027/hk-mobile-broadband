@@ -48,6 +48,24 @@ content="比較香港最新5G手機月費及家居寬頻優惠">
 name="viewport"
 content="width=device-width, initial-scale=1">
 
+<meta name="keywords"
+content="香港手機月費,5G月費比較,CMHK,3HK,CSL,SmarTone,香港寬頻,HKBN,HGC,網上行">
+
+<meta property="og:title"
+content="香港手機月費及寬頻比較">
+
+<meta property="og:description"
+content="比較 CMHK、3HK、CSL、SmarTone、HKBN、HGC 最新優惠">
+
+<meta property="og:type"
+content="website">
+
+<meta property="og:locale"
+content="zh_HK">
+
+<meta name="robots"
+content="index,follow">
+
 <link
 href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 rel="stylesheet">
@@ -107,6 +125,32 @@ body {
 
 }
 
+.whatsapp-float{
+
+position:fixed;
+
+bottom:20px;
+
+right:20px;
+
+background:#25D366;
+
+color:white;
+
+padding:15px 20px;
+
+border-radius:50px;
+
+text-decoration:none;
+
+font-weight:bold;
+
+z-index:9999;
+
+box-shadow:0 4px 10px rgba(0,0,0,.2);
+
+}
+
 .footer {
 
     color: #777;
@@ -118,6 +162,15 @@ body {
 </style>
 
 </head>
+
+<a
+href="https://wa.me/85254838282?text=我想查詢"
+target="_blank"
+class="whatsapp-float">
+
+💬 WhatsApp查詢
+
+</a>
 
 <body>
 
@@ -342,6 +395,21 @@ class="btn btn-success btn-custom">
 
 <form action="/submit" method="POST">
 
+<input type="hidden" name="utm_source" id="utm_source">
+<input type="hidden" name="utm_campaign" id="utm_campaign">
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+document.getElementById("utm_source").value =
+params.get("utm_source") || "direct";
+
+document.getElementById("utm_campaign").value =
+params.get("utm_campaign") || "";
+
+</script>
+
 <div class="row">
 
 <div class="col-md-6 mb-3">
@@ -473,6 +541,12 @@ def mobile():
 <meta charset="utf-8">
 
 <title>香港手機月費比較</title>
+
+<meta name="description"
+content="比較 CMHK、3HK、CSL、SmarTone 最新5G手機月費優惠">
+
+<meta name="keywords"
+content="CMHK,3HK,CSL,SmarTone,5G月費,香港手機計劃">
 
 <meta name="viewport"
 content="width=device-width, initial-scale=1">
@@ -785,6 +859,12 @@ def broadband():
 <meta charset="utf-8">
 <title>香港家居寬頻比較</title>
 
+<meta name="description"
+content="比較 HKBN、HGC、網上行 最新家居寬頻優惠">
+
+<meta name="keywords"
+content="香港寬頻,HKBN,HGC,網上行,光纖寬頻,1000M寬頻">
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -1091,9 +1171,11 @@ def submit():
         name = request.form.get("name")
         phone = request.form.get("phone")
         provider = request.form.get("provider")
+        utm_source = request.form.get("utm_source")
+        utm_campaign = request.form.get("utm_campaign")
 
         # 電話驗證
-        if not re.match(r"^[0-9]{8}$", phone):
+        if not re.match(r"^[456789][0-9]{7}$", phone):
 
             return """
 
@@ -1193,6 +1275,8 @@ def submit():
             "name": name,
             "phone": phone,
             "provider": provider
+            "utm_source": utm_source,
+            "utm_campaign": utm_campaign
         }
 
         # 你的 Google Apps Script Web App URL
@@ -1492,7 +1576,81 @@ def submit():
 
         """
 
+@app.route("/dashboard")
+def dashboard():
 
+    try:
+
+        url = "你的 Google Sheet CSV 公開網址"
+
+        df = pd.read_csv(url)
+
+        total = len(df)
+
+        provider_counts = (
+            df["provider"]
+            .value_counts()
+            .to_dict()
+        )
+
+        html = f"""
+
+        <html>
+
+        <head>
+
+        <meta charset="utf-8">
+
+        <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+        </head>
+
+        <body class="container py-5">
+
+        <h1>Leads Dashboard</h1>
+
+        <div class="alert alert-success">
+
+        總查詢數：
+
+        <b>{total}</b>
+
+        </div>
+
+        """
+
+        for k,v in provider_counts.items():
+
+            html += f"""
+
+            <div class="card mb-3">
+
+            <div class="card-body">
+
+            {k}: {v}
+
+            </div>
+
+            </div>
+
+            """
+
+        html += """
+
+        </body>
+
+        </html>
+
+        """
+
+        return html
+
+    except Exception as e:
+
+        return str(e)
+        
 # =========================
 # Health
 # =========================
