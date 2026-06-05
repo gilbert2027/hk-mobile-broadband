@@ -1,29 +1,29 @@
 provider,network,plan_name,category,fee,data,speed,contract,remark
-
+SmarTone,SmarTone,5G基本計劃,mobile,178,100GB,最高速,24個月,包含FUP公平使用政策
+中國移動,CMHK,5G一咭兩地計劃,mobile,389,50GB,最高速,24個月,含中港數據及通話
+中國移動,CMHK,全速無限計劃,mobile,120,無限,42Mbps,合約制,贈送中澳數據
+中國移動,CMHK,入門限速計劃,mobile,68,8GB,限速,合約制,達量後限速128kbps
+CSL,CSL,5G指定月費計劃,mobile,399,110GB,最高速,24個月,包含Now TV及MOOV增值服務
+CSL,CSL,5G 120GB,mobile,148,120GB,5G,36個月,高速網絡
+CSL,CSL,大灣區服務計劃,mobile,238,120GB(共用),5G,24個月,送內地漫遊數據
+CSL,CSL,數據漫遊通行證計劃,mobile,29,1GB,最高速,24個月,包含旅遊保險優惠
+HGC Mobile,3,5G入門計劃,mobile,98,30GB,最高速,合約制,贈送4GB內地數據
 香港寬頻HKBN,3HK,5G 30GB,mobile,98,30GB+4GB內地澳門,1Mbps,28個月,15個指定App任用
 香港寬頻HKBN,3HK,5G 45GB學生優惠,mobile,82,45GB+2GB內地澳門,1Mbps,36個月,免6個月月費(平均價)
 香港寬頻HKBN,3HK,5G 60GB,mobile,124,60GB+1GB內地澳門,1Mbps,30個月,其後任用數據
 香港寬頻HKBN,3HK,5G 100GB,mobile,148,100GB+3GB內地澳門,1Mbps,30個月,送中國內地電話號碼
-
 香港寬頻HKBN,CMHK,5G 100GB,mobile,149,100GB+4GB內地澳門,5Mbps,24個月,送$500超市券+轉台免行政費
 香港寬頻HKBN,CMHK,5G 200GB,mobile,199,200GB+4GB內地澳門,5Mbps,24個月,其後任用數據
 香港寬頻HKBN,CMHK,中港共享50GB,mobile,179,50GB中港共享,1Mbps,24個月,香港本地任用數據
-
-CSL,CSL,5G 120GB,mobile,148,120GB,5G,36個月,高速網絡
-CSL,CSL,大灣區服務計劃,mobile,238,120GB(共用),5G,24個月,送內地漫遊數據
-
 香港寬頻HKBN,HKBN,1000M家居寬頻,broadband,98,,1000M,36個月,免安裝費+送Router
 香港寬頻HKBN,HKBN,2500M GigaFast,broadband,149,,2500M,24個月,免安裝費
-
 環球電訊HGC,HGC,1000M標準計劃,broadband,99,,1000M,24個月,免安裝費
 環球電訊HGC,HGC,1000M連家居電話,broadband,89,,1000M+電話,39個月,送AX1500 Router
 環球電訊HGC,HGC,2500M WiFi7,broadband,139,,2500M,36個月,送WiFi7 Router
 環球電訊HGC,HGC,2500M WiFi7(24個月),broadband,159,,2500M,24個月,送WiFi7 Router
-
 有線寬頻i-Cable,i-Cable,1000M光纖入屋,broadband,68,,1000M,36個月,免安裝費+免一次搬遷費
 有線寬頻i-Cable,i-Cable,2x1000M光纖入屋,broadband,78,,2x1000M,36個月,免安裝費+免一次搬遷費
 有線寬頻i-Cable,i-Cable,2000M光纖入屋,broadband,118,,2000M,36個月,免安裝費+免一次搬遷費
-
 網上行Netvigator,Netvigator,1000M光纖入屋,broadband,128,,1000M,30個月,穩定之選
 網上行Netvigator,Netvigator,2x1000M光纖入屋,broadband,198,,2x1000M,30個月,豁免安裝費
 網上行Netvigator,Netvigator,F5G-A 2500M超級寬頻,broadband,318,,2500M,24個月,Now TV+Netflix組合
