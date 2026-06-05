@@ -178,8 +178,11 @@ box-shadow:0 4px 10px rgba(0,0,0,.2);
 
 </head>
 
+<body>
+
 <a
 href="https://wa.me/85254838282?text=我想查詢"
+target="_blank"
 onclick="
 gtag('event', 'whatsapp_click', {
   event_category: 'engagement',
@@ -192,8 +195,6 @@ class="whatsapp-float">
 💬 WhatsApp查詢
 
 </a>
-
-<body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
 
@@ -254,6 +255,7 @@ id="navbarNav">
 <li class="nav-item">
 
 <a class="nav-link" href="https://wa.me/85254838282?text=我想查詢" 
+target="_blank"
 onclick="
 gtag('event', 'whatsapp_click', {
   event_category: 'engagement',
@@ -1329,6 +1331,7 @@ def submit():
             <li class="nav-item">
 
             <a class="nav-link" href="https://wa.me/85254838282?text=我想查詢"
+            target="_blank"
             onclick="
             gtag('event', 'whatsapp_click', {
               event_category: 'engagement',
@@ -1495,6 +1498,7 @@ def submit():
         <li class="nav-item">
 
         <a class="nav-link" href="https://wa.me/85254838282?text=我想查詢"
+        target="_blank"
         onclick="
         gtag('event', 'whatsapp_click', {
           event_category: 'engagement',
@@ -1654,6 +1658,7 @@ def submit():
         <li class="nav-item">
 
         <a class="nav-link" href="https://wa.me/85254838282?text=我想查詢"
+        target="_blank"
         onclick="
         gtag('event', 'whatsapp_click', {
           event_category: 'engagement',
