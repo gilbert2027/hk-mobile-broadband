@@ -685,21 +685,11 @@ onchange="this.form.submit()">
 所有價錢
 </option>
 
-<option value="100">
-$100以下
-</option>
 
-<option value="150">
-$150以下
-</option>
+<option value="100">$100以下</option>
+<option value="101to200">$101-$200</option>
+<option value="over200">$200以上</option>
 
-<option value="200">
-$200以下
-</option>
-
-<option value="300">
-$300以下
-</option>
 
 </select>
 
@@ -845,8 +835,8 @@ def broadband():
         if price_range == "under100":
             df = df[df["fee"] < 100]
         
-        elif price_range == "100to200":
-            df = df[(df["fee"] >= 100) & (df["fee"] <= 200)]
+        elif price_range == "101to200":
+            df = df[(df["fee"] >= 101) & (df["fee"] <= 200)]
         
         elif price_range == "over200":
             df = df[df["fee"] > 200]
@@ -1019,7 +1009,7 @@ onchange="this.form.submit()">
 </option>
 
 <option value="100">$100以下</option>
-<option value="100to200">$100-$200</option>
+<option value="101to200">$101-$200</option>
 <option value="over200">$200以上</option>
 
 </select>
