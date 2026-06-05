@@ -578,12 +578,12 @@ onchange="this.form.submit()">
 
         for p in providers:
 
-        selected = ""
+            selected = ""
 
-        if p == provider:
-            selected = "selected"
+            if p == provider:
+                selected = "selected"
 
-        html += f"""
+            html += f"""
 
 
 <option value="{p}" {selected}>
@@ -668,7 +668,7 @@ $300以下
 
         for row in df.itertuples(index=False):
 
-        html += f"""
+            html += f"""
 
 
 <tr>
@@ -705,7 +705,7 @@ WhatsApp
 """
 
 
-    html += """
+        html += """
 
 
 </tbody>
@@ -727,9 +727,9 @@ WhatsApp
 
         return html
 
-except Exception as e:
+    except Exception as e:
 
-    return f"<pre>{str(e)}</pre>"
+        return f"<pre>{str(e)}</pre>"
 
 
 
