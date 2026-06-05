@@ -437,32 +437,32 @@ class="btn btn-warning btn-lg w-100 btn-custom">
 @app.route("/mobile")
 def mobile():
 
-```
-try:
 
-    df = pd.read_csv(CSV_PATH)
+    try:
+    
+        df = pd.read_csv(CSV_PATH)
+    
+        df = df[df["category"] == "mobile"].copy()
+    
+        df["fee"] = pd.to_numeric(df["fee"], errors="coerce")
+    
+        df = df.dropna(subset=["fee"])
+    
+        provider = request.args.get("provider")
+        max_fee = request.args.get("max_fee")
+    
+        providers = sorted(df["provider"].dropna().unique())
+    
+        if provider:
+            df = df[df["provider"] == provider]
+    
+        if max_fee:
+            df = df[df["fee"] <= int(max_fee)]
+    
+        df = df.sort_values("fee")
+    
+        html = """
 
-    df = df[df["category"] == "mobile"].copy()
-
-    df["fee"] = pd.to_numeric(df["fee"], errors="coerce")
-
-    df = df.dropna(subset=["fee"])
-
-    provider = request.args.get("provider")
-    max_fee = request.args.get("max_fee")
-
-    providers = sorted(df["provider"].dropna().unique())
-
-    if provider:
-        df = df[df["provider"] == provider]
-
-    if max_fee:
-        df = df[df["fee"] <= int(max_fee)]
-
-    df = df.sort_values("fee")
-
-    html = """
-```
 
 <!DOCTYPE html>
 
