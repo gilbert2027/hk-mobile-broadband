@@ -49,7 +49,7 @@ content="比較香港最新5G手機月費及家居寬頻優惠">
 name="viewport"
 content="width=device-width, initial-scale=1">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQK3BJ31E7"></script>
 
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -60,7 +60,7 @@ function gtag() {
 
 gtag('js', new Date());
 
-gtag('config', 'G-XXXXXXXXXX');
+gtag('config', 'G-RQK3BJ31E7');
 </script>
 
 <meta name="keywords"
@@ -574,7 +574,7 @@ content="CMHK,3HK,CSL,SmarTone,5G月費,香港手機計劃">
 <meta name="viewport"
 content="width=device-width, initial-scale=1">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQK3BJ31E7"></script>
 
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -585,7 +585,7 @@ function gtag() {
 
 gtag('js', new Date());
 
-gtag('config', 'G-XXXXXXXXXX');
+gtag('config', 'G-RQK3BJ31E7');
 </script>
 
 <meta name="description"
@@ -904,7 +904,7 @@ content="香港寬頻,HKBN,HGC,網上行,光纖寬頻,1000M寬頻">
 <meta name="viewport" 
 content="width=device-width, initial-scale=1">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQK3BJ31E7"></script>
 
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -915,7 +915,7 @@ function gtag() {
 
 gtag('js', new Date());
 
-gtag('config', 'G-XXXXXXXXXX');
+gtag('config', 'G-RQK3BJ31E7');
 </script>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
