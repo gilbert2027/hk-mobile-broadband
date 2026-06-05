@@ -741,296 +741,256 @@ WhatsApp
 # Broadband
 # =========================
 
+
 @app.route("/broadband")
 def broadband():
 
     try:
 
-            df = pd.read_csv(CSV_PATH)
-        
-            df = df[df["category"] == "broadband"].copy()
-        
-            df["fee"] = pd.to_numeric(df["fee"], errors="coerce")
-        
-            df = df.dropna(subset=["fee"])
-        
-            provider = request.args.get("provider")
-            max_fee = request.args.get("max_fee")
-        
-            providers = sorted(df["provider"].dropna().unique())
-        
-            if provider:
-                df = df[df["provider"] == provider]
-        
-            if max_fee:
-                df = df[df["fee"] <= int(max_fee)]
-        
-            df = df.sort_values("fee")
-        
-            html = """
-        
-        
-        <!DOCTYPE html>
-        
-        <html lang="zh-HK">
-        
-        <head>
-        
-        <meta charset="utf-8">
-        
-        <title>香港家居寬頻比較</title>
-        
-        <meta name="viewport"
-        content="width=device-width, initial-scale=1">
-        
-        <meta name="description"
-        content="比較香港最新家居寬頻優惠">
-        
-        <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet">
-        
-        <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-        rel="stylesheet">
-        
-        <style>
-        
-        body{
-            background:#f5f7fb;
-        }
-        
-        .table-card{
-            background:white;
-            border-radius:20px;
-            padding:25px;
-        }
-        
-        </style>
-        
-        </head>
-        
-        <body>
-        
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-        
-        <div class="container">
-        
-        <a class="navbar-brand fw-bold" href="/">
-        流通通訊
-        </a>
-        
-        <div class="navbar-nav ms-auto">
-        
-        <a class="nav-link text-white" href="/">
-        主頁
-        </a>
-        
-        <a class="nav-link text-white" href="/mobile">
-        手機月費
-        </a>
-        
-        <a class="nav-link text-white" href="/broadband">
-        家居寬頻
-        </a>
-        
-        </div>
-        
-        </div>
-        
-        </nav>
-        
-        <div class="container py-5">
-        
-        <h1 class="fw-bold mb-4">
-        
-        <i class="bi bi-router"></i>
-        
-        家居寬頻比較
-        
-        </h1>
-        
-        <div class="alert alert-success">
-        
-        現時比較中的寬頻計劃： <b>
-        """
-        
-        
-                html += str(len(df))
-        
-                html += """
-        
-        
-        </b>
-        個
-        
-        </div>
-        
-        <form method="GET" class="row g-3 mb-4">
-        
-        <div class="col-md-6">
-        
-        <select
-        name="provider"
-        class="form-select"
-        onchange="this.form.submit()">
-        
-        <option value="">
-        所有供應商
-        </option>
-        
-        """
-        
-        
-            for p in providers:
-        
-                selected = ""
-        
-                if p == provider:
-                    selected = "selected"
-        
-                html += f"""
-        
-        
-        <option value="{p}" {selected}>
-        {p}
-        </option>
-        
-        """
-        
-        
-            html += """
-        
-        
-        </select>
-        
-        </div>
-        
-        <div class="col-md-6">
-        
-        <select
-        name="max_fee"
-        class="form-select"
-        onchange="this.form.submit()">
-        
-        <option value="">
-        所有價錢
-        </option>
-        
-        <option value="100">
-        $100以下
-        </option>
-        
-        <option value="150">
-        $150以下
-        </option>
-        
-        <option value="200">
-        $200以下
-        </option>
-        
-        </select>
-        
-        </div>
-        
-        </form>
-        
-        <div class="table-card shadow">
-        
-        <div class="table-responsive">
-        
-        <table class="table table-striped table-hover align-middle">
-        
-        <thead class="table-dark">
-        
-        <tr>
-        
-        <th>供應商</th>
-        
-        <th>計劃</th>
-        
-        <th>月費</th>
-        
-        <th>速度</th>
-        
-        <th>合約</th>
-        
-        <th>特色</th>
-        
-        <th>查詢</th>
-        
-        </tr>
-        
-        </thead>
-        
-        <tbody>
-        
-        """
-        
-        
-            for row in df.itertuples(index=False):
-        
-                html += f"""
-        
-        
-        <tr>
-        
-        <td>{row.provider}</td>
-        
-        <td>{row.plan_name}</td>
-        
-        <td>${int(row.fee)}</td>
-        
-        <td>{row.speed}</td>
-        
-        <td>{row.contract}</td>
-        
-        <td>{row.remark}</td>
-        
-        <td>
-        
-        <a
-        href="https://wa.me/85254838282?text=我想了解 {row.provider} {row.plan_name}"
-        target="_blank"
-        class="btn btn-success btn-sm">
-        
-        WhatsApp
-        
-        </a>
-        
-        </td>
-        
-        </tr>
-        
-        """
-        
-        
-            html += """
-        
-        
-        </tbody>
-        
-        </table>
-        
-        </div>
-        
-        </div>
-        
-        </div>
-        
-        </body>
-        
-        </html>
-        
-        """
-        
-        
-            return html
+        df = pd.read_csv(CSV_PATH)
 
-except Exception as e:
+        df = df[df["category"] == "broadband"].copy()
 
-    return f"<pre>{str(e)}</pre>"
+        df["fee"] = pd.to_numeric(df["fee"], errors="coerce")
 
+        df = df.dropna(subset=["fee"])
+
+        provider = request.args.get("provider")
+        max_fee = request.args.get("max_fee")
+
+        providers = sorted(df["provider"].dropna().unique())
+
+        if provider:
+            df = df[df["provider"] == provider]
+
+        if max_fee:
+            df = df[df["fee"] <= int(max_fee)]
+
+        df = df.sort_values("fee")
+
+        html = """
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="utf-8">
+<title>香港家居寬頻比較</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+
+body{
+    background:#f5f7fb;
+}
+
+.table-card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+
+<div class="container">
+
+<a class="navbar-brand fw-bold" href="/">
+流通通訊
+</a>
+
+<div class="navbar-nav ms-auto">
+
+<a class="nav-link text-white" href="/">
+主頁
+</a>
+
+<a class="nav-link text-white" href="/mobile">
+手機月費
+</a>
+
+<a class="nav-link text-white" href="/broadband">
+家居寬頻
+</a>
+
+</div>
+
+</div>
+
+</nav>
+
+<div class="container py-5">
+
+<h1 class="fw-bold mb-4">
+<i class="bi bi-router"></i>
+家居寬頻比較
+</h1>
+
+<div class="alert alert-success">
+
+現時比較中的寬頻計劃：
+<b>
+"""
+
+        html += str(len(df))
+
+        html += """
+
+</b> 個
+
+</div>
+
+<form method="GET" class="row g-3 mb-4">
+
+<div class="col-md-6">
+
+<select
+name="provider"
+class="form-select"
+onchange="this.form.submit()">
+
+<option value="">
+所有供應商
+</option>
+
+"""
+
+        for p in providers:
+
+            selected = ""
+
+            if p == provider:
+                selected = "selected"
+
+            html += f"""
+<option value="{p}" {selected}>
+{p}
+</option>
+"""
+
+        html += """
+
+</select>
+
+</div>
+
+<div class="col-md-6">
+
+<select
+name="max_fee"
+class="form-select"
+onchange="this.form.submit()">
+
+<option value="">
+所有價錢
+</option>
+
+<option value="100">$100以下</option>
+<option value="150">$150以下</option>
+<option value="200">$200以下</option>
+<option value="300">$300以下</option>
+
+</select>
+
+</div>
+
+</form>
+
+<div class="table-card shadow">
+
+<div class="table-responsive">
+
+<table class="table table-striped table-hover align-middle">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>供應商</th>
+<th>月費</th>
+<th>速度</th>
+<th>合約</th>
+<th>特色</th>
+<th>查詢</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+"""
+
+        for row in df.itertuples(index=False):
+
+            fee = int(row.fee) if pd.notna(row.fee) else ""
+
+            speed = getattr(row, "speed", "")
+            contract = getattr(row, "contract", "")
+            remark = getattr(row, "remark", "")
+
+            html += f"""
+<tr>
+
+<td>{row.provider}</td>
+
+<td>${fee}</td>
+
+<td>{speed}</td>
+
+<td>{contract}</td>
+
+<td>{remark}</td>
+
+<td>
+
+<a
+href="https://wa.me/85254838282?text=我想了解 {row.provider} 寬頻計劃"
+target="_blank"
+class="btn btn-success btn-sm">
+
+<i class="bi bi-whatsapp"></i>
+
+WhatsApp
+
+</a>
+
+</td>
+
+</tr>
+"""
+
+        html += """
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
+
+"""
+
+        return html
+
+    except Exception as e:
+
+        return f"<pre>{str(e)}</pre>"
 
 
 
