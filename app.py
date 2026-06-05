@@ -442,17 +442,16 @@ try:
 
     df = pd.read_csv(CSV_PATH)
 
-    df = df[df["category"] == "mobile"]
+    df = df[df["category"] == "mobile"].copy()
 
     df["fee"] = pd.to_numeric(df["fee"], errors="coerce")
 
     df = df.dropna(subset=["fee"])
 
     provider = request.args.get("provider")
-
     max_fee = request.args.get("max_fee")
 
-    providers = sorted(df["provider"].unique())
+    providers = sorted(df["provider"].dropna().unique())
 
     if provider:
         df = df[df["provider"] == provider]
@@ -462,7 +461,7 @@ try:
 
     df = df.sort_values("fee")
 
-    html = f"""
+    html = """
 ```
 
 <!DOCTYPE html>
@@ -473,25 +472,93 @@ try:
 
 <meta charset="utf-8">
 
-<title>手機月費比較</title>
+<title>香港手機月費比較</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport"
+content="width=device-width, initial-scale=1">
 
 <meta name="description"
-content="香港最新5G手機月費比較">
+content="比較香港最新5G手機月費優惠">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 rel="stylesheet">
+
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+rel="stylesheet">
+
+<style>
+
+body{
+    background:#f5f7fb;
+}
+
+.table-card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+}
+
+</style>
 
 </head>
 
 <body>
 
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+
+<div class="container">
+
+<a class="navbar-brand fw-bold" href="/">
+流通通訊
+</a>
+
+<div class="navbar-nav ms-auto">
+
+<a class="nav-link text-white" href="/">
+主頁
+</a>
+
+<a class="nav-link text-white" href="/mobile">
+手機月費
+</a>
+
+<a class="nav-link text-white" href="/broadband">
+家居寬頻
+</a>
+
+</div>
+
+</div>
+
+</nav>
+
 <div class="container py-5">
 
-<h1 class="mb-4">
-📱 香港手機月費比較
+<h1 class="fw-bold mb-4">
+
+<i class="bi bi-phone"></i>
+
+手機月費比較
+
 </h1>
+
+<div class="alert alert-primary">
+
+現時比較中的手機計劃： <b>
+"""
+
+```
+    html += str(len(df))
+
+    html += """
+```
+
+</b>
+個
+
+</div>
 
 <form method="GET" class="row g-3 mb-4">
 
@@ -505,12 +572,16 @@ onchange="this.form.submit()">
 <option value="">
 所有供應商
 </option>
+
 """
 
 ```
     for p in providers:
 
-        selected = "selected" if p == provider else ""
+        selected = ""
+
+        if p == provider:
+            selected = "selected"
 
         html += f"""
 ```
@@ -518,6 +589,7 @@ onchange="this.form.submit()">
 <option value="{p}" {selected}>
 {p}
 </option>
+
 """
 
 ```
@@ -551,11 +623,17 @@ $150以下
 $200以下
 </option>
 
+<option value="300">
+$300以下
+</option>
+
 </select>
 
 </div>
 
 </form>
+
+<div class="table-card shadow">
 
 <div class="table-responsive">
 
@@ -577,13 +655,14 @@ $200以下
 
 <th>特色</th>
 
-<th></th>
+<th>查詢</th>
 
 </tr>
 
 </thead>
 
 <tbody>
+
 """
 
 ```
@@ -613,6 +692,8 @@ href="https://wa.me/85254838282?text=我想了解 {row.provider} {row.plan_name}
 target="_blank"
 class="btn btn-success btn-sm">
 
+<i class="bi bi-whatsapp"></i>
+
 WhatsApp
 
 </a>
@@ -630,6 +711,8 @@ WhatsApp
 </tbody>
 
 </table>
+
+</div>
 
 </div>
 
@@ -666,17 +749,16 @@ try:
 
     df = pd.read_csv(CSV_PATH)
 
-    df = df[df["category"] == "broadband"]
+    df = df[df["category"] == "broadband"].copy()
 
     df["fee"] = pd.to_numeric(df["fee"], errors="coerce")
 
     df = df.dropna(subset=["fee"])
 
     provider = request.args.get("provider")
-
     max_fee = request.args.get("max_fee")
 
-    providers = sorted(df["provider"].unique())
+    providers = sorted(df["provider"].dropna().unique())
 
     if provider:
         df = df[df["provider"] == provider]
@@ -697,26 +779,93 @@ try:
 
 <meta charset="utf-8">
 
-<title>家居寬頻比較</title>
+<title>香港家居寬頻比較</title>
 
 <meta name="viewport"
 content="width=device-width, initial-scale=1">
 
 <meta name="description"
-content="香港家居寬頻比較">
+content="比較香港最新家居寬頻優惠">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 rel="stylesheet">
+
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+rel="stylesheet">
+
+<style>
+
+body{
+    background:#f5f7fb;
+}
+
+.table-card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+}
+
+</style>
 
 </head>
 
 <body>
 
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+
+<div class="container">
+
+<a class="navbar-brand fw-bold" href="/">
+流通通訊
+</a>
+
+<div class="navbar-nav ms-auto">
+
+<a class="nav-link text-white" href="/">
+主頁
+</a>
+
+<a class="nav-link text-white" href="/mobile">
+手機月費
+</a>
+
+<a class="nav-link text-white" href="/broadband">
+家居寬頻
+</a>
+
+</div>
+
+</div>
+
+</nav>
+
 <div class="container py-5">
 
-<h1 class="mb-4">
-🌐 家居寬頻比較
+<h1 class="fw-bold mb-4">
+
+<i class="bi bi-router"></i>
+
+家居寬頻比較
+
 </h1>
+
+<div class="alert alert-success">
+
+現時比較中的寬頻計劃： <b>
+"""
+
+```
+    html += str(len(df))
+
+    html += """
+```
+
+</b>
+個
+
+</div>
 
 <form method="GET" class="row g-3 mb-4">
 
@@ -730,12 +879,16 @@ onchange="this.form.submit()">
 <option value="">
 所有供應商
 </option>
+
 """
 
 ```
     for p in providers:
 
-        selected = "selected" if p == provider else ""
+        selected = ""
+
+        if p == provider:
+            selected = "selected"
 
         html += f"""
 ```
@@ -743,6 +896,7 @@ onchange="this.form.submit()">
 <option value="{p}" {selected}>
 {p}
 </option>
+
 """
 
 ```
@@ -782,6 +936,8 @@ $200以下
 
 </form>
 
+<div class="table-card shadow">
+
 <div class="table-responsive">
 
 <table class="table table-striped table-hover align-middle">
@@ -802,13 +958,14 @@ $200以下
 
 <th>特色</th>
 
-<th></th>
+<th>查詢</th>
 
 </tr>
 
 </thead>
 
 <tbody>
+
 """
 
 ```
@@ -855,6 +1012,8 @@ WhatsApp
 </tbody>
 
 </table>
+
+</div>
 
 </div>
 
