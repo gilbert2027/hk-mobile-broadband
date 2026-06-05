@@ -181,6 +181,7 @@ box-shadow:0 4px 10px rgba(0,0,0,.2);
 <a
 href="https://wa.me/85254838282?text=我想查詢"
 target="_blank"
+onclick="gtag('event','floating_whatsapp_click');"
 class="whatsapp-float">
 
 💬 WhatsApp查詢
@@ -247,7 +248,7 @@ id="navbarNav">
 
 <li class="nav-item">
 
-<a class="nav-link" href="https://wa.me/85254838282?text=我想查詢" target="_blank">
+<a class="nav-link" href="https://wa.me/85254838282?text=我想查詢" target="_blank"onclick="gtag('event','whatsapp_click');">
 
 聯絡我們
 
@@ -800,6 +801,7 @@ $200以上
 <a
 href="https://wa.me/85254838282?text=我想查詢/申請 {row.provider} {row.plan_name}"
 target="_blank"
+onclick="gtag('event','whatsapp_click');"
 class="btn btn-success btn-sm">
 
 <i class="bi bi-whatsapp"></i>
@@ -1129,6 +1131,7 @@ onchange="this.form.submit()">
 <a
 href="https://wa.me/85254838282?text=我想查詢/申請 {row.provider} {row.plan_name}"
 target="_blank"
+onclick="gtag('event','whatsapp_click');"
 class="btn btn-success btn-sm">
 
 <i class="bi bi-whatsapp"></i>
@@ -1180,6 +1183,7 @@ WhatsApp
 <a
 href="https://wa.me/85254838282?text=我想查詢我的地址可申請什麼寬頻計劃"
 target="_blank"
+onclick="gtag('event','whatsapp_click');"
 class="btn btn-success mt-3">
 
 <i class="bi bi-whatsapp"></i>
@@ -1296,7 +1300,7 @@ def submit():
 
             <li class="nav-item">
 
-            <a class="nav-link" href="https://wa.me/85254838282?text=我想查詢" target="_blank">
+            <a class="nav-link" href="https://wa.me/85254838282?text=我想查詢" target="_blank"onclick="gtag('event','whatsapp_click');">
 
             聯絡我們
 
@@ -1454,7 +1458,7 @@ def submit():
 
         <li class="nav-item">
 
-        <a class="nav-link" href="https://wa.me/85254838282?text=我想查詢" target="_blank">
+        <a class="nav-link" href="https://wa.me/85254838282?text=我想查詢" target="_blank"onclick="gtag('event','whatsapp_click');">
 
         聯絡我們
 
@@ -1498,6 +1502,7 @@ def submit():
         <a
         href="https://wa.me/85254838282"
         target="_blank"
+        onclick="gtag('event','whatsapp_click');"
         class="btn btn-success btn-lg rounded-pill">
 
         <i class="bi bi-whatsapp"></i>
@@ -1599,7 +1604,7 @@ def submit():
 
         <li class="nav-item">
 
-        <a class="nav-link" href="https://wa.me/85254838282?text=我想查詢" target="_blank">
+        <a class="nav-link" href="https://wa.me/85254838282?text=我想查詢" target="_blank"onclick="gtag('event','whatsapp_click');">
 
         聯絡我們
 
