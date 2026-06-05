@@ -719,6 +719,8 @@ $300以下
 
 <th>供應商</th>
 
+<th>網絡</th>
+
 <th>計劃</th>
 
 <th>月費</th>
@@ -748,6 +750,8 @@ $300以下
 <tr>
 
 <td>{row.provider}</td>
+
+<td>{row.network}</td>
 
 <td>{row.plan_name}</td>
 
