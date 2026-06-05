@@ -657,14 +657,7 @@ $200以下
 </form>
 
 
-<select
-name="provider"
-class="form-select"
-onchange="this.form.submit()">
 
-<option value="">
-所有供應商
-</option>
 
 """
 
