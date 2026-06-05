@@ -371,25 +371,34 @@ class="btn btn-warning btn-lg w-100 btn-custom">
 
 
 
+
 @app.route("/mobile")
 def mobile():
 
     try:
 
-        provider = request.args.get("provider")
-
         df = pd.read_csv(CSV_PATH)
 
         df = df[df["category"] == "mobile"]
 
+        provider = request.args.get("provider")
+
+        max_fee = request.args.get("max_fee")
+
         if provider:
+
             df = df[df["provider"] == provider]
+
+        if max_fee:
+
+            df = df[df["fee"] <= int(max_fee)]
 
         df = df.sort_values("fee")
 
         html = """
 
 <!DOCTYPE html>
+
 
 <html lang="zh-HK">
 
@@ -440,6 +449,91 @@ body {
 <div class="container py-5">
 
 <h1 class="fw-bold mb-4">
+
+<form method="GET" class="row g-3 mb-4">
+
+<div class="col-md-6">
+
+<select
+name="provider"
+class="form-select"
+onchange="this.form.submit()">
+
+<option value="">
+所有供應商
+</option>
+
+<option value="中國移動CMHK">
+中國移動CMHK
+</option>
+
+<option value="環球電訊3HK">
+環球電訊3HK
+</option>
+
+<option value="CSL">
+CSL
+</option>
+
+</select>
+
+</div>
+
+<div class="col-md-6">
+
+<select
+name="max_fee"
+class="form-select"
+onchange="this.form.submit()">
+
+<option value="">
+所有價錢
+</option>
+
+<option value="100">
+$100以下
+</option>
+
+<option value="150">
+$150以下
+</option>
+
+<option value="200">
+$200以下
+</option>
+
+</select>
+
+</div>
+
+</form>
+
+
+<select
+name="provider"
+class="form-select"
+onchange="this.form.submit()">
+
+<option value="">
+所有供應商
+</option>
+
+<option value="中國移動CMHK">
+中國移動CMHK
+</option>
+
+<option value="環球電訊3HK">
+環球電訊3HK
+</option>
+
+<option value="CSL">
+CSL
+</option>
+
+</select>
+
+</form>
+
 
 <i class="bi bi-phone"></i>
 
