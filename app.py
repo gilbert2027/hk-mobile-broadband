@@ -1015,9 +1015,9 @@ onchange="this.form.submit()">
 所有價錢
 </option>
 
-selected_under100 = "selected" if price_range == "under100" else ""
-selected_101to200 = "selected" if price_range == "101to200" else ""
-selected_over200 = "selected" if price_range == "over200" else ""
+<option value="under100">$100以下</option>
+<option value="101to200">$101-$200</option>
+<option value="over200">$200以上</option>
 
 </select>
 
