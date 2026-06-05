@@ -1,8 +1,16 @@
-provider,category,fee,data,speed,contract,remark
-中國移動CMHK,mobile,128,100GB,,24個月,5G計劃
-環球電訊3HK,mobile,138,80GB,,24個月,可攜號轉台
-CSL,mobile,148,120GB,,36個月,高速網絡
-香港寬頻HKBN,broadband,109,,1000M,24個月,穩定之選
-環球電訊HGC,broadband,98,,1000M,24個月,最平1000M
-網上行Netvigator,broadband,128,,1000M,30個月,穩定之選
+provider,plan_name,category,fee,data,speed,contract,remark
 
+中國移動CMHK,5G 100GB,mobile,128,100GB,,24個月,5G計劃
+中國移動CMHK,5G 200GB,mobile,158,200GB,,24個月,高用量
+中國移動CMHK,5G 300GB,mobile,198,300GB,,24個月,熱點分享
+
+環球電訊3HK,5G 80GB,mobile,138,80GB,,24個月,可攜號轉台
+環球電訊3HK,5G 150GB,mobile,168,150GB,,24個月,轉台優惠
+
+CSL,5G 120GB,mobile,148,120GB,,36個月,高速網絡
+
+香港寬頻HKBN,1000M 光纖,broadband,98,,1000M,36個月,超高勝價比
+香港寬頻HKBN,2500M 光纖,broadband,149,,2500M,24個月,速度追求
+
+環球電訊HGC,1000M 光纖,broadband,98,,1000M,24個月,最平1000M
+網上行Netvigator,1000M 光纖,broadband,128,,1000M,30個月,穩定之選
