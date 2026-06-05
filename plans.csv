@@ -1,26 +1,24 @@
 provider,plan_name,category,fee,data,speed,contract,remark
-
-中國移動CMHK,5G 100GB,mobile,128,100GB,,24個月,5G計劃
-中國移動CMHK,5G 200GB,mobile,158,200GB,,24個月,高用量
-中國移動CMHK,5G 300GB,mobile,198,300GB,,24個月,熱點分享
-
-環球電訊3HK,5G 80GB,mobile,138,80GB,,24個月,可攜號轉台
-環球電訊3HK,5G 150GB,mobile,168,150GB,,24個月,轉台優惠
-
-CSL,5G 120GB,mobile,148,120GB,,36個月,高速網絡
+中國移動CMHK,5G 100GB,mobile,128,100GB,5G,24個月,5G計劃
+中國移動CMHK,5G 200GB,mobile,158,200GB,5G,24個月,高用量
+中國移動CMHK,5G 300GB,mobile,198,300GB,5G,24個月,熱點分享
+環球電訊3HK,5G 80GB,mobile,138,80GB,5G,24個月,可攜號轉台
+環球電訊3HK,5G 150GB,mobile,168,150GB,5G,24個月,轉台優惠
+CSL,5G 120GB,mobile,148,120GB,5G,36個月,高速網絡
+中國移動CMHK,大灣區 5G 100GB,mobile,198,100GB (港/陸/澳),5G,24個月,含內地電話號碼
+環球電訊3HK,中港澳 5G 80GB,mobile,188,80GB (共用),5G,24個月,適用於三地
+CSL,大灣區服務計劃,mobile,238,120GB (共用),5G,24個月,送內地漫遊數據
 
 香港寬頻HKBN,1000M家居寬頻,broadband,98,,1000M,36個月,免安裝費 送router
 香港寬頻HKBN,2500M GigaFast,broadband,149,,2500M,24個月,免安裝費
-
 環球電訊HGC,1000M標準計劃,broadband,99,,1000M,24個月,免安裝費
 環球電訊HGC,1000M連家居電話,broadband,89,,1000M+電話,39個月,送AX1500 Router
 環球電訊HGC,2500M WiFi7,broadband,139,,2500M,36個月,送WiFi7 Router
 環球電訊HGC,2500M WiFi7(24個月),broadband,159,,2500M,24個月,送WiFi7 Router
-
 有線寬頻i-Cable,1000M光纖入屋,broadband,68,,1000M,36個月,免安裝費+免一次搬遷費
 有線寬頻i-Cable,2x1000M光纖入屋,broadband,78,,2x1000M,36個月,免安裝費+免一次搬遷費
 有線寬頻i-Cable,2000M光纖入屋,broadband,118,,2000M,36個月,免安裝費+免一次搬遷費
-
 網上行Netvigator,1000M光纖入屋,broadband,128,,1000M,30個月,穩定之選
 網上行Netvigator,2x1000M光纖入屋,broadband,198,,2x1000M,30個月,豁免安裝費
 網上行Netvigator,F5G-A 2500M超級寬頻,broadband,318,,2500M,24個月,Now TV+Netflix組合
+
