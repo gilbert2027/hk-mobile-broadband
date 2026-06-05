@@ -915,6 +915,7 @@ onchange="this.form.submit()">
 <tr>
 
 <th>供應商</th>
+<th>計劃</th>
 <th>月費</th>
 <th>速度</th>
 <th>合約</th>
