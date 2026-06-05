@@ -862,6 +862,8 @@ def broadband():
 
         df = df[df["category"] == "broadband"]
 
+        providers = df["provider"].unique()
+
         provider = request.args.get("provider")
 
         max_fee = request.args.get("max_fee")
@@ -1028,17 +1030,23 @@ onchange="this.form.submit()">
 所有供應商
 </option>
 
-<option value="香港寬頻HKBN">
-香港寬頻HKBN
+"""
+
+        for p in providers:
+
+            html += f"""
+
+<option value="{p}">
+{p}
 </option>
 
-<option value="環球電訊HGC">
-環球電訊HGC
-</option>
+"""
 
-<option value="網上行Netvigator">
-網上行Netvigator
-</option>
+        html += """
+
+</select>
+
+</div>
 
 </select>
 
