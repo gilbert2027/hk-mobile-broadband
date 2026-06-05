@@ -688,7 +688,7 @@ $300以下
 <td>
 
 <a
-href="https://wa.me/85254838282?text=我想了解 {row.provider} {row.plan_name}"
+href="https://wa.me/85254838282?text=我想查詢/申請 {row.provider} {row.plan_name}"
 target="_blank"
 class="btn btn-success btn-sm">
 
