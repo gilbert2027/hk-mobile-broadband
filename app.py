@@ -756,7 +756,7 @@ def broadband():
         df = df.dropna(subset=["fee"])
 
         provider = request.args.get("provider")
-        max_fee = request.args.get("max_fee")
+        price_range = request.args.get("price_range")
         speed = request.args.get("speed")
 
         providers = sorted(df["provider"].dropna().unique())
@@ -764,8 +764,14 @@ def broadband():
         if provider:
             df = df[df["provider"] == provider]
 
-        if max_fee:
-            df = df[df["fee"] <= int(max_fee)]
+        if price_range == "under100":
+            df = df[df["fee"] < 100]
+        
+        elif price_range == "100to200":
+            df = df[(df["fee"] >= 100) & (df["fee"] <= 200)]
+        
+        elif price_range == "over200":
+            df = df[df["fee"] > 200]
         
         if speed:
             df = df[df["speed"].astype(str).str.contains(speed, na=False)]
@@ -858,7 +864,7 @@ body{
 <div class="col-md-4">
 
 <select
-name="speed"
+name="provider"
 class="form-select"
 onchange="this.form.submit()">
 
@@ -890,10 +896,37 @@ onchange="this.form.submit()">
 
 </div>
 
-<div class="col-md-6">
+    <div class="col-md-4">
+
+        <select
+        name="speed"
+        class="form-select"
+        onchange="this.form.submit()">
+
+        <option value="">
+        所有速度
+        </option>
+
+        <option value="1000">
+        1000M
+        </option>
+
+        <option value="2000">
+        2000M
+        </option>
+
+        <option value="2500">
+        2500M
+        </option>
+
+        </select>
+
+    </div>
+    
+<div class="col-md-4">
 
 <select
-name="max_fee"
+name="price_range"
 class="form-select"
 onchange="this.form.submit()">
 
@@ -902,9 +935,8 @@ onchange="this.form.submit()">
 </option>
 
 <option value="100">$100以下</option>
-<option value="150">$150以下</option>
-<option value="200">$200以下</option>
-<option value="300">$300以下</option>
+<option value="100to200">$100-$200</option>
+<option value="over200">$200以上</option>
 
 </select>
 
