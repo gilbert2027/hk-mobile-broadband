@@ -697,7 +697,7 @@ onchange="this.form.submit()">
 $100以下
 </option>
 
-<option value="101to200">    
+<option value="101to200">
 $101-$200
 </option>
 
@@ -708,8 +708,6 @@ $200以上
 </select>
 
 </div>
-
-"""
 
 </form>
 
