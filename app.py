@@ -816,11 +816,11 @@ $200以上
 <a
 href="https://wa.me/85254838282?text=我想查詢/申請 {row.provider} {row.plan_name}"
 onclick="
-gtag('event', 'whatsapp_click', {
+gtag('event', 'whatsapp_click', {{
   event_category: 'engagement',
   event_label: 'WhatsApp Button',
   transport_type: 'beacon'
-});
+}});
 "
 class="btn btn-success btn-sm">
 
@@ -1151,11 +1151,11 @@ onchange="this.form.submit()">
 <a
 href="https://wa.me/85254838282?text=我想查詢/申請 {row.provider} {row.plan_name}"
 onclick="
-gtag('event', 'whatsapp_click', {
+gtag('event', 'whatsapp_click', {{
   event_category: 'engagement',
   event_label: 'WhatsApp Button',
   transport_type: 'beacon'
-});
+}});
 "
 class="btn btn-success btn-sm">
 
