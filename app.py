@@ -1,4 +1,5 @@
 from flask import Flask, request
+from flask import send_from_directory
 import pandas as pd
 import os
 import requests
@@ -1791,3 +1792,10 @@ def test():
 if __name__ == "__main__":
     app.run(debug=True)
 
+@app.route('/sitemap.xml')
+def sitemap():
+    return send_from_directory('.', 'sitemap.xml')
+
+@app.route('/robots.txt')
+def robots():
+    return send_from_directory('.', 'robots.txt')
