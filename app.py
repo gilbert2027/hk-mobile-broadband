@@ -1786,6 +1786,12 @@ def test():
 
     return requests.__version__
 
+@app.route("/robots.txt")
+def robots():
+    return """
+User-agent: *
+Allow: /
+"""
 
 
     
