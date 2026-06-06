@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, send_file
 from flask import send_from_directory
 from flask import Response
 
@@ -1786,7 +1786,9 @@ def test():
 
     return requests.__version__
 
-
+@app.route('/sitemap.xml')
+def sitemap():
+    return send_file('sitemap.xml', mimetype='application/xml')
 
     
 # =========================
