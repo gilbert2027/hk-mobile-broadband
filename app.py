@@ -1787,12 +1787,7 @@ def test():
     return requests.__version__
 
 
-# =========================
-# Run
-# =========================
 
-if __name__ == "__main__":
-    app.run(debug=True)
 
 @app.route("/sitemap.xml")
 def sitemap_xml():
@@ -1815,3 +1810,11 @@ Allow: /
 Sitemap: https://hk-mobile-broadband.vercel.app/sitemap.xml
 """
     return Response(text, mimetype="text/plain")
+
+    
+# =========================
+# Run
+# =========================
+
+if __name__ == "__main__":
+    app.run(debug=True)
