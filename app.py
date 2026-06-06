@@ -1788,7 +1788,7 @@ def test():
 
 @app.route('/sitemap.xml')
 def sitemap():
-    return send_file('sitemap.xml', mimetype='application/xml')
+    return app.send_static_file('sitemap.xml')
 
     
 # =========================
