@@ -1801,16 +1801,7 @@ def sitemap():
     return Response(xml, mimetype='text/xml')
 
 
-@app.route('/robots.txt')
-def robots():
-    robots_txt = """
-User-agent: *
-Allow: /
 
-Sitemap: https://hk-mobile-broadband.vercel.app/sitemap.xml
-"""
-
-    return Response(robots_txt, content_type='text/plain')
     
 # =========================
 # Run
