@@ -1,5 +1,7 @@
 from flask import Flask, request
 from flask import send_from_directory
+from flask import Response
+
 import pandas as pd
 import os
 import requests
@@ -1792,10 +1794,24 @@ def test():
 if __name__ == "__main__":
     app.run(debug=True)
 
-@app.route('/sitemap.xml')
-def sitemap():
-    return send_from_directory('.', 'sitemap.xml', mimetype='application/xml')
+@app.route("/sitemap.xml")
+def sitemap_xml():
+    xml = """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://hk-mobile-broadband.vercel.app/</loc>
+    <lastmod>2026-06-06</lastmod>
+    <priority>1.00</priority>
+  </url>
+</urlset>"""
 
-@app.route('/robots.txt')
-def robots():
-    return send_from_directory('.', 'robots.txt', mimetype='text/plain')
+    return Response(xml, mimetype="application/xml")
+
+@app.route("/robots.txt")
+def robots_txt():
+    text = """User-agent: *
+Allow: /
+
+Sitemap: https://hk-mobile-broadband.vercel.app/sitemap.xml
+"""
+    return Response(text, mimetype="text/plain")
