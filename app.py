@@ -1786,9 +1786,7 @@ def test():
 
     return requests.__version__
 
-@app.route('/sitemap.xml')
-def sitemap():
-    return app.send_static_file('sitemap.xml')
+
 
     
 # =========================
