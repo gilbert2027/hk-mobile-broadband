@@ -918,7 +918,7 @@ def broadband():
 <html lang="zh-HK">
 <head>
 <meta charset="utf-8">
-<title>香港家居寬頻比較</title>
+<title>2026香港家居寬頻比較｜HKBN、網上行、HGC、中國移動最新優惠</title>
 
 <meta name="description"
 content="比較 HKBN、HGC、網上行 最新家居寬頻優惠">
