@@ -205,7 +205,7 @@ class="whatsapp-float">
 
 <a class="navbar-brand fw-bold" href="/">
 
-流通通訊
+2026香港手機月費比較｜5G計劃｜家居寬頻優惠｜流通通訊
 
 </a>
 
@@ -641,7 +641,7 @@ body{
 <div class="container">
 
 <a class="navbar-brand fw-bold" href="/">
-流通通訊
+2026香港手機月費比較｜CMHK、CSL、3HK、SmarTone最新優惠
 </a>
 
 <div class="navbar-nav ms-auto">
@@ -970,7 +970,7 @@ body{
 <div class="container">
 
 <a class="navbar-brand fw-bold" href="/">
-流通通訊
+2026香港家居寬頻比較｜HKBN、網上行、HGC、中國移動最新優惠
 </a>
 
 <div class="navbar-nav ms-auto">
