@@ -253,6 +253,10 @@ id="navbarNav">
 
 </a>
 
+<a href="/cmhk">
+CMHK月費計劃
+</a>
+
 </li>
 
 <li class="nav-item">
@@ -1287,7 +1291,190 @@ class="btn btn-success mt-3">
         return f"<pre>{str(e)}</pre>"
 
 
+@app.route("/cmhk")
+def cmhk():
 
+    html = """
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+
+<meta charset="utf-8">
+
+<title>
+2026 CMHK月費計劃比較｜中國移動香港5G優惠｜流通通訊
+</title>
+
+<meta name="description"
+content="比較CMHK中國移動香港最新5G月費計劃，包括數據量、攜號轉台優惠、學生優惠及大灣區數據服務。">
+
+<meta name="keywords"
+content="CMHK,中國移動香港,CMHK月費計劃,CMHK 5G,香港5G月費">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1">
+
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"FAQPage",
+ "mainEntity":[
+
+ {
+ "@type":"Question",
+ "name":"CMHK 5G覆蓋如何？",
+ "acceptedAnswer":{
+ "@type":"Answer",
+ "text":"CMHK提供香港5G服務，適合一般上網、串流及遊戲需求。"
+ }
+ },
+
+ {
+ "@type":"Question",
+ "name":"CMHK是否支援大灣區數據？",
+ "acceptedAnswer":{
+ "@type":"Answer",
+ "text":"部分CMHK計劃提供中國內地及澳門共享數據。"
+ }
+ },
+
+ {
+ "@type":"Question",
+ "name":"CMHK可否攜號轉台？",
+ "acceptedAnswer":{
+ "@type":"Answer",
+ "text":"CMHK支援攜號轉台服務。"
+ }
+ }
+
+ ]
+}
+</script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container py-5">
+
+<h1>
+CMHK中國移動香港月費計劃比較
+</h1>
+
+<p class="lead">
+CMHK（中國移動香港）是香港主要流動通訊商之一，
+提供5G月費計劃、大灣區數據服務及攜號轉台優惠。
+</p>
+
+<hr>
+
+<h2>
+CMHK特色
+</h2>
+
+<ul>
+
+<li>5G網絡覆蓋香港主要地區</li>
+
+<li>提供中港澳共享數據方案</li>
+
+<li>適合經常往返內地人士</li>
+
+<li>支援攜號轉台及新客上台優惠</li>
+
+</ul>
+
+<h2>
+為何選擇CMHK？
+</h2>
+
+<p>
+CMHK在香港提供多種5G月費計劃，
+由入門數據方案至高用量方案均有選擇。
+部分計劃更包括中國內地及澳門數據服務，
+適合經常北上工作或旅遊人士。
+</p>
+
+<p>
+近年香港5G服務已相當成熟，
+CMHK亦持續發展5G服務及新一代流動通訊技術。
+香港監管機構已公布CMHK的2G服務將於2026年停止，
+網絡重心已全面轉向4G及5G服務。 :contentReference[oaicite:0]{index=0}
+</p>
+
+<h2>
+常見問題 FAQ
+</h2>
+
+<h3>
+CMHK月費計劃是否適合學生？
+</h3>
+
+<p>
+CMHK不時推出學生及年輕客戶優惠，
+適合需要較大數據用量的用戶。
+</p>
+
+<h3>
+CMHK是否有大灣區數據？
+</h3>
+
+<p>
+部分計劃包含中國內地及澳門共享數據，
+實際安排以最新官方公布為準。
+</p>
+
+<h3>
+CMHK與其他電訊商有何分別？
+</h3>
+
+<p>
+CMHK其中一個優勢是中港澳數據服務，
+適合經常跨境人士。
+部分用戶亦認為跨境數據使用體驗較方便。 :contentReference[oaicite:1]{index=1}
+</p>
+
+<h2>
+查詢CMHK最新優惠
+</h2>
+
+<a
+href="https://wa.me/85254838282?text=我想查詢CMHK最新月費計劃"
+class="btn btn-success btn-lg">
+WhatsApp查詢CMHK優惠
+</a>
+
+<hr>
+
+<p>
+相關比較：
+</p>
+
+<ul>
+
+<li>
+<a href="/mobile">
+香港手機月費比較
+</a>
+</li>
+
+<li>
+<a href="/broadband">
+香港家居寬頻比較
+</a>
+</li>
+
+</ul>
+
+</div>
+
+</body>
+</html>
+"""
+
+    return html
 
 
 
@@ -1852,6 +2039,10 @@ def sitemap():
 <loc>https://hk-mobile-broadband.vercel.app/broadband</loc>
 </url>
 
+<url>
+<loc>https://hk-mobile-broadband.vercel.app/cmhk</loc>
+</url>
+
 </urlset>
 """
 
@@ -1879,3 +2070,4 @@ Sitemap: https://hk-mobile-broadband.vercel.app/sitemap.xml
 
 if __name__ == "__main__":
     app.run(debug=True)
+
