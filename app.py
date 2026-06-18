@@ -205,7 +205,7 @@ class="whatsapp-float">
 
 <a class="navbar-brand fw-bold" href="/">
 
-2026香港手機月費比較｜5G計劃｜家居寬頻優惠｜流通通訊
+流通通訊
 
 </a>
 
@@ -246,17 +246,15 @@ id="navbarNav">
 </li>
 
 <li class="nav-item">
-
 <a class="nav-link" href="/broadband">
-
 家居寬頻
-
 </a>
+</li>
 
-<a href="/cmhk">
-CMHK月費計劃
+<li class="nav-item">
+<a class="nav-link" href="/cmhk">
+CMHK專區
 </a>
-
 </li>
 
 <li class="nav-item">
@@ -296,11 +294,15 @@ gtag('event', 'whatsapp_click', {
 
 <p class="lead mb-4">
 
-比較最新：
+<p class="lead mb-4">
+每日更新香港最新手機月費及家居寬頻優惠
+</p>
 
-5G 月費｜
-手機優惠｜
-家居寬頻
+<p>
+✓ 比較超過50個計劃<br>
+✓ CMHK、CSL、3HK、SmarTone<br>
+✓ HKBN、網上行、HGC
+</p>
 
 </p>
 
@@ -517,9 +519,53 @@ class="btn btn-warning btn-lg w-100 btn-custom">
 
 </div>
 
+<div class="card shadow-lg border-0 mt-5">
+
+<div class="card-body p-5">
+
+<h2>
+香港手機月費及家居寬頻比較平台
+</h2>
+
+<p>
+流通通訊提供香港最新手機月費及家居寬頻優惠資訊，
+包括CMHK、中國移動香港、CSL、3HK、SmarTone、
+HKBN、網上行及HGC等主要供應商。
+</p>
+
+<p>
+用戶可以比較月費、數據量、合約期、
+家居寬頻速度及最新推廣優惠，
+快速找到最適合自己的通訊方案。
+</p>
+
+<h3>
+常見問題
+</h3>
+
+<p>
+Q：5G月費計劃應如何選擇？
+</p>
+
+<p>
+A：可按數據用量、網絡覆蓋及優惠選擇。
+</p>
+
+<p>
+Q：1000M家居寬頻是否足夠？
+</p>
+
+<p>
+A：一般家庭睇Netflix、YouTube及打機已十分足夠。
+</p>
+
+</div>
+
+</div>
+
 <div class="text-center mt-5 footer">
 
-© 2026 HK Plan Compare
+© 2026 流通通訊 | 香港手機月費及家居寬頻比較平台
 
 </div>
 
