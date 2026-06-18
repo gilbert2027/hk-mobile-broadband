@@ -921,7 +921,7 @@ def broadband():
 <title>2026香港家居寬頻比較｜HKBN、網上行、HGC、中國移動最新優惠</title>
 
 <meta name="description"
-content="比較 HKBN、HGC、網上行 最新家居寬頻優惠">
+content="比較香港HKBN、網上行Netvigator、HGC及中國移動家居寬頻優惠，包括1000M光纖、月費、合約期及最新推廣優惠。">
 
 <meta name="keywords"
 content="香港寬頻,HKBN,HGC,網上行,光纖寬頻,1000M寬頻">
@@ -1833,12 +1833,43 @@ def test():
 
     return requests.__version__
 
+@app.route("/sitemap.xml")
+def sitemap():
+
+    xml = """<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+<url>
+<loc>https://hk-mobile-broadband.vercel.app/</loc>
+</url>
+
+<url>
+<loc>https://hk-mobile-broadband.vercel.app/mobile</loc>
+</url>
+
+<url>
+<loc>https://hk-mobile-broadband.vercel.app/broadband</loc>
+</url>
+
+</urlset>
+"""
+
+    return Response(
+        xml,
+        mimetype="application/xml"
+    )
+
 @app.route("/robots.txt")
 def robots():
-    return """
-User-agent: *
+    return Response(
+        """User-agent: *
 Allow: /
-"""
+
+Sitemap: https://hk-mobile-broadband.vercel.app/sitemap.xml
+""",
+        mimetype="text/plain"
+    )
 
 
     
